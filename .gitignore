@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local screenshots / scratch
+shot_*.png
+full_*.png
+fp_*.png
+el_*.png
+m_*.png
+err.txt
+
+# Separate sub-project (has its own git repository & deployment)
+concierge/

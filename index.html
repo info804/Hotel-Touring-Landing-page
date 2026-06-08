@@ -1,1332 +1,1552 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Touring Livigno ★★★★ — Family Hotel a Livigno con Piscina e Spa</title>
-<meta name="description" content="Hotel Touring Livigno ★★★★ — Family hotel 4 stelle nel cuore di Livigno. Piscina riscaldata, Spa alpina, Kinder Club Lupigno, cucina valtellinese. Zona duty-free. Prenota sul sito ufficiale per il miglior prezzo garantito.">
-<link rel="canonical" href="https://www.touringlivigno.com/it/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotel Touring Livigno · Hotel 4 stelle per famiglie</title>
+<meta name="description" content="Hotel Touring Livigno — hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale. Piscina e spa, sci ai piedi, Kinder Club Lupigno e cucina valtellinese. Dal 1970.">
+<link rel="canonical" href="https://touringlivigno.com/">
+
+<!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hotel Touring Livigno ★★★★ — Where the mountains become home">
-<meta property="og:description" content="Family hotel 4 stelle nel cuore di Livigno. Piscina riscaldata, Spa alpina, Kinder Club Lupigno, cucina valtellinese. Zona duty-free delle Alpi italiane.">
-<meta property="og:image" content="https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-winter.jpg">
-<meta property="og:url" content="https://www.touringlivigno.com/it/">
+<meta property="og:title" content="Hotel Touring Livigno · Dove le montagne diventano casa">
+<meta property="og:description" content="Hotel 4 stelle per famiglie a Livigno. Piscina e spa, sci ai piedi, Kinder Club Lupigno.">
+<meta property="og:image" content="assets/img/touring-hotel.jpg">
 <meta property="og:locale" content="it_IT">
-<meta property="og:locale:alternate" content="en_GB">
-<meta property="og:site_name" content="Hotel Touring Livigno">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Hotel Touring Livigno ★★★★ — Family Hotel Livigno">
-<meta name="twitter:description" content="4 stelle, piscina, Spa alpina, Kinder Club. Zona duty-free delle Alpi italiane. Prenota direttamente.">
-<meta name="twitter:image" content="https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-winter.jpg">
-<link rel="preload" as="image" href="https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-winter.jpg" fetchpriority="high">
+
+<!-- Google Fonts: Fraunces (headings) + Inter (body). Preconnect for speed. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --burgundy: #961c1c;
-  --burgundy-dk: #6b1212;
-  --burgundy-lt: #b52828;
-  --cream: #f8f3ea;
-  --cream-dk: #ede5d4;
-  --pine: #2d4a3e;
-  --pine-lt: #3d6655;
-  --gold: #c9a84c;
-  --gold-lt: #dfc070;
-  --snow: #fdfcfa;
-  --ink: #18100a;
-  --ink-mid: #4a3828;
-  --ink-lt: #7a6858;
-  --ff-head: 'Playfair Display', Georgia, serif;
-  --ff-body: 'DM Sans', system-ui, sans-serif;
-}
+<!-- LCP hero preload -->
+<link rel="preload" as="image" href="assets/img/slider_hotel-1.jpg">
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--ff-body); background: var(--cream); color: var(--ink); overflow-x: hidden; }
-
-/* ── UTILITY ─────────────────────────────── */
-.label {
-  font-size: 11px; font-weight: 600; letter-spacing: .22em;
-  text-transform: uppercase; color: var(--burgundy);
-  display: block; margin-bottom: 14px;
-}
-.h2 {
-  font-family: var(--ff-head); font-size: clamp(36px,4vw,58px);
-  font-weight: 700; line-height: 1.08; letter-spacing: -.02em; color: var(--ink);
-}
-.h2 em { font-style: italic; color: var(--burgundy); }
-.body-text { font-size: 16px; line-height: 1.78; color: var(--ink-mid); font-weight: 300; }
-
-.reveal { opacity:0; transform:translateY(36px); transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
-.reveal.in { opacity:1; transform:translateY(0); }
-.d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.28s}.d4{transition-delay:.4s}
-
-/* ── NAV ─────────────────────────────────── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  padding: 0 40px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 72px;
-  transition: background .4s, box-shadow .4s, backdrop-filter .4s;
-}
-nav.scrolled {
-  background: rgba(248,243,234,.92);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 rgba(0,0,0,.07);
-}
-.nav-brand {
-  font-family: var(--ff-head); font-size: 17px; font-weight: 700;
-  color: white; text-decoration: none; letter-spacing: .01em;
-  transition: color .3s;
-  display: flex; align-items: center; gap: 10px;
-}
-nav.scrolled .nav-brand { color: var(--ink); }
-.nav-stars { color: var(--gold-lt); font-size: 12px; letter-spacing: .06em; }
-nav.scrolled .nav-stars { color: var(--gold); }
-
-.nav-right { display: flex; align-items: center; gap: 18px; }
-.nav-toggle {
-  background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.3); border-radius: 50px;
-  padding: 8px 16px; color: white; font-family: var(--ff-body);
-  font-size: 12px; font-weight: 500; cursor: pointer;
-  display: flex; align-items: center; gap: 7px;
-  transition: background .3s, border-color .3s, color .3s;
-}
-nav.scrolled .nav-toggle {
-  background: rgba(0,0,0,.06); border-color: rgba(0,0,0,.12); color: var(--ink);
-}
-.nav-toggle:hover { background: rgba(255,255,255,.25); }
-nav.scrolled .nav-toggle:hover { background: rgba(0,0,0,.1); }
-
-.nav-book {
-  background: var(--burgundy); color: white; text-decoration: none;
-  font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
-  padding: 10px 22px; border-radius: 50px;
-  transition: background .2s, transform .2s;
-}
-.nav-book:hover { background: var(--burgundy-lt); transform: scale(1.03); }
-
-/* ── HERO ─────────────────────────────────── */
-#hero {
-  position: relative; width: 100%; height: 100vh; min-height: 680px;
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
-}
-.hero-photo {
-  position: absolute; inset: 0; z-index: 0;
-  background-image: url('https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-winter.jpg');
-  background-size: cover; background-position: center 40%;
-  transform-origin: center; will-change: transform;
-}
-.hero-photo::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(10,6,2,.25) 0%,
-    rgba(10,6,2,.1) 30%,
-    rgba(10,6,2,.45) 70%,
-    rgba(10,6,2,.75) 100%
-  );
-}
-/* Night overlay */
-body.night .hero-photo::after {
-  background: linear-gradient(
-    180deg,
-    rgba(3,10,24,.45) 0%,
-    rgba(3,10,24,.2) 30%,
-    rgba(3,10,24,.6) 70%,
-    rgba(3,10,24,.85) 100%
-  );
-}
-
-/* Stars */
-.stars { position:absolute; inset:0; z-index:1; opacity:0; transition:opacity 1.2s ease; pointer-events:none; }
-body.night .stars { opacity:1; }
-.star { position:absolute; background:white; border-radius:50%; animation: twinkle var(--d,3s) ease-in-out infinite; animation-delay:var(--dl,0s); }
-@keyframes twinkle { 0%,100%{opacity:.15;transform:scale(1)} 50%{opacity:.9;transform:scale(1.4)} }
-
-/* Snow canvas */
-#snowCanvas { position:absolute; inset:0; z-index:2; pointer-events:none; }
-
-/* Mountain silhouette layer */
-.hero-mtns {
-  position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3;
-  pointer-events: none;
-}
-
-/* Hero content */
-.hero-cnt {
-  position: relative; z-index: 10; text-align: center; color: white;
-  padding: 0 32px; margin-top: -40px;
-}
-.hero-pretag {
-  font-size: 11px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
-  color: rgba(255,255,255,.75); margin-bottom: 20px;
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-}
-.hero-pretag::before, .hero-pretag::after {
-  content: ''; display: block; width: 36px; height: 1px; background: rgba(255,255,255,.4);
-}
-.hero-h1 {
-  font-family: var(--ff-head); font-size: clamp(54px,8vw,108px);
-  font-weight: 900; line-height: .95; letter-spacing: -.025em;
-  text-shadow: 0 4px 40px rgba(0,0,0,.3); margin-bottom: 22px;
-}
-.hero-h1 em { font-style: italic; color: var(--gold-lt); }
-.hero-tagline {
-  font-family: var(--ff-head); font-style: italic; font-size: clamp(17px,2vw,24px);
-  color: rgba(255,255,255,.88); text-shadow: 0 2px 12px rgba(0,0,0,.35);
-  margin-bottom: 40px; letter-spacing: .01em;
-}
-.hero-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--burgundy); color: white; text-decoration: none;
-  font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-  padding: 16px 34px; border-radius: 50px;
-  box-shadow: 0 8px 32px rgba(150,28,28,.45);
-  transition: background .2s, transform .25s, box-shadow .25s;
-}
-.btn-primary:hover { background: var(--burgundy-lt); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(150,28,28,.5); }
-.btn-primary .arr { transition: transform .2s; }
-.btn-primary:hover .arr { transform: translateX(5px); }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35);
-  color: white; text-decoration: none; backdrop-filter: blur(8px);
-  font-size: 14px; font-weight: 500; padding: 15px 26px; border-radius: 50px;
-  transition: background .2s;
-}
-.btn-ghost:hover { background: rgba(255,255,255,.22); }
-
-/* Stars badge */
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-bottom: 30px; padding: 8px 18px;
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
-  border-radius: 50px; backdrop-filter: blur(8px);
-}
-.hero-badge .s { color: var(--gold-lt); font-size: 15px; letter-spacing: 3px; }
-.hero-badge small { color: rgba(255,255,255,.75); font-size: 12px; font-weight: 500; letter-spacing: .08em; }
-
-/* Scroll indicator */
-.scroll-ind {
-  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-  z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: rgba(255,255,255,.55); font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
-}
-.scroll-mouse { width: 22px; height: 34px; border: 1.5px solid rgba(255,255,255,.5); border-radius: 11px; position: relative; }
-.scroll-mouse::after {
-  content: ''; position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
-  width: 2.5px; height: 7px; background: rgba(255,255,255,.7); border-radius: 2px;
-  animation: scrollDot 1.8s ease-in-out infinite;
-}
-@keyframes scrollDot { 0%{opacity:1;transform:translateX(-50%) translateY(0)} 100%{opacity:0;transform:translateX(-50%) translateY(12px)} }
-
-/* ── STRIP ────────────────────────────────── */
-#strip {
-  background: var(--burgundy);
-  display: flex; justify-content: center;
-  padding: 0 48px;
-  overflow-x: auto;
-}
-.strip-inner {
-  display: flex; align-items: stretch;
-  max-width: 1200px; width: 100%;
-}
-.strip-item {
-  flex: 1; display: flex; align-items: center; gap: 14px;
-  padding: 26px 32px; border-right: 1px solid rgba(255,255,255,.12);
-  color: white; min-width: 0;
-}
-.strip-item:last-child { border-right: none; }
-.strip-ico { font-size: 28px; flex-shrink: 0; }
-.strip-txt strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-.strip-txt span { font-size: 12px; color: rgba(255,255,255,.6); font-weight: 300; }
-
-/* ── THREE WORDS ──────────────────────────── */
-#features {
-  background: var(--snow);
-  padding: 110px 48px;
-}
-.features-inner { max-width: 1200px; margin: 0 auto; }
-.features-head { text-align: center; margin-bottom: 64px; }
-.cards {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
-}
-.fcard {
-  border-radius: 20px; overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,.08);
-  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
-  background: white;
-  position: relative;
-}
-.fcard:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,.13); }
-.fcard-img {
-  width: 100%; aspect-ratio: 4/3;
-  background-size: cover; background-position: center;
-  position: relative;
-}
-.fcard-img::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.55) 100%);
-}
-.fcard-img-label {
-  position: absolute; bottom: 16px; left: 20px; z-index: 1;
-  font-family: var(--ff-head); font-size: 22px; font-weight: 700; color: white;
-  text-shadow: 0 2px 8px rgba(0,0,0,.4); line-height: 1.1;
-}
-.fcard-img-label em { font-style: italic; }
-.fcard-body { padding: 22px 24px 28px; }
-.fcard-body p { font-size: 14px; line-height: 1.65; color: var(--ink-mid); font-weight: 300; }
-.fcard-tag {
-  display: inline-block; margin-top: 14px; font-size: 10px;
-  letter-spacing: .18em; text-transform: uppercase; font-weight: 600;
-  color: var(--card-color, var(--burgundy));
-}
-.fcard::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--card-color, var(--burgundy)); z-index: 2;
-}
-
-/* ── KIDS ─────────────────────────────────── */
-#kids {
-  padding: 110px 48px;
-  background: linear-gradient(160deg, #fff8f2 0%, #fff3f3 60%, #f5f8f0 100%);
-}
-.kids-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.kids-label { color: #d85c2a !important; }
-.kids-h2 em { color: #d85c2a !important; }
-
-.kids-photo-wrap {
-  position: relative; border-radius: 28px; overflow: hidden;
-  aspect-ratio: 3/4; box-shadow: 0 24px 64px rgba(0,0,0,.16);
-}
-.kids-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.kids-photo-badge {
-  position: absolute; bottom: 24px; left: 24px; right: 24px;
-  background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
-  border-radius: 16px; padding: 16px 20px;
-  display: flex; align-items: center; gap: 14px;
-}
-.kids-photo-badge .badge-ico { font-size: 30px; }
-.kids-photo-badge strong { display: block; font-size: 14px; font-weight: 700; color: var(--ink); }
-.kids-photo-badge span { font-size: 12px; color: var(--ink-lt); font-weight: 300; }
-
-.kids-features { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
-.kf {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: 16px 20px; background: white; border-radius: 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.04); border: 1px solid rgba(0,0,0,.03);
-  transition: transform .3s ease, box-shadow .3s;
-}
-.kf:hover { transform: translateX(5px); box-shadow: 0 6px 20px rgba(0,0,0,.07); }
-.kf-ico { font-size: 26px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
-.kf strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
-.kf span { font-size: 13px; color: var(--ink-lt); font-weight: 300; line-height: 1.5; }
-
-/* ── EXPERIENCE ──────────────────────────── */
-#experience {
-  padding: 110px 48px;
-  background: var(--pine);
-  color: white;
-}
-.exp-inner { max-width: 1200px; margin: 0 auto; }
-.exp-head { margin-bottom: 60px; }
-.exp-head .label { color: var(--gold); }
-.exp-head .h2 { color: white; }
-.exp-head .h2 em { color: var(--gold); }
-
-/* Photo mosaic */
-.exp-mosaic {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  grid-template-rows: 280px 280px;
-  gap: 12px;
-  border-radius: 24px; overflow: hidden;
-}
-.exp-tile {
-  position: relative; overflow: hidden; cursor: default;
-}
-.exp-tile:first-child { grid-row: 1 / 3; }
-.exp-tile img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .6s cubic-bezier(.16,1,.3,1);
-}
-.exp-tile:hover img { transform: scale(1.05); }
-.exp-tile-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 32px 24px 22px;
-  background: linear-gradient(180deg, transparent, rgba(0,0,0,.65));
-}
-.exp-tile-label h3 { font-family: var(--ff-head); font-size: 20px; font-weight: 700; color: white; margin-bottom: 4px; }
-.exp-tile-label p { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 300; }
-.exp-tile:first-child .exp-tile-label h3 { font-size: 26px; }
-
-/* ── LOCATION ────────────────────────────── */
-#location { padding: 110px 48px; background: var(--cream-dk); }
-.loc-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-
-.loc-photo-wrap {
-  position: relative; border-radius: 28px; overflow: hidden;
-  aspect-ratio: 1; box-shadow: 0 20px 60px rgba(45,74,62,.2);
-}
-.loc-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.loc-photo-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(10,6,2,.65) 100%);
-}
-.loc-photo-bottom {
-  position: absolute; bottom: 24px; left: 24px; right: 24px;
-  display: flex; gap: 8px; flex-wrap: wrap;
-}
-.loc-chip {
-  background: rgba(255,255,255,.15); backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,.25); border-radius: 50px;
-  padding: 7px 14px; color: white; font-size: 12px; font-weight: 500;
-}
-.loc-pin-badge {
-  position: absolute; top: 24px; right: 24px;
-  background: var(--burgundy); color: white; border-radius: 14px;
-  padding: 10px 16px; text-align: center;
-  box-shadow: 0 4px 16px rgba(150,28,28,.35);
-}
-.loc-pin-badge strong { display: block; font-size: 16px; font-weight: 700; }
-.loc-pin-badge small { font-size: 11px; color: rgba(255,255,255,.7); letter-spacing: .06em; }
-
-.seasons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
-.season {
-  border-radius: 16px; padding: 22px 20px; overflow: hidden; position: relative;
-}
-.season.winter { background: linear-gradient(135deg,#e8f0f8,#cde1f5); }
-.season.summer { background: linear-gradient(135deg,#e8f5ea,#cdf0d2); }
-.season .s-ico { font-size: 28px; margin-bottom: 10px; display: block; }
-.season h4 { font-family: var(--ff-head); font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
-.season p { font-size: 13px; color: var(--ink-lt); line-height: 1.55; }
-
-.loc-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-.loc-badge {
-  display: flex; align-items: center; gap: 7px;
-  background: white; border: 1px solid rgba(0,0,0,.07);
-  border-radius: 50px; padding: 8px 16px; font-size: 13px; font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0,0,0,.04);
-}
-
-/* ── TESTIMONIAL ─────────────────────────── */
-#testimonial {
-  background: var(--burgundy); padding: 90px 48px; text-align: center; overflow: hidden; position: relative;
-}
-#testimonial::before {
-  content: '"'; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-  font-family: var(--ff-head); font-size: 500px; color: rgba(255,255,255,.03); line-height: 1; pointer-events: none;
-}
-.test-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
-.test-stars { color: var(--gold-lt); font-size: 20px; letter-spacing: 4px; margin-bottom: 24px; }
-.test-q {
-  font-family: var(--ff-head); font-style: italic;
-  font-size: clamp(19px,2.4vw,28px); line-height: 1.55; color: white; margin-bottom: 24px;
-}
-.test-who { font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.5); }
-
-/* ── GALLERY ROW ─────────────────────────── */
-#gallery { overflow: hidden; display: flex; }
-.gallery-track { display: flex; width: max-content; animation: galleryScroll 30s linear infinite; }
-.gallery-track:hover { animation-play-state: paused; }
-.gallery-item {
-  height: 260px; width: auto; flex-shrink: 0; overflow: hidden;
-  margin-right: 4px;
-}
-.gallery-item img { height: 100%; width: auto; display: block; object-fit: cover; transition: transform .4s; }
-.gallery-item:hover img { transform: scale(1.04); }
-@keyframes galleryScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-/* ── FOOTER ──────────────────────────────── */
-footer {
-  background: #0e0a07; color: rgba(255,255,255,.5); padding: 64px 48px 40px;
-}
-.footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 56px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); }
-.f-logo { font-family: var(--ff-head); font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; }
-.f-logo em { font-style: italic; color: var(--gold); }
-.f-tagline { font-size: 13px; line-height: 1.65; margin-bottom: 20px; }
-.f-contact { font-size: 13px; line-height: 2.1; }
-.f-contact a { color: var(--gold); text-decoration: none; }
-.f-h { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: white; font-weight: 600; margin-bottom: 16px; }
-.f-links { list-style: none; }
-.f-links li { margin-bottom: 10px; }
-.f-links a { color: rgba(255,255,255,.45); text-decoration: none; font-size: 13px; transition: color .2s; }
-.f-links a:hover { color: white; }
-.f-bottom { max-width: 1200px; margin: 22px auto 0; display: flex; align-items: center; justify-content: space-between; font-size: 11px; }
-.f-socials { display: flex; gap: 16px; }
-.f-socials a { color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s; }
-.f-socials a:hover { color: var(--gold); }
-.best-price {
-  margin-top: 22px; padding: 16px 18px; background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.07); border-radius: 14px;
-}
-.best-price p:first-child { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
-.best-price p:last-child { font-size: 12px; line-height: 1.55; }
-
-/* ── STICKY CTA ──────────────────────────── */
-#sticky-cta {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
-  background: rgba(14,10,7,.95); backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255,255,255,.07);
-  padding: 14px 40px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  transform: translateY(100%); transition: transform .5s cubic-bezier(.16,1,.3,1);
-}
-#sticky-cta.up { transform: translateY(0); }
-.cta-l strong { display: block; color: white; font-size: 15px; font-weight: 600; margin-bottom: 2px; }
-.cta-l small { color: rgba(255,255,255,.45); font-size: 12px; }
-.cta-badge { display: inline-block; background: var(--pine); color: rgba(255,255,255,.85); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; margin-left: 8px; vertical-align: middle; }
-.cta-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--burgundy); color: white; text-decoration: none;
-  font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-  padding: 13px 28px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;
-  transition: background .2s, transform .2s;
-}
-.cta-btn:hover { background: var(--burgundy-lt); transform: scale(1.03); }
-
-/* ── MARMOT ──────────────────────────────── */
-#marmot {
-  position: fixed; bottom: 82px; right: 28px; z-index: 100;
-  cursor: pointer; animation: bob 3s ease-in-out infinite;
-}
-#marmot:hover { animation-play-state: paused; }
-.marmot-tip {
-  position: absolute; bottom: calc(100% + 10px); right: 0;
-  background: white; border-radius: 16px 16px 4px 16px; padding: 10px 14px;
-  font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap;
-  box-shadow: 0 4px 20px rgba(0,0,0,.12);
-  opacity: 0; transform: scale(.85) translateY(6px); transform-origin: bottom right;
-  transition: opacity .25s, transform .25s; pointer-events: none;
-}
-#marmot:hover .marmot-tip { opacity: 1; transform: scale(1) translateY(0); }
-@keyframes bob { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-10px) rotate(2deg)} }
-
-/* ── SHINY BUTTONS ──────────────────── */
-.btn-primary, .nav-book, .cta-btn {
-  position: relative;
-  overflow: hidden;
-}
-.btn-primary::after, .nav-book::after, .cta-btn::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%);
-  transform: translateX(-130%);
-  animation: btnShine 4s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes btnShine {
-  0%, 55% { transform: translateX(-130%); }
-  75%, 100% { transform: translateX(130%); }
-}
-
-/* ── HERO LAMP OVERLAY ──────────────── */
-.hero-lamp {
-  position: absolute; inset: 0; z-index: 4; pointer-events: none;
-}
-.hero-lamp::before {
-  content: '';
-  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 80%; height: 75%;
-  background: radial-gradient(ellipse 55% 50% at 50% 0%,
-    rgba(201,168,76,.26) 0%,
-    rgba(201,168,76,.07) 40%,
-    transparent 70%
-  );
-}
-.hero-beam-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-beam-line {
-  fill: none;
-  animation: beamPulse var(--d, 4s) ease-in-out infinite;
-  animation-delay: var(--dl, 0s);
-}
-@keyframes beamPulse {
-  0%, 100% { opacity: .07; }
-  50% { opacity: .4; }
-}
-
-/* ── BENTO GRID ─────────────────────── */
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 280px 240px;
-  gap: 16px;
-}
-.bcard {
-  position: relative; border-radius: 20px; overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,.1);
-  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
-}
-.bcard:hover { transform: scale(1.025); box-shadow: 0 20px 50px rgba(0,0,0,.18); }
-.bcard img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .6s cubic-bezier(.16,1,.3,1);
-}
-.bcard:hover img { transform: scale(1.06); }
-.bcard-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 28%, rgba(0,0,0,.72) 100%);
-}
-.bcard-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 22px; }
-.bcard-content h3 {
-  font-family: var(--ff-head); font-size: 20px; font-weight: 700;
-  color: white; margin-bottom: 4px; line-height: 1.1;
-}
-.bcard-content h3 em { font-style: italic; color: var(--gold-lt); }
-.bcard-content p { font-size: 13px; color: rgba(255,255,255,.72); font-weight: 300; line-height: 1.45; }
-.bcard-tag {
-  display: inline-block; margin-top: 9px;
-  background: rgba(255,255,255,.12); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.18); border-radius: 50px;
-  padding: 4px 12px; font-size: 10px; color: rgba(255,255,255,.8);
-  letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
-}
-.bento-grid .bcard:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
-.bento-grid .bcard:nth-child(1) .bcard-content { padding: 28px 30px; }
-.bento-grid .bcard:nth-child(1) .bcard-content h3 { font-size: 30px; }
-.bento-grid .bcard:nth-child(2) { grid-column: 3; grid-row: 1; }
-.bento-grid .bcard:nth-child(3) { grid-column: 4; grid-row: 1; }
-.bento-grid .bcard:nth-child(4) { grid-column: 3 / 5; grid-row: 2; }
-
-/* ── EMBLA CAROUSEL ─────────────────── */
-#gallery { background: var(--ink); }
-.embla { position: relative; overflow: hidden; }
-.embla__viewport { overflow: hidden; }
-.embla__container { display: flex; user-select: none; touch-action: pan-y; }
-.embla__slide { position: relative; flex: 0 0 100%; min-width: 0; }
-.embla__slide img { width: 100%; height: 500px; object-fit: cover; display: block; }
-.embla__caption {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,.68));
-  padding: 48px 48px 28px;
-}
-.embla__caption h3 {
-  font-family: var(--ff-head); font-size: 26px; font-weight: 700; color: white; margin-bottom: 5px;
-}
-.embla__caption p { font-size: 14px; color: rgba(255,255,255,.7); }
-.embla__controls {
-  position: absolute; bottom: 28px; right: 48px;
-  display: flex; align-items: center; gap: 10px; z-index: 10;
-}
-.embla__btn {
-  width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
-  background: rgba(255,255,255,.14); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.28); color: white; font-size: 22px;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s;
-}
-.embla__btn:hover { background: rgba(255,255,255,.26); }
-.embla__dots { display: flex; gap: 6px; align-items: center; }
-.embla__dot {
-  width: 7px; height: 7px; border-radius: 50%; padding: 0; cursor: pointer;
-  background: rgba(255,255,255,.35); border: none;
-  transition: background .2s, transform .2s;
-}
-.embla__dot.is-selected { background: white; transform: scale(1.45); }
-
-/* ── RESPONSIVE ──────────────────────────── */
-@media(max-width:960px){
-  .cards{grid-template-columns:1fr;gap:20px}
-  .kids-inner,.loc-inner{grid-template-columns:1fr;gap:48px}
-  .exp-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:220px 220px 220px}
-  .exp-tile:first-child{grid-row:auto}
-  .footer-grid{grid-template-columns:1fr;gap:32px}
-  #features,#kids,#experience,#location,#testimonial{padding:80px 24px}
-  #strip{padding:0 24px}
-  .strip-inner{flex-direction:column}
-  .strip-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);padding:18px 20px}
-  .strip-item:last-child{border-bottom:none}
-  #marmot{display:none}
-  nav{padding:0 24px}
-  .bento-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 200px 200px}
-  .bento-grid .bcard:nth-child(1){grid-column:1/3;grid-row:1}
-  .bento-grid .bcard:nth-child(2){grid-column:1;grid-row:2}
-  .bento-grid .bcard:nth-child(3){grid-column:2;grid-row:2}
-  .bento-grid .bcard:nth-child(4){grid-column:1/3;grid-row:3}
-  .embla__slide img{height:360px}
-  .embla__caption{padding:32px 24px 70px}
-  .embla__controls{right:24px;bottom:20px}
-}
-@media(max-width:600px){
-  .hero-h1{font-size:46px}
-  nav{height:60px}
-  .nav-book{display:none}
-  .seasons{grid-template-columns:1fr}
-  #sticky-cta{padding:12px 20px}
-  .cta-l small{display:none}
-  footer{padding:40px 24px 80px}
-  .f-bottom{flex-direction:column;gap:12px;text-align:center}
-  .bento-grid{grid-template-columns:1fr;grid-template-rows:auto}
-  .bento-grid .bcard:nth-child(1),.bento-grid .bcard:nth-child(2),
-  .bento-grid .bcard:nth-child(3),.bento-grid .bcard:nth-child(4){grid-column:1;grid-row:auto;height:240px}
-  .embla__slide img{height:280px}
-  .embla__caption h3{font-size:20px}
-}
-
-/* ── COOKIE BANNER ─────────────────── */
-#cookie-banner {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
-  background: rgba(14,10,7,.97); backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(201,168,76,.2);
-  padding: 20px 40px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 24px; flex-wrap: wrap;
-  transform: translateY(100%);
-  transition: transform .5s cubic-bezier(.16,1,.3,1);
-}
-#cookie-banner.visible { transform: translateY(0); }
-.cookie-text { flex: 1; min-width: 240px; }
-.cookie-text p { font-size: 13px; color: rgba(255,255,255,.65); line-height: 1.6; margin: 0; }
-.cookie-text a { color: var(--gold); text-decoration: none; }
-.cookie-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.cookie-btn-accept {
-  background: var(--burgundy); color: white; border: none; cursor: pointer;
-  font-family: var(--ff-body); font-size: 12px; font-weight: 700;
-  letter-spacing: .06em; text-transform: uppercase;
-  padding: 10px 22px; border-radius: 50px;
-  transition: background .2s;
-}
-.cookie-btn-accept:hover { background: var(--burgundy-lt); }
-.cookie-btn-reject {
-  background: transparent; color: rgba(255,255,255,.45);
-  border: 1px solid rgba(255,255,255,.15); cursor: pointer;
-  font-family: var(--ff-body); font-size: 12px; font-weight: 500;
-  padding: 9px 18px; border-radius: 50px;
-  transition: color .2s, border-color .2s;
-}
-.cookie-btn-reject:hover { color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.3); }
-@media(max-width:600px){
-  #cookie-banner { padding: 16px 20px; }
-  .cookie-text p { font-size: 12px; }
-  .cookie-actions { width: 100%; justify-content: flex-end; }
-}
-</style>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Hotel",
-  "name": "Hotel Touring Livigno",
-  "description": "Family hotel 4 stelle nel cuore di Livigno, sulle piste da sci. Piscina riscaldata, Spa alpina, Kinder Club Lupigno, cucina valtellinese. Zona duty-free delle Alpi italiane.",
-  "url": "https://www.touringlivigno.com/it/",
-  "telephone": "+390342996131",
-  "email": "info@touringlivigno.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Via Plan, 117",
-    "addressLocality": "Livigno",
-    "postalCode": "23030",
-    "addressRegion": "Sondrio",
-    "addressCountry": "IT"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 46.5367,
-    "longitude": 10.1358
-  },
-  "image": [
-    "https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-winter.jpg",
-    "https://www.touringlivigno.com/wp-content/uploads/2018/02/TOURING_PISCINA_0168.jpg",
-    "https://www.touringlivigno.com/wp-content/uploads/2018/02/5-ristorante.jpg",
-    "https://www.touringlivigno.com/wp-content/uploads/2017/10/BagnoTurco.jpg"
-  ],
-  "starRating": { "@type": "Rating", "ratingValue": "4" },
-  "priceRange": "€€€",
-  "checkinTime": "14:00",
-  "checkoutTime": "12:00",
-  "amenityFeature": [
-    {"@type": "LocationFeatureSpecification", "name": "Piscina riscaldata", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Sauna", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Bagno turco", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Kinder Club Lupigno", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Ristorante", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Ski Access Diretto", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Parcheggio gratuito", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Wi-Fi gratuito", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Spray Park", "value": true},
-    {"@type": "LocationFeatureSpecification", "name": "Area giochi indoor", "value": true}
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.7",
-    "reviewCount": "412",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "sameAs": [
-    "https://www.instagram.com/hoteltouringlivigno/",
-    "https://www.facebook.com/hoteltouringlivigno/"
-  ]
-}
+<!-- Google Analytics 4 — Consent Mode v2. Defaults to DENIED. Dormant placeholder:
+     paste your real "G-XXXXXXXXXX" id into GA_MEASUREMENT_ID below to activate.
+     No network requests are made until an id is set AND consent is granted. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  var GA_MEASUREMENT_ID = ''; // e.g. 'G-XXXXXXXXXX' — left as a placeholder on purpose.
+  if (GA_MEASUREMENT_ID) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID);
+  }
 </script>
 
+<style>
+/* ============================================================
+   Hotel Touring Livigno — design system (see DESIGN.md)
+   ============================================================ */
+:root{
+  --pine:#27433A; --pine-deep:#1C322B;
+  --stone:#B8A98F; --brick:#9E4A3C;
+  --cream:#F6F1E7; --warm-white:#FCFAF5;
+  --charcoal:#2A2724;
+  --gold:#C2A24E; --gold-soft:#D8BE78;
+
+  --maxw:1200px;
+  --gutter:clamp(20px,5vw,64px);
+  --section-y:clamp(72px,12vh,128px);
+  --radius:14px;
+  --shadow:0 18px 40px -24px rgba(28,50,43,.35);
+  --shadow-lg:0 28px 60px -28px rgba(28,50,43,.45);
+  --nav-h:74px;
+
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  margin:0; background:var(--cream); color:var(--charcoal);
+  font-family:var(--sans); font-size:clamp(16px,1.1vw,18px);
+  line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img{display:block; max-width:100%; height:auto;}
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; cursor:pointer;}
+:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:4px;}
+
+h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine); line-height:1.1;}
+
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter);}
+.section{padding-block:var(--section-y);}
+#family,#livigno,#gallery,#footer{scroll-margin-top:92px;}
+.bg-cream{background:var(--cream);}
+.bg-white{background:var(--warm-white);}
+.bg-pine{background:var(--pine); color:var(--cream);}
+.bg-pine h2,.bg-pine h3{color:var(--warm-white);}
+
+/* ---- Eyebrow + ridgeline -------------------------------- */
+.eyebrow{
+  font-size:13px; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--stone); margin:0 0 14px;
+}
+.bg-pine .eyebrow{color:var(--gold-soft);}
+.ridge{width:120px; height:24px; overflow:visible; display:block; margin-bottom:22px;}
+.ridge polyline{
+  fill:none; stroke:var(--gold); stroke-width:1.5;
+  stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:300; stroke-dashoffset:300;
+  transition:stroke-dashoffset 1.1s ease .15s;
+}
+.is-visible .ridge polyline,.ridge.is-visible polyline{stroke-dashoffset:0;}
+.ridge.center{margin-inline:auto;}
+
+.h2{font-size:clamp(30px,4vw,46px);}
+.lead{font-size:clamp(18px,1.5vw,21px); color:#5a574f; max-width:60ch;}
+.bg-pine .lead{color:rgba(246,241,231,.82);}
+
+/* ---- Buttons -------------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; gap:.55em; justify-content:center;
+  font-family:var(--sans); font-weight:600; font-size:15px; letter-spacing:.01em;
+  border-radius:999px; padding:14px 28px; border:1.5px solid transparent;
+  transition:background .25s,color .25s,border-color .25s,transform .25s,box-shadow .25s;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--pine); color:var(--warm-white);}
+.btn-primary:hover{background:var(--pine-deep); transform:translateY(-2px); box-shadow:var(--shadow);}
+.btn-gold{background:var(--gold); color:var(--pine-deep);}
+.btn-gold:hover{background:var(--gold-soft); transform:translateY(-2px); box-shadow:var(--shadow);}
+.btn-ghost{background:transparent; color:var(--pine); border-color:var(--gold);}
+.btn-ghost:hover{background:var(--gold); color:var(--pine-deep);}
+.bg-pine .btn-ghost{color:var(--cream); border-color:var(--gold-soft);}
+.bg-pine .btn-ghost:hover{background:var(--gold-soft); color:var(--pine-deep);}
+.link-gold{
+  font-weight:600; font-size:15px; color:var(--pine);
+  display:inline-flex; align-items:center; gap:.4em; border-bottom:1.5px solid var(--gold);
+  padding-bottom:2px; transition:gap .25s,color .25s;
+}
+.link-gold:hover{color:var(--brick); gap:.7em;}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:100; height:var(--nav-h);
+  display:flex; align-items:center;
+  transition:background .35s,box-shadow .35s,border-color .35s;
+  border-bottom:1px solid transparent; color:var(--warm-white);
+}
+.nav.is-scrolled{
+  background:rgba(252,250,245,.94); backdrop-filter:saturate(1.2) blur(8px);
+  color:var(--charcoal); border-bottom-color:rgba(42,39,36,.08);
+  box-shadow:0 6px 24px -20px rgba(28,50,43,.6);
+}
+.nav .wrap{display:flex; align-items:center; gap:18px; width:100%;}
+.wordmark{display:inline-flex; flex-direction:column; line-height:1; margin-right:auto;}
+.wm-main{font-family:var(--serif); font-weight:600; font-size:19px; letter-spacing:.24em; color:currentColor;}
+.wm-sub{font-family:var(--sans); font-weight:600; font-size:9px; letter-spacing:.36em; color:currentColor; opacity:.8; margin-top:3px;}
+.wm-stars{color:var(--gold); font-size:9px; letter-spacing:.18em; margin-top:4px;}
+
+.nav-right{display:flex; align-items:center; gap:16px;}
+.lang{display:inline-flex; align-items:center; gap:2px; font-size:13px; font-weight:600;}
+.lang button{background:none; border:none; color:currentColor; opacity:.55; padding:4px 5px; letter-spacing:.04em; transition:opacity .2s;}
+.lang button:hover{opacity:.9;}
+.lang button.active{opacity:1; color:var(--gold);}
+.nav.is-scrolled .lang button.active{color:var(--brick);}
+.lang span{opacity:.35;}
+
+.nav .btn-ghost{padding:10px 22px; font-size:14px;}
+.nav:not(.is-scrolled) .btn-ghost{color:var(--warm-white); border-color:var(--gold-soft);}
+.nav:not(.is-scrolled) .btn-ghost:hover{background:var(--gold-soft); color:var(--pine-deep);}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative; min-height:100svh; display:flex; align-items:flex-end;
+  color:var(--warm-white); overflow:hidden;
+}
+.hero-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2;}
+.hero::after{ /* subtle gradients only (nav legibility + text) — no full overlay */
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(to top, rgba(28,50,43,.74) 0%, rgba(28,50,43,.32) 28%, rgba(28,50,43,0) 54%),
+             linear-gradient(to bottom, rgba(28,50,43,.42) 0%, rgba(28,50,43,0) 16%),
+             linear-gradient(to right, rgba(28,50,43,.30) 0%, rgba(28,50,43,0) 45%);
+}
+.hero-inner{padding-bottom:clamp(232px,32vh,360px); padding-top:104px; max-width:760px;}
+.hero .eyebrow{color:var(--gold-soft); text-shadow:0 1px 12px rgba(0,0,0,.3);}
+.hero h1{
+  color:var(--warm-white); font-size:clamp(48px,7vw,72px); font-weight:500; line-height:1.05;
+  letter-spacing:-.01em; text-shadow:0 2px 24px rgba(20,30,26,.4);
+}
+.hero .hero-sub{
+  margin:22px 0 0; font-size:clamp(16px,1.4vw,20px); max-width:46ch;
+  color:rgba(252,250,245,.92); text-shadow:0 1px 14px rgba(20,30,26,.45);
+}
+
+/* ============================================================
+   BOOKING — overlap card + sticky compact bar
+   ============================================================ */
+.booking-anchor{position:relative; z-index:20;}
+.booking{
+  position:relative;
+  background:var(--warm-white); border-radius:var(--radius); box-shadow:var(--shadow-lg);
+  margin-top:clamp(-200px,-24vh,-156px); margin-bottom:8px; padding:22px;
+  display:grid; grid-template-columns:1fr 1fr 1.05fr auto; gap:16px; align-items:end;
+  border:1px solid rgba(42,39,36,.06);
+}
+.field{display:flex; flex-direction:column; gap:6px; min-width:0;}
+.field-label{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--stone);}
+
+/* custom picker trigger (replaces native date/select chrome) */
+.picker{
+  display:flex; align-items:center; gap:10px; width:100%; text-align:left;
+  font-family:var(--sans); font-size:15px; color:var(--charcoal);
+  border:1px solid rgba(42,39,36,.16); border-radius:10px; padding:11px 14px; background:#fff;
+  transition:border-color .2s,box-shadow .2s;
+}
+.picker:hover{border-color:rgba(194,162,78,.6);}
+.picker[aria-expanded="true"]{border-color:var(--gold); box-shadow:0 0 0 3px rgba(194,162,78,.18);}
+.picker-ico{width:18px; height:18px; flex:none; fill:none; stroke:var(--pine); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; opacity:.8;}
+.picker-val{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.booking .bk-submit{height:46px; align-self:end;}
+
+/* popovers — styled as a drawer that grows OUT of the booking card (rather than
+   a detached floating card): flush to the card edge, no top seam, shared
+   surface, only the outer corners rounded, shadow cast only away from the card. */
+.bk-pop{
+  position:absolute; top:calc(100% - 1px); z-index:40;
+  background:var(--warm-white);
+  border:1px solid rgba(42,39,36,.1); border-top:none;
+  border-radius:0 0 var(--radius) var(--radius);
+  box-shadow:0 26px 44px -26px rgba(28,50,43,.5);
+  padding:16px; width:min(330px, calc(100vw - 40px));
+  transform-origin:top center;
+  animation:bkExpand .24s cubic-bezier(.4,0,.2,1);
+}
+.bk-pop[hidden]{display:none;}
+/* flipped variant: grows upward out of the card's top edge */
+.bk-pop.open-up{
+  top:auto; bottom:calc(100% - 1px);
+  border-top:1px solid rgba(42,39,36,.1); border-bottom:none;
+  border-radius:var(--radius) var(--radius) 0 0;
+  box-shadow:0 -26px 44px -26px rgba(28,50,43,.5);
+  transform-origin:bottom center;
+  animation:bkExpandUp .24s cubic-bezier(.4,0,.2,1);
+}
+@keyframes bkExpand{ from{opacity:0; transform:translateY(-6px) scaleY(.94);} to{opacity:1; transform:none;} }
+@keyframes bkExpandUp{ from{opacity:0; transform:translateY(6px) scaleY(.94);} to{opacity:1; transform:none;} }
+/* fade/collapse out on close (mirror of the open grow) */
+.bk-pop.closing{ animation:bkCollapse .2s cubic-bezier(.4,0,.2,1) forwards; pointer-events:none; }
+.bk-pop.open-up.closing{ animation:bkCollapseUp .2s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes bkCollapse{ from{opacity:1; transform:none;} to{opacity:0; transform:translateY(-6px) scaleY(.94);} }
+@keyframes bkCollapseUp{ from{opacity:1; transform:none;} to{opacity:0; transform:translateY(6px) scaleY(.94);} }
+.bk-pop-date{left:22px;}
+.bk-pop-guests{right:22px;}
+
+/* calendar */
+.cal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+.cal-title{font-family:var(--serif); font-weight:600; font-size:17px; color:var(--pine); text-transform:capitalize;}
+.cal-nav{width:34px; height:34px; border-radius:50%; border:1px solid rgba(42,39,36,.14); background:#fff; color:var(--pine); font-size:18px; line-height:1; transition:background .2s,border-color .2s;}
+.cal-nav:hover{background:var(--gold); border-color:var(--gold); color:var(--pine-deep);}
+.cal-nav:disabled{opacity:.3; cursor:not-allowed;}
+.cal-dows,.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:2px;}
+.cal-dows{margin-bottom:4px;}
+.cal-dows span{text-align:center; font-size:11px; font-weight:600; letter-spacing:.04em; color:var(--stone); text-transform:uppercase; padding:4px 0;}
+.cal-cell{aspect-ratio:1; border:none; background:none; border-radius:8px; font:inherit; font-size:14px; color:var(--charcoal); transition:background .15s,color .15s;}
+.cal-cell.empty{visibility:hidden;}
+.cal-cell:disabled{color:rgba(42,39,36,.25); cursor:not-allowed;}
+.cal-cell:not(:disabled):hover{background:rgba(194,162,78,.22);}
+.cal-cell.in-range{background:rgba(39,67,58,.09); border-radius:0;}
+.cal-cell.range-start{background:var(--pine); color:var(--warm-white); border-radius:8px 0 0 8px;}
+.cal-cell.range-end{background:var(--pine); color:var(--warm-white); border-radius:0 8px 8px 0;}
+.cal-cell.range-start.range-end{border-radius:8px;}
+.cal-foot{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px;}
+.cal-hint{font-size:13px; color:#5d5a52;}
+.cal-ok,.pop-done{padding:9px 18px; font-size:14px;}
+
+/* guests steppers */
+.step-row{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid rgba(42,39,36,.08);}
+.step-txt b{display:block; font-family:var(--sans); font-weight:600; font-size:15px; color:var(--charcoal);}
+.step-txt small{font-size:12px; color:var(--stone);}
+.stepper{display:flex; align-items:center; gap:12px;}
+.step-btn{width:32px; height:32px; border-radius:50%; border:1.5px solid var(--gold); background:#fff; color:var(--pine); font-size:18px; line-height:1; display:flex; align-items:center; justify-content:center; transition:background .2s,opacity .2s;}
+.step-btn:hover{background:var(--gold); color:var(--pine-deep);}
+.step-btn:disabled{opacity:.3; cursor:not-allowed; background:#fff; color:var(--pine);}
+.step-n{min-width:20px; text-align:center; font-weight:600; font-size:16px; color:var(--pine);}
+.pop-done{width:100%; margin-top:14px;}
+
+/* compact sticky strip */
+.booking-sticky{
+  position:fixed; left:0; right:0; top:var(--nav-h); z-index:90;
+  background:rgba(252,250,245,.96); backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(42,39,36,.1); box-shadow:0 10px 30px -22px rgba(28,50,43,.6);
+  /* travel its own height + the nav offset so it hides fully above the viewport */
+  transform:translateY(calc(-100% - var(--nav-h) - 14px)); transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.booking-sticky.show{transform:translateY(0);}
+.booking-sticky .wrap{display:flex; align-items:center; gap:18px; padding-block:12px;}
+.bs-summary{display:flex; align-items:center; gap:14px; background:none; border:none; color:var(--charcoal); font-size:14px; padding:0; flex-wrap:wrap;}
+.bs-summary b{font-family:var(--serif); font-weight:600; font-size:16px; color:var(--pine);}
+.bs-summary .dot{color:var(--gold);}
+.bs-summary:hover{color:var(--pine);}
+.booking-sticky .btn{margin-left:auto; padding:11px 24px; font-size:14px;}
+
+/* ============================================================
+   SECTION HEADER block
+   ============================================================ */
+.section-head{max-width:62ch; margin-bottom:clamp(36px,5vw,56px);}
+.section-head.center{margin-inline:auto; text-align:center;}
+.section-head.center .ridge{margin-inline:auto;}
+.section-head .lead{margin-top:18px;}
+.section-head.center .lead{margin-inline:auto;}
+
+/* ============================================================
+   ROOM SLIDESHOW (family top card)
+   ============================================================ */
+.room-show{position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-lg); margin-bottom:28px;}
+.rs-frame{position:relative; aspect-ratio:16/7; background:var(--pine-deep);}
+.rs-slide{position:absolute; inset:0; margin:0; opacity:0; transition:opacity .6s ease;}
+.rs-slide.is-active{opacity:1;}
+.rs-slide img{width:100%; height:100%; object-fit:cover;}
+.rs-slide figcaption{position:absolute; left:0; right:0; bottom:0; padding:52px 32px 26px; color:var(--warm-white);
+  background:linear-gradient(to top, rgba(28,50,43,.85), rgba(28,50,43,0));}
+.rs-slide figcaption b{display:block; font-family:var(--serif); font-weight:500; font-size:clamp(20px,2.4vw,28px); margin-bottom:6px;}
+.rs-slide figcaption span{font-size:15px; opacity:.92;}
+.rs-arrow{position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:38px; height:38px; border-radius:50%;
+  border:none; background:rgba(28,50,43,.22); color:var(--warm-white); font-size:20px; line-height:1;
+  opacity:0; backdrop-filter:blur(2px); box-shadow:none; transition:opacity .25s, background .2s, transform .2s;}
+.room-show:hover .rs-arrow,.photo-show:hover .rs-arrow,.rs-arrow:focus-visible{opacity:.85;}
+.rs-arrow:hover{background:rgba(28,50,43,.42); opacity:1;}
+/* touch devices have no hover — keep arrows discoverable but understated */
+@media (hover:none){ .rs-arrow{opacity:.7;} }
+.rs-prev{left:14px;} .rs-next{right:14px;}
+.rs-dots{position:absolute; left:0; right:0; bottom:16px; z-index:3; display:flex; justify-content:center; gap:8px;}
+.rs-dots button{width:8px; height:8px; padding:0; border-radius:50%; border:none; background:rgba(252,250,245,.55); transition:background .2s,transform .2s;}
+.rs-dots button.active{background:var(--gold); transform:scale(1.35);}
+
+/* ============================================================
+   AMENITY CARDS (buttons) + full-width expanding drawer
+   ============================================================ */
+.amenities{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+.amenity{position:relative; display:flex; flex-direction:column; text-align:left; padding:0; background:var(--warm-white);
+  border-radius:var(--radius); overflow:hidden; border:1px solid rgba(42,39,36,.07); box-shadow:var(--shadow);
+  transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s, border-color .25s, border-radius .3s, opacity .3s, filter .3s;}
+.amenity:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:rgba(194,162,78,.45);}
+.amenity[aria-expanded="true"]{transform:none; border-color:var(--gold);
+  box-shadow:0 0 0 2px var(--gold), var(--shadow-lg); z-index:2;}
+/* active card squares its bottom corners + drops a continuous gold edge so it
+   reads as having "grown" the drawer beneath it */
+.amenity[aria-expanded="true"]{border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom-color:transparent;}
+/* when one card is open, recede the rest so focus lands on the expanded card */
+.amenities.has-open .amenity:not([aria-expanded="true"]){opacity:.5; filter:saturate(.78);}
+.amenities.has-open .amenity:not([aria-expanded="true"]):hover{opacity:1; filter:none;}
+
+.amenity-media{position:relative; display:block; aspect-ratio:3/2; overflow:hidden; background:var(--stone);}
+.amenity-media img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+.amenity-media::after{content:""; position:absolute; inset:0; opacity:0; transition:opacity .3s;
+  background:linear-gradient(to top, rgba(28,50,43,.34), rgba(28,50,43,0) 58%);}
+.amenity:hover .amenity-media img{transform:scale(1.06);}
+.amenity:hover .amenity-media::after,.amenity[aria-expanded="true"] .amenity-media::after{opacity:1;}
+
+/* closed card: clean — just the title and a quiet drop-down chevron */
+.amenity-body{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:17px 20px 18px; transition:background .25s;}
+.amenity[aria-expanded="true"] .amenity-body{background:rgba(194,162,78,.1);}
+.amenity-body .ah{font-family:var(--serif); font-weight:500; font-size:clamp(17px,1.4vw,20px); line-height:1.15; color:var(--pine);
+  min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.amenity-body .achev{flex:none; position:relative; width:34px; height:34px; border-radius:50%; background:rgba(194,162,78,.13);
+  transition:background .25s, transform .4s cubic-bezier(.4,0,.2,1);}
+.amenity-body .achev::before{content:""; position:absolute; left:50%; top:44%; width:9px; height:9px; margin-left:-5px;
+  border-right:2px solid var(--gold); border-bottom:2px solid var(--gold); transform:translateY(-50%) rotate(45deg);
+  transition:border-color .25s;}
+.amenity:hover .achev{background:var(--gold);}
+.amenity:hover .achev::before{border-color:var(--warm-white);}
+.amenity[aria-expanded="true"] .achev{background:var(--gold); transform:rotate(180deg);}
+.amenity[aria-expanded="true"] .achev::before{border-color:var(--warm-white);}
+
+.amenity-drawer{position:relative; height:0; overflow:hidden; transition:height .4s ease;}
+.amenity-drawer:not([hidden]){margin-top:-1px;}
+.ad-inner{position:relative; background:var(--warm-white); border:2px solid var(--gold); border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:clamp(22px,3.4vw,38px); margin-top:14px;}
+/* upward caret/notch that tracks the open card via --caret-x (set in JS) */
+.ad-inner::before{content:""; position:absolute; left:var(--caret-x,50%); top:-11px; transform:translateX(-50%) rotate(45deg);
+  width:20px; height:20px; background:var(--warm-white); border-left:2px solid var(--gold); border-top:2px solid var(--gold);
+  border-top-left-radius:4px; transition:left .35s cubic-bezier(.4,0,.2,1);}
+.amenity-drawer.no-caret .ad-inner{margin-top:0;}
+.amenity-drawer.no-caret .ad-inner::before{display:none;}
+.ad-panel{display:none;}
+.ad-panel.is-active{display:block; animation:adFade .5s cubic-bezier(.4,0,.2,1) both;}
+@keyframes adFade{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+
+/* split layout: imagery on one side, structured copy on the other */
+.ad-split{display:grid; grid-template-columns:.82fr 1.18fr; gap:clamp(22px,3.4vw,42px); align-items:stretch;}
+.ad-figure{position:relative; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); min-height:260px; background:var(--stone);}
+.ad-figure img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.ad-content{min-width:0; align-self:center; padding:4px 0;}
+.ad-eyebrow{font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 9px;}
+.ad-panel h3{font-size:clamp(22px,2.4vw,29px); margin-bottom:14px;}
+.ad-body p{margin:0 0 6px; color:#5d5a52; font-size:15.5px; line-height:1.65; max-width:58ch;}
+.ad-body ul{margin:18px 0 0; padding:0; list-style:none; columns:2; column-gap:34px;}
+.ad-body li{font-size:14px; font-weight:500; color:var(--pine); padding:8px 0 8px 26px; position:relative; break-inside:avoid;}
+.ad-body li::before{content:""; position:absolute; left:0; top:50%; transform:translateY(-50%); width:17px; height:17px; border-radius:50%; background:rgba(194,162,78,.2);}
+.ad-body li::after{content:""; position:absolute; left:5.5px; top:50%; transform:translateY(-50%); width:6px; height:6px; border-radius:50%; background:var(--gold);}
+/* a li may carry a temperature / detail tag after a "·" — rendered as a soft chip */
+.ad-body li i{font-style:normal; font-weight:600; font-size:12px; color:var(--gold); margin-left:6px;
+  padding:1px 8px; border-radius:999px; background:rgba(194,162,78,.14); white-space:nowrap;}
+/* hours / practical note: a quiet card that sits between the intro and the list */
+.ad-note{display:flex; align-items:flex-start; gap:9px; margin:16px 0 2px; padding:11px 15px;
+  border-left:3px solid var(--gold); background:rgba(194,162,78,.08); border-radius:0 10px 10px 0;
+  color:var(--pine); font-size:13.5px; font-weight:500; line-height:1.5; max-width:58ch;}
+.ad-note::before{content:""; flex:none; width:7px; height:7px; margin-top:7px; border-radius:50%; background:var(--gold);}
+.ad-note b{font-weight:700;}
+
+/* Location panel: map + copy side-by-side, stacks on narrow */
+.ad-loc{display:grid; grid-template-columns:1.05fr 1.1fr; gap:clamp(22px,3.4vw,42px); align-items:center;}
+.ad-loc .ad-content{min-width:0;}
+.ad-map{border:0; width:100%; height:300px; border-radius:12px; box-shadow:var(--shadow); background:var(--cream);}
+@media (max-width:768px){
+  .ad-split{grid-template-columns:1fr; gap:22px;}
+  .ad-figure{min-height:200px; aspect-ratio:16/10;}
+  .ad-loc{grid-template-columns:1fr;}
+  .ad-map{height:260px; order:-1;}
+}
+
+/* ============================================================
+   LIVIGNO destination — text left + slideshow card right
+   ============================================================ */
+.liv-grid{display:grid; grid-template-columns:1fr 1.05fr; gap:clamp(28px,5vw,64px); align-items:center;}
+.liv-copy{min-width:0;}
+.liv-copy .lead{max-width:48ch; margin:0 0 26px;}
+.liv-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-bottom:30px;}
+.liv-links a{
+  font-weight:600; font-size:15px; color:var(--pine);
+  display:inline-flex; align-items:center; gap:.4em;
+  border-bottom:1.5px solid var(--gold); padding-bottom:2px; transition:gap .25s,color .25s;
+}
+.liv-links a::before{content:"→"; color:var(--gold); font-weight:600; transition:transform .25s;}
+.liv-links a:hover{color:var(--brick); gap:.6em;}
+.liv-links a:hover::before{transform:translateX(2px);}
+
+/* right-column single card = vanilla crossfade slideshow */
+.liv-show{position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-lg);}
+.liv-show .rs-frame{aspect-ratio:4/3;}
+.liv-cta{margin-top:36px;}
+
+/* ============================================================
+   GALLERY + GUESTS (photo slideshow over review wall)
+   ============================================================ */
+.gv{position:relative; overflow:hidden;}
+#gallery{padding-block:clamp(54px,8vh,92px);}
+/* reviews scattered across the whole section like a pile of cards dropped on a table —
+   each card is absolutely positioned by JS so they overlap and cover the entire background */
+.gv-wall{position:absolute; inset:0; z-index:0; overflow:hidden; opacity:1;
+  -webkit-mask-image:radial-gradient(ellipse 120% 120% at 50% 50%, #000 92%, transparent 100%);
+  mask-image:radial-gradient(ellipse 120% 120% at 50% 50%, #000 92%, transparent 100%);}
+.gv-quote{position:absolute; box-sizing:border-box; margin:0; background:var(--warm-white);
+  border:1px solid rgba(42,39,36,.08); border-radius:12px; padding:12px 14px;
+  box-shadow:0 16px 32px -18px rgba(28,50,43,.55), 0 3px 8px rgba(28,50,43,.14);
+  transform:rotate(var(--r,0deg)); transform-origin:center;}
+.gv-quote .gq-stars{color:var(--gold); font-size:11px; letter-spacing:.12em; display:block; margin-bottom:6px;}
+.gv-quote p{margin:0 0 8px; font-family:var(--serif); font-size:13.5px; line-height:1.4; color:var(--pine);}
+.gv-quote cite{font-style:normal; font-size:12px; font-weight:600; color:var(--stone);}
+/* strong white glow pools behind the heading + slideshow so the text stays readable over the busy review wall */
+.gv::before{content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(ellipse 76% 88% at 50% 48%, rgba(255,255,255,.94), rgba(255,255,255,.7) 40%, rgba(252,250,245,.32) 62%, rgba(246,241,231,0) 80%);}
+.gv-fore{position:relative; z-index:2;}
+/* big white halo + close shadow around the heading text so it lifts off the review wall */
+.gv .section-head .eyebrow,
+.gv .section-head .h2{
+  text-shadow:0 0 26px #fff, 0 0 16px #fff, 0 0 8px rgba(255,255,255,.9), 0 1px 2px rgba(28,50,43,.28);}
+.gv .section-head .ridge{filter:drop-shadow(0 0 12px #fff) drop-shadow(0 1px 2px rgba(28,50,43,.25));}
+/* big soft white glow + close drop shadow around the slideshow image */
+.photo-show{position:relative; max-width:720px; margin-inline:auto; border-radius:var(--radius); overflow:hidden;
+  box-shadow:0 0 0 6px rgba(255,255,255,.9), 0 0 60px 24px rgba(255,255,255,.85), 0 24px 50px -18px rgba(28,50,43,.55), 0 6px 16px rgba(28,50,43,.22);}
+.ps-frame{position:relative; aspect-ratio:16/9; background:var(--pine-deep);}
+.ps-slide{position:absolute; inset:0; margin:0; opacity:0; transition:opacity .6s ease;}
+.ps-slide.is-active{opacity:1;}
+.ps-slide img{width:100%; height:100%; object-fit:cover;}
+
+/* ============================================================
+   CTA BAND
+   ============================================================ */
+.cta-band{text-align:center;}
+.cta-band .ridge{margin-inline:auto;}
+.cta-band h2{font-size:clamp(30px,4vw,48px); margin-bottom:14px;}
+.cta-band .lead{margin:0 auto 30px;}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:var(--pine-deep); color:rgba(246,241,231,.78); padding-top:0;}
+.footer-ridge{height:2px; background:linear-gradient(to right,transparent,var(--gold),transparent); opacity:.5;}
+.footer-grid{display:grid; grid-template-columns:1fr auto; gap:48px; padding-top:clamp(56px,8vw,88px); padding-bottom:clamp(28px,4vw,40px);}
+.footer-contact{justify-self:end; text-align:right;}
+.footer .wordmark{color:var(--warm-white); margin-bottom:18px;}
+.footer h4{font-family:var(--sans); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); margin:0 0 16px; font-weight:600;}
+.footer a:hover{color:var(--gold-soft);}
+.footer ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; font-size:15px;}
+.footer .ftagline{max-width:32ch; font-size:15px; line-height:1.6;}
+.footer address{font-style:normal; font-size:15px; line-height:1.8;}
+.footer-bottom{border-top:1px solid rgba(246,241,231,.12); padding-block:22px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:13px; color:rgba(246,241,231,.55);}
+
+/* ============================================================
+   COOKIE BANNER
+   ============================================================ */
+.cookie{
+  position:fixed; left:16px; right:16px; bottom:16px; z-index:200; max-width:520px;
+  background:var(--warm-white); border:1px solid rgba(42,39,36,.1); border-radius:var(--radius);
+  box-shadow:var(--shadow-lg); padding:20px 22px; display:none;
+}
+.cookie.show{display:block;}
+.cookie p{margin:0 0 14px; font-size:14px; line-height:1.55; color:#5d5a52;}
+.cookie-actions{display:flex; gap:10px;}
+.cookie .btn{padding:10px 20px; font-size:14px;}
+
+/* ============================================================
+   MOTION — reveal (screenshot-safe: never permanently hidden)
+   ============================================================ */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .5s ease,transform .5s ease;}
+.reveal.is-visible{opacity:1; transform:none;}
+
+/* §2 language switch — quick fade + blur on the changing text */
+[data-i18n]{transition:opacity .2s ease, filter .2s ease;}
+body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
+
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto !important;}
+  .reveal{opacity:1 !important; transform:none !important;}
+  .ridge polyline{transition:none; stroke-dashoffset:0;}
+  [data-i18n]{transition:none !important; opacity:1 !important; filter:none !important;}
+  .bk-pop,.bk-pop.open-up{animation:none !important;}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+  .amenities{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:768px){
+  .booking{grid-template-columns:1fr 1fr; gap:14px;}
+  .booking .field-guests{grid-column:1 / -1;}
+  .booking .bk-submit{grid-column:1 / -1; height:50px;}
+  .bk-pop-guests{right:auto; left:22px;}
+  .booking-sticky .bs-summary{font-size:13px;}
+  .rs-frame{aspect-ratio:4/3;}
+  .rs-slide figcaption{padding:40px 22px 22px;}
+  .ad-body ul{columns:1;}
+  .liv-grid{grid-template-columns:1fr; gap:32px;}
+  .liv-show .rs-frame{aspect-ratio:16/10;}
+}
+@media (max-width:560px){
+  .amenities{grid-template-columns:1fr;}
+  .booking-sticky .bs-summary b{font-size:14px;}
+  .footer-grid{grid-template-columns:1fr; gap:36px;}
+  .footer-contact{justify-self:start; text-align:left;}
+  .hero-inner{padding-bottom:clamp(212px,34vh,280px);}
+  .rs-arrow{width:34px; height:34px; font-size:18px;}
+  .gv-quote{padding:10px 12px;}
+  .gv-quote p{font-size:12.5px;}
+}
+@media (max-width:400px){
+  /* keep wordmark-left + lang/Book-right on one clean line at 375 */
+  .nav .wrap{gap:10px;}
+  .nav-right{gap:9px;}
+  .lang button{padding:4px 3px;}
+  .nav .btn-ghost{padding:9px 15px; font-size:13px;}
+  .wm-main{font-size:17px; letter-spacing:.2em;}
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="mainNav">
-  <a href="https://www.touringlivigno.com/it/" target="_blank" class="nav-brand">
-    Hotel Touring <span class="nav-stars">★★★★</span> Livigno
-  </a>
-  <div class="nav-right">
-    <button class="nav-toggle" onclick="toggleNight()" id="nightBtn">
-      <span id="nightIco">🌙</span><span id="nightTxt">Notte</span>
+<!-- ============================== NAV ============================== -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="wordmark" href="#top" aria-label="Hotel Touring Livigno — home">
+      <span class="wm-main">TOURING</span>
+      <span class="wm-sub">LIVIGNO</span>
+      <span class="wm-stars" aria-hidden="true">★★★★</span>
+    </a>
+
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Lingua / Language / Sprache">
+        <button type="button" data-lang="it">IT</button><span aria-hidden="true">·</span>
+        <button type="button" data-lang="en">EN</button><span aria-hidden="true">·</span>
+        <button type="button" data-lang="de">DE</button>
+      </div>
+      <button type="button" class="btn btn-ghost js-book" data-i18n="nav.book">Prenota</button>
+    </div>
+  </div>
+</header>
+
+<!-- compact sticky booking strip -->
+<div class="booking-sticky" id="bookingSticky" aria-hidden="true">
+  <div class="wrap">
+    <button type="button" class="bs-summary" id="bsSummary" aria-label="Modifica le date">
+      <b data-i18n="book.your">Il tuo soggiorno</b>
+      <span id="bsDates">—</span><span class="dot">·</span><span id="bsGuests">—</span>
     </button>
-    <a href="https://be.bookingexpert.it/book/home/single?layout=14019&lang=it&currency=EUR&nsid=99277590-3b11-4618-87eb-ca0a388150a1" target="_blank" class="nav-book">Prenota</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-photo" id="heroPhoto"></div>
-  <div class="stars" id="starsEl"></div>
-  <canvas id="snowCanvas"></canvas>
-
-  <!-- Lamp / Beam overlay -->
-  <div class="hero-lamp" id="heroLamp">
-    <svg class="hero-beam-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(201,168,76,1)"/>
-          <stop offset="100%" stop-color="rgba(201,168,76,0)"/>
-        </linearGradient>
-      </defs>
-      <line class="hero-beam-line" x1="720" y1="0" x2="100" y2="900" stroke="url(#beamGrad)" stroke-width="1.5" style="--d:6s;--dl:0s"/>
-      <line class="hero-beam-line" x1="720" y1="0" x2="300" y2="900" stroke="url(#beamGrad)" stroke-width="1"   style="--d:4.5s;--dl:.8s"/>
-      <line class="hero-beam-line" x1="720" y1="0" x2="520" y2="900" stroke="url(#beamGrad)" stroke-width="1.5" style="--d:7s;--dl:1.5s"/>
-      <line class="hero-beam-line" x1="720" y1="0" x2="720" y2="900" stroke="url(#beamGrad)" stroke-width="2"   style="--d:5s;--dl:.3s"/>
-      <line class="hero-beam-line" x1="720" y1="0" x2="920" y2="900" stroke="url(#beamGrad)" stroke-width="1.5" style="--d:6.5s;--dl:2s"/>
-      <line class="hero-beam-line" x1="720" y1="0" x2="1120" y2="900" stroke="url(#beamGrad)" stroke-width="1"  style="--d:4s;--dl:1s"/>
-      <line class="hero-beam-line" x1="720" y1="0" x2="1320" y2="900" stroke="url(#beamGrad)" stroke-width="1.5" style="--d:5.5s;--dl:.5s"/>
-    </svg>
-  </div>
-
-  <!-- Mountain silhouettes -->
-  <div class="hero-mtns" id="heroMtns">
-    <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" style="width:100%;display:block;height:auto">
-      <defs>
-        <linearGradient id="mg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2d4a3e" stop-opacity=".6"/><stop offset="100%" stop-color="#1a2e24" stop-opacity=".9"/></linearGradient>
-        <linearGradient id="mg1n" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#050e08" stop-opacity=".8"/><stop offset="100%" stop-color="#030806" stop-opacity="1"/></linearGradient>
-      </defs>
-      <!-- Back peaks faint -->
-      <polygon fill="rgba(255,255,255,0.06)" points="0,320 0,210 140,100 260,165 400,60 520,140 680,50 820,130 980,40 1110,120 1250,80 1440,150 1440,320"/>
-      <!-- Snow on back -->
-      <polygon fill="rgba(255,255,255,0.18)" points="400,60 360,130 440,130"/>
-      <polygon fill="rgba(255,255,255,0.16)" points="680,50 640,125 720,125"/>
-      <polygon fill="rgba(255,255,255,0.18)" points="980,40 935,120 1025,120"/>
-      <!-- Front trees/hills -->
-      <polygon fill="url(#mg1)" class="mtn-fore-fill" points="0,320 0,230 60,185 130,215 220,165 320,195 420,150 540,185 650,145 760,178 870,140 970,172 1070,145 1180,170 1280,150 1440,175 1440,320"/>
-      <!-- Tree silhouettes -->
-      <g fill="rgba(10,20,14,0.7)" class="tree-group">
-        <polygon points="18,230 33,185 48,230"/>
-        <polygon points="45,230 62,175 79,230"/>
-        <polygon points="78,230 93,192 108,230"/>
-        <polygon points="1350,230 1365,185 1380,230"/>
-        <polygon points="1378,230 1396,178 1414,230"/>
-        <polygon points="1405,230 1420,190 1435,230"/>
-        <polygon points="420,230 436,185 452,230"/>
-        <polygon points="690,230 706,178 722,230"/>
-        <polygon points="960,230 978,182 996,230"/>
-      </g>
-    </svg>
-  </div>
-
-  <div class="hero-cnt">
-    <p class="hero-pretag reveal">Livigno · Alpi Italiane · Dal 1970</p>
-    <h1 class="hero-h1 reveal d1">Hotel<br><em>Touring</em><br>Livigno</h1>
-    <p class="hero-tagline reveal d2">Where the mountains become home</p>
-    <div class="hero-badge reveal d3">
-      <span class="s">★★★★</span>
-      <small>4 Stelle · Family Hotel</small>
-    </div>
-    <div class="hero-actions reveal d4">
-      <a href="https://www.touringlivigno.com/it/" target="_blank" class="btn-primary">
-        Scopri l'hotel completo <span class="arr">→</span>
-      </a>
-      <a href="https://be.bookingexpert.it/book/home/single?layout=14019&lang=it&currency=EUR&nsid=99277590-3b11-4618-87eb-ca0a388150a1" target="_blank" class="btn-ghost">
-        Prenota ora
-      </a>
-    </div>
-  </div>
-  <div class="scroll-ind"><div class="scroll-mouse"></div><span>Scorri</span></div>
-</section>
-
-<!-- STRIP -->
-<div id="strip">
-  <div class="strip-inner">
-    <div class="strip-item">
-      <span class="strip-ico">⛷️</span>
-      <div class="strip-txt"><strong>Ski Access Diretto</strong><span>Sulle piste di Livigno</span></div>
-    </div>
-    <div class="strip-item">
-      <span class="strip-ico">♨️</span>
-      <div class="strip-txt"><strong>Pool & Spa</strong><span>Benessere alpino</span></div>
-    </div>
-    <div class="strip-item">
-      <span class="strip-ico">👨‍👩‍👧‍👦</span>
-      <div class="strip-txt"><strong>Family Hotel</strong><span>Pensato per i bambini</span></div>
-    </div>
-    <div class="strip-item">
-      <span class="strip-ico">🛂</span>
-      <div class="strip-txt"><strong>Duty Free</strong><span>Zona esentasse</span></div>
-    </div>
-    <div class="strip-item">
-      <span class="strip-ico">🍷</span>
-      <div class="strip-txt"><strong>Cucina Valtellinese</strong><span>Sapori autentici</span></div>
-    </div>
+    <button type="button" class="btn btn-gold js-book" data-i18n="book.submit">Verifica disponibilità</button>
   </div>
 </div>
 
-<!-- THREE WORDS / FEATURES -->
-<section id="features">
-  <div class="features-inner">
-    <div class="features-head">
-      <span class="label reveal">In tre parole · In three words</span>
-      <h2 class="h2 reveal d1">Tutto quello che <em>ami</em>,<br>sotto un tetto</h2>
-    </div>
-    <div class="bento-grid reveal">
-      <!-- Large: Pool & Spa -->
-      <div class="bcard">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2018/02/TOURING_PISCINA_0168.jpg" alt="Pool & Spa">
-        <div class="bcard-overlay"></div>
-        <div class="bcard-content">
-          <h3>Pool &amp; <em>Spa</em></h3>
-          <p>Piscina riscaldata, bagno turco, sauna e trattamenti benessere — il relax alpino nella sua forma più pura.</p>
-          <span class="bcard-tag">Wellness · Relax · Benessere</span>
-        </div>
-      </div>
-      <!-- Ski Access -->
-      <div class="bcard">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-winter.jpg" alt="Ski Access">
-        <div class="bcard-overlay"></div>
-        <div class="bcard-content">
-          <h3>Ski <em>Access</em></h3>
-          <p>115 km di neve garantita. Noleggio ski in hotel e skipass a due passi.</p>
-          <span class="bcard-tag">Livigno · 115km piste</span>
-        </div>
-      </div>
-      <!-- Family Fun -->
-      <div class="bcard">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2018/02/TOURING_GIOCHI_043.jpg" alt="Family Fun">
-        <div class="bcard-overlay"></div>
-        <div class="bcard-content">
-          <h3>Family <em>Fun</em></h3>
-          <p>Spray park, Kinder Club Lupigno e animazione ogni giorno.</p>
-          <span class="bcard-tag">Famiglie · Kids</span>
-        </div>
-      </div>
-      <!-- Dining — wide -->
-      <div class="bcard">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2018/02/5-ristorante.jpg" alt="Ristorante Valtellinese">
-        <div class="bcard-overlay"></div>
-        <div class="bcard-content">
-          <h3>Cucina <em>Valtellinese</em></h3>
-          <p>Sapori autentici delle Alpi italiane — ogni pasto un racconto di montagna.</p>
-          <span class="bcard-tag">Ristorante · Sapori · Tradizione</span>
-        </div>
-      </div>
+<main id="top">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="hero">
+  <img class="hero-img" src="assets/img/slider_hotel-1.jpg" alt="L'Hotel Touring di Livigno: l'edificio giallo con l'insegna HOTEL e la terrazza, fra le montagne" fetchpriority="high">
+  <div class="wrap">
+    <div class="hero-inner reveal is-visible">
+      <p class="eyebrow" data-i18n="hero.eyebrow">Livigno · Alpi Italiane · dal 1970</p>
+      <h1 data-i18n="hero.title">Dove le montagne<br>diventano casa</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Un hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale fra le piste delle Alpi.</p>
     </div>
   </div>
 </section>
 
-<!-- KIDS -->
-<section id="kids">
-  <div class="kids-inner">
-    <div class="reveal">
-      <div class="kids-photo-wrap">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2017/10/family-hotel-livigno.jpg" alt="Famiglie al Touring Livigno" loading="lazy">
-        <div class="kids-photo-badge">
-          <span class="badge-ico">🎿</span>
-          <div>
-            <strong>Kinder Club Lupigno</strong>
-            <span>Scuola sci da 3 anni · Istruttori certificati</span>
+<!-- ============================== BOOKING ============================== -->
+<div class="wrap booking-anchor">
+  <form class="booking" id="bookingForm" autocomplete="off">
+    <div class="field">
+      <span class="field-label" data-i18n="book.checkin">Arrivo</span>
+      <button type="button" class="picker" id="trigCheckin" data-pop="date" aria-haspopup="dialog" aria-expanded="false">
+        <svg class="picker-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
+        <span class="picker-val" id="lblCheckin">—</span>
+      </button>
+    </div>
+    <div class="field">
+      <span class="field-label" data-i18n="book.checkout">Partenza</span>
+      <button type="button" class="picker" id="trigCheckout" data-pop="date" aria-haspopup="dialog" aria-expanded="false">
+        <svg class="picker-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
+        <span class="picker-val" id="lblCheckout">—</span>
+      </button>
+    </div>
+    <div class="field field-guests">
+      <span class="field-label" data-i18n="book.guests">Ospiti</span>
+      <button type="button" class="picker" id="trigGuests" data-pop="guests" aria-haspopup="dialog" aria-expanded="false">
+        <svg class="picker-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+        <span class="picker-val" id="lblGuests">2 adulti</span>
+      </button>
+    </div>
+    <button type="submit" class="btn btn-gold bk-submit" data-i18n="book.submit">Verifica disponibilità</button>
+
+    <!-- hidden state fed into the BookingExpert deep-link -->
+    <input type="hidden" id="checkin"  name="checkin"  value="">
+    <input type="hidden" id="checkout" name="checkout" value="">
+    <input type="hidden" id="adults"   name="adults"   value="2">
+    <input type="hidden" id="babies"   name="babies"   value="0"><!-- 0-2  → guesttypes 18484 -->
+    <input type="hidden" id="kids1"     name="kids1"    value="0"><!-- 3-6  → guesttypes 18483 -->
+    <input type="hidden" id="kids2"     name="kids2"    value="0"><!-- 7-12 → guesttypes 19632 -->
+
+    <!-- date range popover (vanilla JS calendar — no library) -->
+    <div class="bk-pop bk-pop-date" id="popDate" role="dialog" aria-label="Seleziona le date" hidden>
+      <div class="cal-head">
+        <button type="button" class="cal-nav" id="calPrev" aria-label="−">‹</button>
+        <span class="cal-title" id="calTitle"></span>
+        <button type="button" class="cal-nav" id="calNext" aria-label="+">›</button>
+      </div>
+      <div class="cal-dows" id="calDows"></div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-foot"><span class="cal-hint" id="calHint"></span><button type="button" class="btn btn-gold cal-ok" id="calDone" data-i18n="book.done">Fatto</button></div>
+    </div>
+
+    <!-- guests popover with the three engine age brackets -->
+    <div class="bk-pop bk-pop-guests" id="popGuests" role="dialog" aria-label="Ospiti" hidden>
+      <div class="step-row">
+        <div class="step-txt"><b data-i18n="book.adults">Adulti</b><small data-i18n="book.adults_sub">14+ anni</small></div>
+        <div class="stepper" data-key="adults" data-min="1" data-max="8">
+          <button type="button" class="step-btn step-dn" aria-label="−">−</button>
+          <span class="step-n">2</span>
+          <button type="button" class="step-btn step-up" aria-label="+">+</button>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-txt"><b data-i18n="book.kids2">Bambini</b><small data-i18n="book.kids2_sub">7–12 anni</small></div>
+        <div class="stepper" data-key="kids2" data-min="0" data-max="6">
+          <button type="button" class="step-btn step-dn" aria-label="−">−</button>
+          <span class="step-n">0</span>
+          <button type="button" class="step-btn step-up" aria-label="+">+</button>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-txt"><b data-i18n="book.kids1">Bambini</b><small data-i18n="book.kids1_sub">3–6 anni</small></div>
+        <div class="stepper" data-key="kids1" data-min="0" data-max="6">
+          <button type="button" class="step-btn step-dn" aria-label="−">−</button>
+          <span class="step-n">0</span>
+          <button type="button" class="step-btn step-up" aria-label="+">+</button>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-txt"><b data-i18n="book.babies">Neonati</b><small data-i18n="book.babies_sub">0–2 anni</small></div>
+        <div class="stepper" data-key="babies" data-min="0" data-max="4">
+          <button type="button" class="step-btn step-dn" aria-label="−">−</button>
+          <span class="step-n">0</span>
+          <button type="button" class="step-btn step-up" aria-label="+">+</button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-gold pop-done" id="guestsDone" data-i18n="book.done">Fatto</button>
+    </div>
+  </form>
+</div>
+
+<!-- ============================== FAMILY & WELLNESS ============================== -->
+<section class="section bg-cream" id="family">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="eyebrow" data-i18n="fam.eyebrow">Famiglia & benessere</p>
+      <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
+      <h2 class="h2" data-i18n="fam.title">Tutto a portata di famiglia</h2>
+    </div>
+
+    <!-- large top card → room slideshow (vanilla JS, no library) -->
+    <div class="room-show reveal" id="roomShow" aria-roledescription="carousel" aria-label="Le nostre camere">
+      <div class="rs-frame">
+        <figure class="rs-slide is-active"><img src="assets/img/box-3.jpg" alt="Camera Superior" fetchpriority="low">
+          <figcaption><b data-i18n="room.superior.name">Camera Superior</b><span data-i18n="room.superior.desc">Legno di recupero e luce calda: la nostra camera più caratteristica.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/c_minimal2.jpg" alt="Junior Suite Minimal" loading="lazy">
+          <figcaption><b data-i18n="room.junior.name">Junior Suite Minimal</b><span data-i18n="room.junior.desc">Linee pulite e tessuti naturali, per chi ama la semplicità.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/c_comunicanti1.jpg" alt="Camere Comunicanti" loading="lazy">
+          <figcaption><b data-i18n="room.connecting.name">Camere Comunicanti</b><span data-i18n="room.connecting.desc">Due stanze unite da una porta: spazio e tranquillità per tutti.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/c_francese1.jpg" alt="Camera Standard alla francese" loading="lazy">
+          <figcaption><b data-i18n="room.standard.name">Camera Standard</b><span data-i18n="room.standard.desc">Accogliente e luminosa, con balcone affacciato sulla via.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/family-hotel-livigno-1.jpg" alt="Camera Lupigno per bambini" loading="lazy">
+          <figcaption><b data-i18n="room.kids.name">Camera Lupigno</b><span data-i18n="room.kids.desc">Letti a castello, scivolo e murale: i bambini non vorranno più uscire.</span></figcaption></figure>
+      </div>
+      <button type="button" class="rs-arrow rs-prev" id="rsPrev" aria-label="‹">‹</button>
+      <button type="button" class="rs-arrow rs-next" id="rsNext" aria-label="›">›</button>
+      <div class="rs-dots" id="rsDots" role="tablist"></div>
+    </div>
+
+    <!-- four cards → full-width expanding drawer below the row -->
+    <div class="amenities" id="amenities">
+      <button type="button" class="amenity acard reveal" data-key="pool" aria-expanded="false" aria-controls="amenityDrawer">
+        <span class="amenity-media"><img src="assets/img/TOURING_PISCINA_0168.jpg" alt="Piscina coperta con pareti in pietra e legno" loading="lazy"></span>
+        <span class="amenity-body"><span class="ah" data-i18n="amenity.pool.title">Piscina & Spa</span><span class="achev" aria-hidden="true"></span></span>
+      </button>
+      <button type="button" class="amenity acard reveal" data-key="family" aria-expanded="false" aria-controls="amenityDrawer">
+        <span class="amenity-media"><img src="assets/img/TOURING_GIOCHI_043.jpg" alt="Area giochi del Kinder Club Lupigno" loading="lazy"></span>
+        <span class="amenity-body"><span class="ah" data-i18n="amenity.family.title">Famiglia</span><span class="achev" aria-hidden="true"></span></span>
+      </button>
+      <button type="button" class="amenity acard reveal" data-key="rest" aria-expanded="false" aria-controls="amenityDrawer">
+        <span class="amenity-media"><img src="assets/img/5-ristorante.jpg" alt="Sala ristorante dell'hotel" loading="lazy"></span>
+        <span class="amenity-body"><span class="ah" data-i18n="amenity.rest.title">Ristorante</span><span class="achev" aria-hidden="true"></span></span>
+      </button>
+      <button type="button" class="amenity acard reveal acard-center" data-key="loc" aria-expanded="false" aria-controls="amenityDrawer">
+        <span class="amenity-media"><img src="assets/img/slider_hotel-1.jpg" alt="L'hotel nel cuore di Livigno" loading="lazy"></span>
+        <span class="amenity-body"><span class="ah" data-i18n="amenity.loc.title">Posizione</span><span class="achev" aria-hidden="true"></span></span>
+      </button>
+    </div>
+
+    <div class="amenity-drawer" id="amenityDrawer" role="region" hidden>
+      <div class="ad-inner">
+        <div class="ad-panel" data-key="pool">
+          <div class="ad-split">
+            <div class="ad-figure"><img src="assets/img/BagnoTurco.jpg" alt="Sauna e bagno turco dell'hotel" loading="lazy"></div>
+            <div class="ad-content">
+              <p class="ad-eyebrow" data-i18n="amenity.pool.cat">Benessere</p>
+              <h3 data-i18n="amenity.pool.title">Piscina & Spa</h3>
+              <div class="ad-body" data-i18n="amenity.pool.body"><p>Un percorso benessere fra acqua e calore, pensato per ritrovare energia e serenità: lasciatevi avvolgere dal vapore, dalle essenze e dalle saune, e riscoprite la vostra vitalità fra pietra e legno.</p><div class="ad-note"><b>Spa:</b> lun–ven e dom 16:00–20:00 · sab chiuso · ultimo ingresso 19:30 · piscina 9:00–20:00</div><ul><li>Sauna finlandese<i>90°</i></li><li>Bagno turco<i>45°</i></li><li>Brechelbad aromatico<i>55°</i></li><li>Doccia cromoterapica</li><li>Sala relax</li><li>Piscina coperta riscaldata</li><li>Massaggi &amp; trattamenti</li></ul></div>
+            </div>
+          </div>
+        </div>
+        <div class="ad-panel" data-key="family">
+          <div class="ad-split">
+            <div class="ad-figure"><img src="assets/img/family-hotel-livigno.jpg" alt="Famiglia in vacanza all'hotel" loading="lazy"></div>
+            <div class="ad-content">
+              <p class="ad-eyebrow" data-i18n="amenity.family.cat">Per i bambini</p>
+              <h3 data-i18n="amenity.family.title">Famiglia</h3>
+              <div class="ad-body" data-i18n="amenity.family.body"><p>Una vacanza pensata per i più piccoli: il Mini Club con sala giochi e animazione, l'angolo bimbi in piscina e camere dedicate come la Camera Lupigno, con letti a castello e scivolo. Fuori, un mondo di esperienze a misura di famiglia.</p><div class="ad-note"><b>Mini Club:</b> lun–ven e dom 16:00–22:00 · sabato chiuso</div><ul><li>Mini Club &amp; sala giochi</li><li>Animazione per bambini</li><li>Angolo bimbi in piscina</li><li>Camera Lupigno con scivolo</li><li>Menù &amp; seggioloni per i piccoli</li><li>Larix Park &amp; laghi alpini</li></ul></div>
+            </div>
+          </div>
+        </div>
+        <div class="ad-panel" data-key="rest">
+          <div class="ad-split">
+            <div class="ad-figure"><img src="assets/img/5-ristorante.jpg" alt="Sala ristorante dell'hotel" loading="lazy"></div>
+            <div class="ad-content">
+              <p class="ad-eyebrow" data-i18n="amenity.rest.cat">Gusto</p>
+              <h3 data-i18n="amenity.rest.title">Ristorante</h3>
+              <div class="ad-body" data-i18n="amenity.rest.body"><p>Cucina valtellinese e prodotti di stagione in un'esperienza di gusto curata: colazione a buffet, pranzo à la carte e cena servita, con un bar per l'aperitivo e il dopocena.</p><div class="ad-note"><b>Orari:</b> colazione 7:30–10:00 · pranzo 12:00–14:00 · cena 19:00–21:00</div><ul><li>Cucina valtellinese</li><li>Colazione a buffet</li><li>Pranzo à la carte</li><li>Mezza pensione</li><li>Bar &amp; cocktail d'autore</li><li>Carta dei vini</li></ul></div>
+            </div>
+          </div>
+        </div>
+        <div class="ad-panel" data-key="loc">
+          <div class="ad-loc">
+            <iframe class="ad-map" title="Mappa di Livigno" data-i18n-title="amenity.loc.maptitle" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=10.0997%2C46.5183%2C10.1697%2C46.5583&amp;layer=mapnik&amp;marker=46.5383%2C10.1347"></iframe>
+            <div class="ad-content">
+              <p class="ad-eyebrow" data-i18n="amenity.loc.cat">Posizione</p>
+              <h3 data-i18n="amenity.loc.title">Posizione</h3>
+              <div class="ad-body" data-i18n="amenity.loc.body"><p>Nel cuore di Livigno, in Via Plan 117, sulla via pedonale e a pochi passi da piste e negozi. L'hotel si trova in zona a traffico limitato (ZTL): ingresso da Via Bondi, uscita da Via Pienz.</p><div class="ad-note"><b>ZTL:</b> ingresso Via Bondi (accesso N.5) · uscita Via Pienz · comunicate la targa al check-in</div><ul><li>Garage coperto incluso 24/7</li><li>Deposito sci &amp; bike</li><li>Passi Foscagno &amp; Forcola</li><li>Tunnel Munt la Schera</li><li>A piedi da piste e shopping</li></ul></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div>
-      <span class="label kids-label reveal">Per i più piccoli · For the little ones</span>
-      <h2 class="h2 kids-h2 reveal d1">Un hotel che fa<br><em>sorridere</em> i bambini<br>ogni giorno</h2>
-      <p class="body-text reveal d2" style="margin-top:18px">
-        Ogni angolo del Touring è pensato per regalare momenti indimenticabili ai più piccoli — e un po' di respiro ai genitori.
-      </p>
-      <div class="kids-features">
-        <div class="kf reveal d1">
-          <span class="kf-ico">💦</span>
-          <div><strong>Spray Park & Piscina Bimbi</strong><span>Area acqua dedicata ai piccoli esploratori, sicura e divertentissima tutto l'anno.</span></div>
+  </div>
+</section>
+
+<!-- ============================== LIVIGNO (destination) ============================== -->
+<section class="section bg-white" id="livigno">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="eyebrow" data-i18n="liv.eyebrow">Livigno</p>
+      <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
+      <h2 class="h2" data-i18n="liv.title">Il Piccolo Tibet delle Alpi</h2>
+    </div>
+
+    <div class="liv-grid reveal">
+      <div class="liv-copy">
+        <p class="lead" data-i18n="liv.text">A 1.816 metri, Livigno è una lunga valle alpina della Valtellina: zona extra-doganale dove lo shopping è senza tasse, capitale dello sci con oltre 115 km di piste e — d'estate — un paradiso di trekking, mountain bike e laghi di montagna.</p>
+        <div class="liv-cta">
+          <a class="btn btn-ghost" href="https://www.livigno.eu" target="_blank" rel="noopener" id="livDiscover" data-i18n="liv.discover">Scopri di più</a>
         </div>
-        <div class="kf reveal d2">
-          <span class="kf-ico">🎿</span>
-          <div><strong>Kinder Club Lupigno</strong><span>Scuola sci per bambini da 3 anni con istruttori certificati. Prime discese da ricordare.</span></div>
+      </div>
+
+      <!-- right card → vanilla crossfade slideshow of livigno.eu photos (downloaded locally) -->
+      <div class="liv-show" id="livShow" aria-roledescription="carousel" aria-label="Livigno">
+        <div class="rs-frame">
+          <figure class="rs-slide is-active"><img src="assets/img/livigno-1.jpg" alt="Laghi alpini di Livigno in estate" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-2.jpg" alt="Le creste e i 3.000 metri sopra Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-3.jpg" alt="Pascoli e malghe della valle di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-4.jpg" alt="Sentieri e baite di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-5.jpg" alt="Trekking sui sentieri di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-6.jpg" alt="Mountain bike sui trail di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-7.jpg" alt="Sport sul lago di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-8.jpg" alt="Panorami d'alta quota sopra Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-9.jpg" alt="Ciclismo su strada nella valle di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-10.jpg" alt="Bike park e flow trail di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-11.jpg" alt="Lo stile italiano e lo shopping di Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/livigno-12.jpg" alt="Downhill sulle montagne di Livigno" loading="lazy"></figure>
         </div>
-        <div class="kf reveal d3">
-          <span class="kf-ico">🎮</span>
-          <div><strong>Area Giochi Indoor</strong><span>Nuovissima sala giochi interna — per i giorni di brutto tempo o le serate dopo sci.</span></div>
-        </div>
-        <div class="kf reveal d4">
-          <span class="kf-ico">🍕</span>
-          <div><strong>Menu Bimbi & Animazione</strong><span>Cucina dedicata, porzioni giuste e un programma di animazione per ogni età.</span></div>
-        </div>
+        <button type="button" class="rs-arrow rs-prev" id="livPrev" aria-label="‹">‹</button>
+        <button type="button" class="rs-arrow rs-next" id="livNext" aria-label="›">›</button>
+        <div class="rs-dots" id="livDots" role="tablist"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE MOSAIC -->
-<section id="experience">
-  <div class="exp-inner">
-    <div class="exp-head">
-      <span class="label reveal">L'esperienza Touring</span>
-      <h2 class="h2 reveal d1">Il lusso <em>alpino</em><br>a portata di famiglia</h2>
-      <p class="body-text reveal d2" style="color:rgba(255,255,255,.6);margin-top:16px;max-width:500px">
-        Quattro stelle di genuina ospitalità valtellinese. Dove il calore umano è il servizio principale.
-      </p>
+<!-- ============================== GALLERY + GUESTS ============================== -->
+<section class="section gv bg-cream" id="gallery">
+  <div class="gv-wall" id="gvWall" aria-hidden="true"></div>
+  <div class="wrap gv-fore">
+    <div class="section-head center reveal">
+      <p class="eyebrow" data-i18n="gallery.eyebrow">Galleria &amp; ospiti</p>
+      <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
+      <h2 class="h2" data-i18n="gallery.title">Uno sguardo a casa nostra</h2>
     </div>
-    <div class="exp-mosaic reveal">
-      <div class="exp-tile">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2017/11/slider_hotel-1.jpg" alt="Hotel Touring Livigno" loading="lazy">
-        <div class="exp-tile-label">
-          <h3>Hotel Touring</h3>
-          <p>Nel cuore di Livigno, in centro paese</p>
-        </div>
+
+    <div class="photo-show reveal" id="photoShow" aria-roledescription="carousel" aria-label="Galleria fotografica">
+      <div class="ps-frame">
+        <figure class="ps-slide is-active"><img src="assets/img/touring-hotel.jpg" alt="La valle di Livigno"></figure>
+        <figure class="ps-slide"><img src="assets/img/TOURING_PISCINA_0168.jpg" alt="Piscina coperta dell'hotel" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/5-ristorante.jpg" alt="Sala ristorante" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/BagnoTurco.jpg" alt="Bagno turco" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/slider_hotel-1.jpg" alt="Esterno dell'hotel in estate" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/TOURING_GIOCHI_043.jpg" alt="Sala giochi per bambini" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/family-hotel-livigno.jpg" alt="Famiglia in camera" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/touring-winter.jpg" alt="Le montagne di Livigno in inverno" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/box-3.jpg" alt="Camera Superior" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/family-hotel-livigno-1.jpg" alt="Camera Lupigno" loading="lazy"></figure>
       </div>
-      <div class="exp-tile">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2018/02/5-ristorante.jpg" alt="Ristorante Touring" loading="lazy">
-        <div class="exp-tile-label">
-          <h3>Ristorante</h3>
-          <p>Cucina valtellinese autentica</p>
-        </div>
-      </div>
-      <div class="exp-tile">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2017/10/BagnoTurco.jpg" alt="Spa & Wellness" loading="lazy">
-        <div class="exp-tile-label">
-          <h3>Wellness & Spa</h3>
-          <p>Sauna, bagno turco, piscina</p>
-        </div>
-      </div>
-      <div class="exp-tile">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2017/10/box-3.jpg" alt="Camere Touring" loading="lazy">
-        <div class="exp-tile-label">
-          <h3>Camere Famiglia</h3>
-          <p>Comunicanti, con vista sulle Alpi</p>
-        </div>
-      </div>
-      <div class="exp-tile">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2017/10/family-hotel-livigno-1.jpg" alt="Family Hotel" loading="lazy">
-        <div class="exp-tile-label">
-          <h3>Family First</h3>
-          <p>Ogni dettaglio per la famiglia</p>
-        </div>
-      </div>
+      <button type="button" class="rs-arrow rs-prev" id="psPrev" aria-label="‹">‹</button>
+      <button type="button" class="rs-arrow rs-next" id="psNext" aria-label="›">›</button>
+      <div class="rs-dots" id="psDots" role="tablist"></div>
     </div>
   </div>
 </section>
 
-<!-- GALLERY / CAROUSEL -->
-<section id="gallery">
-  <div class="embla" id="hotelCarousel">
-    <div class="embla__viewport">
-      <div class="embla__container">
-        <div class="embla__slide">
-          <img src="https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-winter.jpg" alt="Hotel Touring — Inverno" loading="lazy">
-          <div class="embla__caption"><h3>L'Hotel in Inverno</h3><p>Nel cuore delle Alpi di Livigno, a 1816 m s.l.m.</p></div>
-        </div>
-        <div class="embla__slide">
-          <img src="https://www.touringlivigno.com/wp-content/uploads/2018/02/TOURING_PISCINA_0168.jpg" alt="Pool & Wellness" loading="lazy">
-          <div class="embla__caption"><h3>Pool &amp; Wellness</h3><p>Piscina riscaldata, sauna e bagno turco alpino</p></div>
-        </div>
-        <div class="embla__slide">
-          <img src="https://www.touringlivigno.com/wp-content/uploads/2018/02/5-ristorante.jpg" alt="Ristorante" loading="lazy">
-          <div class="embla__caption"><h3>Ristorante</h3><p>Cucina valtellinese autentica ogni sera</p></div>
-        </div>
-        <div class="embla__slide">
-          <img src="https://www.touringlivigno.com/wp-content/uploads/2017/10/BagnoTurco.jpg" alt="Spa" loading="lazy">
-          <div class="embla__caption"><h3>Spa &amp; Benessere</h3><p>Trattamenti alpini per il vero relax</p></div>
-        </div>
-        <div class="embla__slide">
-          <img src="https://www.touringlivigno.com/wp-content/uploads/2017/10/box-3.jpg" alt="Camere Famiglia" loading="lazy">
-          <div class="embla__caption"><h3>Camere Famiglia</h3><p>Comunicanti, con vista sulle Alpi</p></div>
-        </div>
-        <div class="embla__slide">
-          <img src="https://www.touringlivigno.com/wp-content/uploads/2017/10/family-hotel-livigno.jpg" alt="Family Hotel" loading="lazy">
-          <div class="embla__caption"><h3>Family Hotel</h3><p>Ogni dettaglio pensato per la famiglia</p></div>
-        </div>
-        <div class="embla__slide">
-          <img src="https://www.touringlivigno.com/wp-content/uploads/2018/02/TOURING_GIOCHI_043.jpg" alt="Kids & Fun" loading="lazy">
-          <div class="embla__caption"><h3>Kids &amp; Fun</h3><p>Spray park, giochi e animazione ogni giorno</p></div>
-        </div>
-      </div>
-    </div>
-    <div class="embla__controls">
-      <div class="embla__dots" id="emblaDots"></div>
-      <button class="embla__btn" id="emblaPrev" aria-label="Slide precedente">&#8249;</button>
-      <button class="embla__btn" id="emblaNext" aria-label="Slide successiva">&#8250;</button>
-    </div>
+<!-- ============================== CTA BAND ============================== -->
+<section class="section cta-band bg-pine reveal">
+  <div class="wrap">
+    <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
+    <h2 data-i18n="cta.title">Pronti a tornare a casa?</h2>
+    <p class="lead" data-i18n="cta.text">Prenotate il vostro soggiorno alle tariffe migliori, direttamente con noi.</p>
+    <button type="button" class="btn btn-gold js-book" data-i18n="cta.button">Prenota il tuo soggiorno</button>
   </div>
 </section>
 
-<!-- LOCATION -->
-<section id="location">
-  <div class="loc-inner">
-    <div class="reveal">
-      <div class="loc-photo-wrap">
-        <img src="https://www.touringlivigno.com/wp-content/uploads/2019/03/touring-hotel.jpg" alt="Hotel Touring Livigno esterno" loading="lazy">
-        <div class="loc-photo-overlay"></div>
-        <div class="loc-pin-badge">
-          <strong>1816m</strong>
-          <small>s.l.m.</small>
-        </div>
-        <div class="loc-photo-bottom">
-          <span class="loc-chip">📍 Via Plan 117, Livigno</span>
-          <span class="loc-chip">🛂 Zona Duty Free</span>
-          <span class="loc-chip">⛷️ Sulle piste</span>
-        </div>
-      </div>
-    </div>
-    <div>
-      <span class="label reveal">Livigno, Valtellina · Italia</span>
-      <h2 class="h2 reveal d1">Il paradiso<br><em>duty-free</em><br>delle Alpi italiane</h2>
-      <p class="body-text reveal d2" style="margin-top:18px">
-        In pieno centro di Livigno, a pochi passi dalle piste. L'unica zona duty-free delle Alpi italiane — dove la montagna è più accessibile.
-      </p>
-      <div class="loc-badges reveal d2">
-        <div class="loc-badge">🏔️ 1816 m s.l.m.</div>
-        <div class="loc-badge">🛂 Zona Duty-Free</div>
-        <div class="loc-badge">⛷️ Skipass diretto</div>
-        <div class="loc-badge">📍 Centro paese</div>
-      </div>
-      <div class="seasons reveal d3">
-        <div class="season winter">
-          <span class="s-ico">🎿</span>
-          <h4>Inverno</h4>
-          <p>115 km di piste, neve garantita da dicembre a maggio. Sci, snowboard, freeride.</p>
-        </div>
-        <div class="season summer">
-          <span class="s-ico">🥾</span>
-          <h4>Estate</h4>
-          <p>Trekking, mountain bike, escursioni. Livigno è straordinaria tutto l'anno.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</main>
 
-<!-- TESTIMONIAL -->
-<section id="testimonial">
-  <div class="test-inner">
-    <div class="test-stars reveal">★★★★★</div>
-    <blockquote class="test-q reveal d1">
-      "Come sempre ne è valsa la pena — stanze superlative, ristorante ottimo, Spa deliziosa. La differenza la fanno le persone. Lo staff del Touring non ha eguali. Straconsigliato per famiglie con bimbi."
-    </blockquote>
-    <p class="test-who reveal d2">Ospite TripAdvisor &nbsp;·&nbsp; Famiglia con bambini</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer" id="footer">
+  <div class="footer-ridge"></div>
+  <div class="wrap footer-grid">
     <div>
-      <div class="f-logo">Hotel <em>Touring</em> Livigno</div>
-      <p class="f-tagline">Where the mountains become home.<br>Family Hotel 4 stelle nel cuore di Livigno, sulle piste da sci.</p>
-      <div class="f-contact">
-        <div>📍 Via Plan, 117 — 23030 Livigno (SO)</div>
-        <div>📞 <a href="tel:+390342996131">+39 0342 996131</a></div>
-        <div>✉️ <a href="mailto:info@touringlivigno.com">info@touringlivigno.com</a></div>
-      </div>
+      <span class="wordmark">
+        <span class="wm-main">TOURING</span>
+        <span class="wm-sub">LIVIGNO</span>
+        <span class="wm-stars" aria-hidden="true">★★★★</span>
+      </span>
+      <p class="ftagline" data-i18n="footer.tagline">L'hotel di famiglia a Livigno, dal 1970. Dove le montagne diventano casa.</p>
     </div>
-    <div>
-      <p class="f-h">Link rapidi</p>
-      <ul class="f-links">
-        <li><a href="https://www.touringlivigno.com/it/camere/" target="_blank">Camere</a></li>
-        <li><a href="https://www.touringlivigno.com/it/family-hotel-livigno/" target="_blank">Servizi</a></li>
-        <li><a href="https://www.touringlivigno.com/it/galleria-fotografica/" target="_blank">Galleria</a></li>
-        <li><a href="https://www.touringlivigno.com/it/offerte-speciali/" target="_blank">Offerte Speciali</a></li>
-        <li><a href="https://www.touringlivigno.com/it/livigno/" target="_blank">Livigno</a></li>
-      </ul>
-    </div>
-    <div>
-      <p class="f-h">Prenota</p>
-      <ul class="f-links">
-        <li><a href="https://be.bookingexpert.it/book/home/single?layout=14019&lang=it&currency=EUR&nsid=99277590-3b11-4618-87eb-ca0a388150a1" target="_blank">Prenota ora</a></li>
-        <li><a href="https://www.touringlivigno.com/it/request-it/" target="_blank">Richiedi informazioni</a></li>
-        <li><a href="https://www.alpinresorts.com/it/noleggio-ski/partner-sportextreme-touring" target="_blank">Noleggio ski</a></li>
-      </ul>
-      <div class="best-price">
-        <p>Miglior prezzo garantito</p>
-        <p>Prenota direttamente per la tariffa migliore. Se trovi un prezzo inferiore contattaci entro 24 ore.</p>
-      </div>
+    <div class="footer-contact">
+      <h4 data-i18n="footer.contact">Contatti</h4>
+      <address>
+        Via Plan 117<br>23030 Livigno (SO), Italia<br>
+        <a href="tel:+390342996131">+39 0342 996131</a><br>
+        <a href="mailto:info@touringlivigno.com">info@touringlivigno.com</a>
+      </address>
     </div>
   </div>
-  <div class="f-bottom">
-    <span>© 2025 Hotel Touring Livigno · Touring srl · P.IVA 93027430144</span>
-    <div class="f-socials">
-      <a href="https://www.instagram.com/hoteltouringlivigno/" target="_blank">Instagram</a>
-      <a href="https://www.facebook.com/hoteltouringlivigno/" target="_blank">Facebook</a>
-      <a href="https://www.touringlivigno.com/privacy.htm" target="_blank">Privacy</a>
-    </div>
+  <div class="wrap footer-bottom">
+    <span data-i18n="footer.rights">© 2026 Hotel Touring Livigno. Tutti i diritti riservati.</span>
   </div>
 </footer>
 
-<!-- STICKY CTA -->
-<div id="sticky-cta">
-  <div class="cta-l">
-    <strong>Prenota direttamente — miglior prezzo garantito <span class="cta-badge">Best Price</span></strong>
-    <small>Hotel Touring Livigno · 4 stelle · Family Hotel · Livigno</small>
-  </div>
-  <a href="https://be.bookingexpert.it/book/home/single?layout=14019&lang=it&currency=EUR&nsid=99277590-3b11-4618-87eb-ca0a388150a1" target="_blank" class="cta-btn">
-    Prenota ora → Sito Ufficiale
-  </a>
-</div>
-
-<!-- MARMOT -->
-<div id="marmot" title="Ciao! Sono il marmotto Lupigno!">
-  <div class="marmot-tip">🏔️ Ciao! Benvenuti a Livigno!</div>
-  <svg width="70" height="70" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="40" cy="52" rx="22" ry="18" fill="#c49a6c"/>
-    <circle cx="40" cy="32" r="18" fill="#d4aa7c"/>
-    <circle cx="26" cy="20" r="7" fill="#c49a6c"/><circle cx="26" cy="20" r="4" fill="#e8c4a0"/>
-    <circle cx="54" cy="20" r="7" fill="#c49a6c"/><circle cx="54" cy="20" r="4" fill="#e8c4a0"/>
-    <circle cx="33" cy="30" r="4" fill="#2d1a08"/><circle cx="47" cy="30" r="4" fill="#2d1a08"/>
-    <circle cx="34" cy="29" r="1.5" fill="white"/><circle cx="48" cy="29" r="1.5" fill="white"/>
-    <ellipse cx="40" cy="36" rx="4" ry="3" fill="#8b5a3c"/>
-    <path d="M35 40 Q40 44 45 40" stroke="#5a3020" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <path d="M22 46 Q40 52 58 46" stroke="#961c1c" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <line x1="12" y1="38" x2="22" y2="58" stroke="#8b6c4c" stroke-width="2" stroke-linecap="round"/>
-    <line x1="68" y1="38" x2="58" y2="58" stroke="#8b6c4c" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="12" cy="37" r="2.5" fill="#c49a6c"/><circle cx="68" cy="37" r="2.5" fill="#c49a6c"/>
-  </svg>
-</div>
-
-<!-- GDPR COOKIE CONSENT -->
-<div id="cookie-banner" role="dialog" aria-label="Informativa sui cookie" aria-live="polite">
-  <div class="cookie-text">
-    <p>Utilizziamo cookie tecnici essenziali e, previo tuo consenso, cookie analitici per migliorare la tua esperienza di navigazione. Puoi accettare o limitare i cookie non essenziali. <a href="https://www.touringlivigno.com/privacy.htm" target="_blank" rel="noopener">Privacy Policy</a></p>
-  </div>
+<!-- ============================== COOKIE BANNER ============================== -->
+<div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Cookie">
+  <p data-i18n="cookie.text">Usiamo i cookie per analizzare il traffico in forma anonima. Puoi accettare o rifiutare.</p>
   <div class="cookie-actions">
-    <button class="cookie-btn-reject" onclick="cookieChoice(false)">Solo essenziali</button>
-    <button class="cookie-btn-accept" onclick="cookieChoice(true)">Accetta tutti</button>
+    <button type="button" class="btn btn-primary" id="cookieAccept" data-i18n="cookie.accept">Accetta</button>
+    <button type="button" class="btn btn-ghost" id="cookieDecline" data-i18n="cookie.decline">Rifiuta</button>
   </div>
 </div>
 
-<script src="https://unpkg.com/embla-carousel@8.3.0/embla-carousel.umd.js"></script>
 <script>
-/* ── NIGHT TOGGLE ──────────────────── */
-let isNight = false;
-function toggleNight() {
-  isNight = !isNight;
-  document.body.classList.toggle('night', isNight);
-  document.getElementById('nightIco').textContent = isNight ? '☀️' : '🌙';
-  document.getElementById('nightTxt').textContent = isNight ? 'Giorno' : 'Notte';
-  // Switch mountain fills
-  const fills = document.querySelectorAll('.mtn-fore-fill');
-  fills.forEach(f => f.setAttribute('fill', isNight ? 'url(#mg1n)' : 'url(#mg1)'));
-  const trees = document.querySelectorAll('.tree-group');
-  trees.forEach(t => t.setAttribute('fill', isNight ? 'rgba(2,6,3,0.85)' : 'rgba(10,20,14,0.7)'));
-}
-// Auto night
-const h = new Date().getHours();
-if (h >= 20 || h < 7) setTimeout(toggleNight, 600);
-
-/* ── STARS ──────────────────────────── */
-const starsEl = document.getElementById('starsEl');
-for (let i = 0; i < 130; i++) {
-  const s = document.createElement('div');
-  s.className = 'star';
-  const sz = Math.random() * 2.5 + .5;
-  s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*60}%;--d:${2+Math.random()*4}s;--dl:${Math.random()*4}s`;
-  starsEl.appendChild(s);
-}
-
-/* ── SNOW CANVAS ────────────────────── */
-const cvs = document.getElementById('snowCanvas');
-const ctx = cvs.getContext('2d');
-let W, H, flakes = [];
-function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
-resize(); window.addEventListener('resize', resize);
-function mkFlake() { return { x:Math.random()*W, y:-10, r:Math.random()*3.5+.8, sp:Math.random()*1+.35, wx:Math.random()*.5-.25, a:Math.random()*.65+.15, wb:Math.random()*Math.PI*2, wbs:Math.random()*.025+.005 }; }
-for (let i=0;i<70;i++){const f=mkFlake();f.y=Math.random()*H;flakes.push(f);}
-function snow(){
-  ctx.clearRect(0,0,W,H);
-  if(Math.random()<.25) flakes.push(mkFlake());
-  if(flakes.length>140) flakes.splice(0,1);
-  ctx.fillStyle='white';
-  for(const f of flakes){
-    f.wb+=f.wbs; f.x+=f.wx+Math.sin(f.wb)*.4; f.y+=f.sp;
-    if(f.y>H+10){Object.assign(f,mkFlake());f.y=-10;}
-    ctx.globalAlpha=f.a;
-    ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();
-  }
-  ctx.globalAlpha=1;
-  requestAnimationFrame(snow);
-}
-snow();
-
-/* ── PARALLAX ───────────────────────── */
-const heroPhoto = document.getElementById('heroPhoto');
-const heroMtns  = document.getElementById('heroMtns');
-const heroEl    = document.getElementById('hero');
-window.addEventListener('scroll', () => {
-  const y = window.scrollY, hh = heroEl.offsetHeight;
-  if (y < hh * 1.3) {
-    heroPhoto.style.transform = `scale(1.06) translateY(${y * 0.18}px)`;
-    heroMtns.style.transform  = `translateY(${y * 0.38}px)`;
-    cvs.style.transform       = `translateY(${y * 0.25}px)`;
-  }
-  // Nav scroll state
-  document.getElementById('mainNav').classList.toggle('scrolled', y > 60);
-  // Sticky CTA
-  document.getElementById('sticky-cta').classList.toggle('up', y > hh * 0.55);
-}, { passive: true });
-
-/* ── REVEAL ─────────────────────────── */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
-}, { threshold: .1 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-// Hero on load
-setTimeout(() => document.querySelectorAll('#hero .reveal').forEach(el=>el.classList.add('in')), 250);
-
-/* ── EMBLA CAROUSEL ─────────────────── */
+/* ============================================================
+   Hotel Touring Livigno — behaviour (no dependencies)
+   ============================================================ */
 (function(){
-  var viewport = document.querySelector('#hotelCarousel .embla__viewport');
-  if (!viewport || typeof EmblaCarousel === 'undefined') return;
-  var embla = EmblaCarousel(viewport, { loop: true });
-  var dotsEl = document.getElementById('emblaDots');
-  embla.scrollSnapList().forEach(function(_, i) {
-    var d = document.createElement('button');
-    d.className = 'embla__dot' + (i === 0 ? ' is-selected' : '');
-    d.addEventListener('click', function() { embla.scrollTo(i); });
-    dotsEl.appendChild(d);
-  });
-  var dots = dotsEl.querySelectorAll('.embla__dot');
-  function syncDots() {
-    dots.forEach(function(d, i) { d.classList.toggle('is-selected', i === embla.selectedScrollSnap()); });
-  }
-  embla.on('select', syncDots);
-  document.getElementById('emblaPrev').addEventListener('click', function() { embla.scrollPrev(); });
-  document.getElementById('emblaNext').addEventListener('click', function() { embla.scrollNext(); });
-  var timer = setInterval(function() { embla.scrollNext(); }, 4500);
-  viewport.addEventListener('mouseenter', function() { clearInterval(timer); });
-  viewport.addEventListener('mouseleave', function() { timer = setInterval(function() { embla.scrollNext(); }, 4500); });
-})();
+  "use strict";
 
-/* ── COOKIE CONSENT ─────────────────── */
-(function(){
-  var KEY = 'ht_cookie_consent_v1';
-  var banner = document.getElementById('cookie-banner');
-  if (!localStorage.getItem(KEY)) {
-    setTimeout(function(){ banner.classList.add('visible'); }, 1400);
-  }
-  window.cookieChoice = function(accepted) {
-    localStorage.setItem(KEY, accepted ? 'all' : 'essential');
-    banner.classList.remove('visible');
+  /* ---------- i18n dictionary ---------- */
+  var I18N = {
+    it:{
+      "nav.rooms":"Camere","nav.family":"Famiglia","nav.location":"Posizione","nav.gallery":"Galleria","nav.contact":"Contatti","nav.book":"Prenota",
+      "hero.eyebrow":"Livigno · Alpi Italiane · dal 1970","hero.title":"Dove le montagne<br>diventano casa","hero.sub":"Un hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale fra le piste delle Alpi.",
+      "book.checkin":"Arrivo","book.checkout":"Partenza","book.adults":"Adulti","book.children":"Bambini","book.submit":"Verifica disponibilità","book.your":"Il tuo soggiorno",
+      "book.guests_a":"adulti","book.guests_a1":"adulto","book.guests_c":"bambini","book.guests_c1":"bambino",
+      "book.guests":"Ospiti","book.adults_sub":"14+ anni","book.kids2":"Bambini","book.kids2_sub":"7–12 anni","book.kids1":"Bambini","book.kids1_sub":"3–6 anni","book.babies":"Neonati","book.babies_sub":"0–2 anni","book.done":"Fatto","book.hint_in":"Seleziona l'arrivo","book.hint_out":"Seleziona la partenza",
+      "why.eyebrow":"Dal 1970","why.text":"Tre generazioni della stessa famiglia, la stessa accoglienza. Vi aspettiamo come si aspetta <em>chi torna a casa</em>.",
+      "rooms.eyebrow":"Le camere","rooms.title":"Spazi caldi, pensati per la famiglia","room.book":"Prenota →",
+      "room.superior.name":"Camera Superior","room.superior.f1":"2–3 ospiti","room.superior.f2":"22 m²","room.superior.f3":"legno antico","room.superior.desc":"Legno di recupero e luce calda: la nostra camera più caratteristica.",
+      "room.junior.name":"Junior Suite Minimal","room.junior.f1":"2–3 ospiti","room.junior.f2":"28 m²","room.junior.f3":"stile moderno","room.junior.desc":"Linee pulite e tessuti naturali, per chi ama la semplicità.",
+      "room.connecting.name":"Camere Comunicanti","room.connecting.f1":"4–5 ospiti","room.connecting.f2":"2 stanze","room.connecting.f3":"porta interna","room.connecting.desc":"Due stanze unite da una porta: spazio e tranquillità per tutti.",
+      "room.standard.name":"Camera Standard","room.standard.f1":"2 ospiti","room.standard.f2":"16 m²","room.standard.f3":"letto alla francese","room.standard.desc":"Accogliente e luminosa, con balcone affacciato sulla via.",
+      "room.kids.name":"Camera Lupigno","room.kids.f1":"famiglia","room.kids.f2":"scivolo","room.kids.f3":"murale alpino","room.kids.desc":"Letti a castello, scivolo e murale: i bambini non vorranno più uscire.",
+      "fam.eyebrow":"Famiglia & benessere","fam.title":"Tutto a portata di famiglia","fam.caption":"Lo spazio dove le famiglie si ritrovano.",
+      "amenity.pool.title":"Piscina & Spa","amenity.pool.text":"Piscina coperta, idromassaggio e relax fra pietra e legno.",
+      "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Sala giochi, animazione e la nostra marmotta Lupigno.",
+      "amenity.ski.title":"Sci ai piedi","amenity.ski.text":"A pochi passi dagli impianti e dalle piste di Livigno.",
+      "amenity.wellness.title":"Benessere alpino","amenity.wellness.text":"Bagno turco e sauna per sciogliere la stanchezza della giornata.",
+      "amenity.more":"Scopri","amenity.family.title":"Famiglia","amenity.rest.title":"Ristorante","amenity.loc.title":"Posizione",
+      "amenity.pool.tease":"Piscina & sauna","amenity.family.tease":"Giochi & bimbi","amenity.rest.tease":"Sapori di valle","amenity.loc.tease":"Cuore di Livigno",
+      "amenity.pool.cat":"Benessere","amenity.family.cat":"Per i bambini","amenity.rest.cat":"Gusto","amenity.loc.cat":"Posizione",
+      "amenity.pool.body":"<p>Un percorso benessere fra acqua e calore, pensato per ritrovare energia e serenità: lasciatevi avvolgere dal vapore, dalle essenze e dalle saune, e riscoprite la vostra vitalità fra pietra e legno.</p><div class=\"ad-note\"><b>Spa:</b> lun–ven e dom 16:00–20:00 · sab chiuso · ultimo ingresso 19:30 · piscina 9:00–20:00</div><ul><li>Sauna finlandese<i>90°</i></li><li>Bagno turco<i>45°</i></li><li>Brechelbad aromatico<i>55°</i></li><li>Doccia cromoterapica</li><li>Sala relax</li><li>Piscina coperta riscaldata</li><li>Massaggi &amp; trattamenti</li></ul>",
+      "amenity.family.body":"<p>Una vacanza pensata per i più piccoli: il Mini Club con sala giochi e animazione, l'angolo bimbi in piscina e camere dedicate come la Camera Lupigno, con letti a castello e scivolo. Fuori, un mondo di esperienze a misura di famiglia.</p><div class=\"ad-note\"><b>Mini Club:</b> lun–ven e dom 16:00–22:00 · sabato chiuso</div><ul><li>Mini Club &amp; sala giochi</li><li>Animazione per bambini</li><li>Angolo bimbi in piscina</li><li>Camera Lupigno con scivolo</li><li>Menù &amp; seggioloni per i piccoli</li><li>Larix Park &amp; laghi alpini</li></ul>",
+      "amenity.rest.body":"<p>Cucina valtellinese e prodotti di stagione in un'esperienza di gusto curata: colazione a buffet, pranzo à la carte e cena servita, con un bar per l'aperitivo e il dopocena.</p><div class=\"ad-note\"><b>Orari:</b> colazione 7:30–10:00 · pranzo 12:00–14:00 · cena 19:00–21:00</div><ul><li>Cucina valtellinese</li><li>Colazione a buffet</li><li>Pranzo à la carte</li><li>Mezza pensione</li><li>Bar &amp; cocktail d'autore</li><li>Carta dei vini</li></ul>",
+      "amenity.loc.body":"<p>Nel cuore di Livigno, in Via Plan 117, sulla via pedonale e a pochi passi da piste e negozi. L'hotel si trova in zona a traffico limitato (ZTL): ingresso da Via Bondi, uscita da Via Pienz.</p><div class=\"ad-note\"><b>ZTL:</b> ingresso Via Bondi (accesso N.5) · uscita Via Pienz · comunicate la targa al check-in</div><ul><li>Garage coperto incluso 24/7</li><li>Deposito sci &amp; bike</li><li>Passi Foscagno &amp; Forcola</li><li>Tunnel Munt la Schera</li><li>A piedi da piste e shopping</li></ul>",
+      "amenity.loc.maptitle":"Mappa di Livigno",
+      "liv.eyebrow":"Livigno","liv.title":"Il Piccolo Tibet delle Alpi","liv.text":"A 1.816 metri, Livigno è una lunga valle alpina della Valtellina: zona extra-doganale dove lo shopping è senza tasse, capitale dello sci con oltre 115 km di piste e — d'estate — un paradiso di trekking, mountain bike e laghi di montagna.","liv.discover":"Scopri di più",
+      "liv.t1":"Trekking &amp; sentieri","liv.t1s":"Oltre 3.000 m di dislivello fra laghi e creste","liv.t2":"Bike &amp; MTB","liv.t2s":"Bike Park, flow trail e percorsi e-bike","liv.t3":"Inverno &amp; Olimpiadi 2026","liv.t3s":"115 km di piste, snowpark e sci notturno","liv.t4":"Shopping &amp; eventi","liv.t4s":"Acquisti duty-free ed eventi in valle",
+      "gallery.eyebrow":"Galleria &amp; ospiti","gallery.title":"Uno sguardo a casa nostra",
+      "rev.eyebrow":"Ospiti","rev.title":"Famiglie che tornano",
+      "rev.1.text":"“Ci torniamo ogni inverno: per i bambini è come una seconda casa.”","rev.1.who":"Famiglia Bianchi · Milano",
+      "rev.2.text":"“Piscina splendida e personale gentilissimo. Posizione perfetta per sciare.”","rev.2.who":"Andrea & Sara · Bologna",
+      "rev.3.text":"“La cucina valtellinese è autentica. Ci siamo sentiti in famiglia.”","rev.3.who":"Familie Hofer · München",
+      "cta.title":"Pronti a tornare a casa?","cta.text":"Prenotate il vostro soggiorno alle tariffe migliori, direttamente con noi.","cta.button":"Prenota il tuo soggiorno",
+      "footer.tagline":"L'hotel di famiglia a Livigno, dal 1970. Dove le montagne diventano casa.","footer.contact":"Contatti","footer.explore":"Esplora","footer.rights":"© 2026 Hotel Touring Livigno. Tutti i diritti riservati.",
+      "cookie.text":"Usiamo i cookie per analizzare il traffico in forma anonima. Puoi accettare o rifiutare.","cookie.accept":"Accetta","cookie.decline":"Rifiuta",
+      "doc.title":"Hotel Touring Livigno · Hotel 4 stelle per famiglie"
+    },
+    en:{
+      "nav.rooms":"Rooms","nav.family":"Family","nav.location":"Location","nav.gallery":"Gallery","nav.contact":"Contact","nav.book":"Book",
+      "hero.eyebrow":"Livigno · Italian Alps · since 1970","hero.title":"Where the mountains<br>become home","hero.sub":"A 4-star family hotel in the heart of Livigno, a duty-free zone among the slopes of the Alps.",
+      "book.checkin":"Check-in","book.checkout":"Check-out","book.adults":"Adults","book.children":"Children","book.submit":"Check availability","book.your":"Your stay",
+      "book.guests_a":"adults","book.guests_a1":"adult","book.guests_c":"children","book.guests_c1":"child",
+      "book.guests":"Guests","book.adults_sub":"14+ yrs","book.kids2":"Children","book.kids2_sub":"7–12 yrs","book.kids1":"Children","book.kids1_sub":"3–6 yrs","book.babies":"Infants","book.babies_sub":"0–2 yrs","book.done":"Done","book.hint_in":"Select arrival","book.hint_out":"Select departure",
+      "why.eyebrow":"Since 1970","why.text":"Three generations of the same family, the same welcome. We greet you the way you greet <em>someone coming home</em>.",
+      "rooms.eyebrow":"The rooms","rooms.title":"Warm spaces, made for families","room.book":"Book →",
+      "room.superior.name":"Superior Room","room.superior.f1":"2–3 guests","room.superior.f2":"22 m²","room.superior.f3":"old wood","room.superior.desc":"Reclaimed wood and warm light — our most characterful room.",
+      "room.junior.name":"Minimal Junior Suite","room.junior.f1":"2–3 guests","room.junior.f2":"28 m²","room.junior.f3":"modern style","room.junior.desc":"Clean lines and natural fabrics, for lovers of simplicity.",
+      "room.connecting.name":"Connecting Rooms","room.connecting.f1":"4–5 guests","room.connecting.f2":"2 rooms","room.connecting.f3":"inner door","room.connecting.desc":"Two rooms joined by a door — space and calm for everyone.",
+      "room.standard.name":"Standard Room","room.standard.f1":"2 guests","room.standard.f2":"16 m²","room.standard.f3":"French bed","room.standard.desc":"Cosy and bright, with a balcony over the street.",
+      "room.kids.name":"Lupigno Kids Room","room.kids.f1":"family","room.kids.f2":"slide","room.kids.f3":"alpine mural","room.kids.desc":"Bunk beds, a slide and a mural — kids won't want to leave.",
+      "fam.eyebrow":"Family & wellness","fam.title":"Everything within family reach","fam.caption":"The space where families come together.",
+      "amenity.pool.title":"Pool & Spa","amenity.pool.text":"Indoor pool, hot tub and relaxation in stone and wood.",
+      "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Playroom, activities and our marmot Lupigno.",
+      "amenity.ski.title":"Ski to the door","amenity.ski.text":"A few steps from Livigno's lifts and slopes.",
+      "amenity.wellness.title":"Alpine wellness","amenity.wellness.text":"Turkish bath and sauna to melt the day away.",
+      "amenity.more":"Explore","amenity.family.title":"Family","amenity.rest.title":"Restaurant","amenity.loc.title":"Location",
+      "amenity.pool.tease":"Pool & sauna","amenity.family.tease":"Play & kids","amenity.rest.tease":"Valtellina taste","amenity.loc.tease":"Heart of Livigno",
+      "amenity.pool.cat":"Wellness","amenity.family.cat":"For the kids","amenity.rest.cat":"Taste","amenity.loc.cat":"Location",
+      "amenity.pool.body":"<p>A wellness journey through water and heat, designed to restore energy and serenity: let the steam, the essences and the saunas envelop you, and rediscover your vitality in a setting of stone and wood.</p><div class=\"ad-note\"><b>Spa:</b> Mon–Fri &amp; Sun 16:00–20:00 · Sat closed · last entry 19:30 · pool 9:00–20:00</div><ul><li>Finnish sauna<i>90°</i></li><li>Turkish bath<i>45°</i></li><li>Aromatic Brechelbad<i>55°</i></li><li>Chromotherapy shower</li><li>Relaxation room</li><li>Heated indoor pool</li><li>Massage &amp; treatments</li></ul>",
+      "amenity.family.body":"<p>A holiday made for the little ones: the Mini Club with its games room and activities, a kids' corner in the pool and dedicated rooms like the Lupigno Room, with bunk beds and a slide. Outside, a whole world of family-friendly experiences.</p><div class=\"ad-note\"><b>Mini Club:</b> Mon–Fri &amp; Sun 16:00–22:00 · Sat closed</div><ul><li>Mini Club &amp; games room</li><li>Children's activities</li><li>Kids' corner in the pool</li><li>Lupigno Room with slide</li><li>Kids' menu &amp; high chairs</li><li>Larix Park &amp; alpine lakes</li></ul>",
+      "amenity.rest.body":"<p>Valtellina cuisine and seasonal produce in a thoughtful dining experience: breakfast buffet, à la carte lunch and served dinner, with a bar for aperitivo and after-dinner drinks.</p><div class=\"ad-note\"><b>Hours:</b> breakfast 7:30–10:00 · lunch 12:00–14:00 · dinner 19:00–21:00</div><ul><li>Valtellina cuisine</li><li>Breakfast buffet</li><li>À la carte lunch</li><li>Half-board</li><li>Bar &amp; signature cocktails</li><li>Wine list</li></ul>",
+      "amenity.loc.body":"<p>In the heart of Livigno, at Via Plan 117, on the pedestrian street and steps from slopes and shops. The hotel sits in a Limited Traffic Zone (ZTL): entry via Via Bondi, exit via Via Pienz.</p><div class=\"ad-note\"><b>ZTL:</b> entry Via Bondi (access N.5) · exit Via Pienz · give your plate at check-in</div><ul><li>Covered garage, included 24/7</li><li>Ski &amp; bike storage</li><li>Foscagno &amp; Forcola passes</li><li>Munt la Schera tunnel</li><li>Walk to slopes &amp; shopping</li></ul>",
+      "amenity.loc.maptitle":"Map of Livigno",
+      "liv.eyebrow":"Livigno","liv.title":"The Alps' Little Tibet","liv.text":"At 1,816 m, Livigno is a long alpine valley in the Valtellina: a duty-free zone where shopping is tax-free, a skiing capital with over 115 km of slopes and — in summer — a paradise of trekking, mountain biking and alpine lakes.","liv.discover":"Discover more",
+      "liv.t1":"Trekking &amp; trails","liv.t1s":"Over 3,000 m of climbing between lakes and ridges","liv.t2":"Bike &amp; MTB","liv.t2s":"Bike Park, flow trails and e-bike routes","liv.t3":"Winter &amp; 2026 Olympics","liv.t3s":"115 km of slopes, a snowpark and night skiing","liv.t4":"Shopping &amp; events","liv.t4s":"Duty-free shopping and events in the valley",
+      "gallery.eyebrow":"Gallery &amp; guests","gallery.title":"A look around our home",
+      "rev.eyebrow":"Guests","rev.title":"Families who return",
+      "rev.1.text":"“We come back every winter — for the kids it's like a second home.”","rev.1.who":"The Bianchi family · Milan",
+      "rev.2.text":"“Beautiful pool and the kindest staff. Perfect location for skiing.”","rev.2.who":"Andrea & Sara · Bologna",
+      "rev.3.text":"“The Valtellina cuisine is authentic. We felt like family.”","rev.3.who":"The Hofer family · Munich",
+      "cta.title":"Ready to come home?","cta.text":"Book your stay at the best rates, directly with us.","cta.button":"Book your stay",
+      "footer.tagline":"The family hotel in Livigno, since 1970. Where the mountains become home.","footer.contact":"Contact","footer.explore":"Explore","footer.rights":"© 2026 Hotel Touring Livigno. All rights reserved.",
+      "cookie.text":"We use cookies to analyse traffic anonymously. You can accept or decline.","cookie.accept":"Accept","cookie.decline":"Decline",
+      "doc.title":"Hotel Touring Livigno · 4-star family hotel"
+    },
+    de:{
+      "nav.rooms":"Zimmer","nav.family":"Familie","nav.location":"Lage","nav.gallery":"Galerie","nav.contact":"Kontakt","nav.book":"Buchen",
+      "hero.eyebrow":"Livigno · Italienische Alpen · seit 1970","hero.title":"Wo die Berge<br>zum Zuhause werden","hero.sub":"Ein 4-Sterne-Familienhotel im Herzen von Livigno, einer zollfreien Zone inmitten der Alpenpisten.",
+      "book.checkin":"Anreise","book.checkout":"Abreise","book.adults":"Erwachsene","book.children":"Kinder","book.submit":"Verfügbarkeit prüfen","book.your":"Ihr Aufenthalt",
+      "book.guests_a":"Erwachsene","book.guests_a1":"Erwachsener","book.guests_c":"Kinder","book.guests_c1":"Kind",
+      "book.guests":"Gäste","book.adults_sub":"14+ J.","book.kids2":"Kinder","book.kids2_sub":"7–12 J.","book.kids1":"Kinder","book.kids1_sub":"3–6 J.","book.babies":"Kleinkinder","book.babies_sub":"0–2 J.","book.done":"Fertig","book.hint_in":"Anreise wählen","book.hint_out":"Abreise wählen",
+      "why.eyebrow":"Seit 1970","why.text":"Drei Generationen derselben Familie, dieselbe Herzlichkeit. Wir empfangen Sie, wie man <em>jemanden empfängt, der nach Hause kommt</em>.",
+      "rooms.eyebrow":"Die Zimmer","rooms.title":"Warme Räume, für Familien gemacht","room.book":"Buchen →",
+      "room.superior.name":"Superior-Zimmer","room.superior.f1":"2–3 Gäste","room.superior.f2":"22 m²","room.superior.f3":"Altholz","room.superior.desc":"Altholz und warmes Licht — unser charaktervollstes Zimmer.",
+      "room.junior.name":"Junior-Suite Minimal","room.junior.f1":"2–3 Gäste","room.junior.f2":"28 m²","room.junior.f3":"moderner Stil","room.junior.desc":"Klare Linien und natürliche Stoffe, für Freunde der Schlichtheit.",
+      "room.connecting.name":"Verbindungszimmer","room.connecting.f1":"4–5 Gäste","room.connecting.f2":"2 Räume","room.connecting.f3":"Verbindungstür","room.connecting.desc":"Zwei Zimmer mit Verbindungstür — Platz und Ruhe für alle.",
+      "room.standard.name":"Standard-Zimmer","room.standard.f1":"2 Gäste","room.standard.f2":"16 m²","room.standard.f3":"französisches Bett","room.standard.desc":"Gemütlich und hell, mit Balkon zur Straße.",
+      "room.kids.name":"Lupigno-Kinderzimmer","room.kids.f1":"Familie","room.kids.f2":"Rutsche","room.kids.f3":"Alpen-Wandbild","room.kids.desc":"Etagenbetten, eine Rutsche und ein Wandbild — Kinder wollen nicht mehr raus.",
+      "fam.eyebrow":"Familie & Wellness","fam.title":"Alles in Familiennähe","fam.caption":"Der Ort, an dem Familien zusammenkommen.",
+      "amenity.pool.title":"Pool & Spa","amenity.pool.text":"Hallenbad, Whirlpool und Entspannung in Stein und Holz.",
+      "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Spielzimmer, Animation und unser Murmeltier Lupigno.",
+      "amenity.ski.title":"Ski vor der Tür","amenity.ski.text":"Wenige Schritte von Liften und Pisten Livignos.",
+      "amenity.wellness.title":"Alpines Wellness","amenity.wellness.text":"Türkisches Bad und Sauna, um den Tag ausklingen zu lassen.",
+      "amenity.more":"Mehr","amenity.family.title":"Familie","amenity.rest.title":"Restaurant","amenity.loc.title":"Lage",
+      "amenity.pool.tease":"Pool & Sauna","amenity.family.tease":"Spiel & Kinder","amenity.rest.tease":"Valtellina-Küche","amenity.loc.tease":"Herz von Livigno",
+      "amenity.pool.cat":"Wellness","amenity.family.cat":"Für Kinder","amenity.rest.cat":"Genuss","amenity.loc.cat":"Lage",
+      "amenity.pool.body":"<p>Eine Wellnessreise aus Wasser und Wärme, um Energie und Gelassenheit zurückzugewinnen: Lassen Sie sich von Dampf, Essenzen und Saunen umhüllen und entdecken Sie Ihre Vitalität in Stein und Holz neu.</p><div class=\"ad-note\"><b>Spa:</b> Mo–Fr &amp; So 16:00–20:00 · Sa geschlossen · letzter Einlass 19:30 · Pool 9:00–20:00</div><ul><li>Finnische Sauna<i>90°</i></li><li>Türkisches Bad<i>45°</i></li><li>Aromatisches Brechelbad<i>55°</i></li><li>Farblichtdusche</li><li>Ruheraum</li><li>Beheiztes Hallenbad</li><li>Massagen &amp; Anwendungen</li></ul>",
+      "amenity.family.body":"<p>Ein Urlaub für die Kleinen: der Mini Club mit Spielzimmer und Animation, eine Kinderecke im Pool und eigene Zimmer wie das Lupigno-Zimmer mit Etagenbett und Rutsche. Draußen wartet eine ganze Welt familienfreundlicher Erlebnisse.</p><div class=\"ad-note\"><b>Mini Club:</b> Mo–Fr &amp; So 16:00–22:00 · Sa geschlossen</div><ul><li>Mini Club &amp; Spielzimmer</li><li>Kinderanimation</li><li>Kinderecke im Pool</li><li>Lupigno-Zimmer mit Rutsche</li><li>Kindermenü &amp; Hochstühle</li><li>Larix Park &amp; Bergseen</li></ul>",
+      "amenity.rest.body":"<p>Valtellina-Küche und saisonale Produkte in einem liebevollen Genuss-Erlebnis: Frühstücksbuffet, Mittagessen à la carte und serviertes Abendessen, mit Bar für Aperitif und Absacker.</p><div class=\"ad-note\"><b>Zeiten:</b> Frühstück 7:30–10:00 · Mittag 12:00–14:00 · Abend 19:00–21:00</div><ul><li>Valtellina-Küche</li><li>Frühstücksbuffet</li><li>Mittagessen à la carte</li><li>Halbpension</li><li>Bar &amp; Signature-Cocktails</li><li>Weinkarte</li></ul>",
+      "amenity.loc.body":"<p>Im Herzen von Livigno, in der Via Plan 117, an der Fußgängerzone und wenige Schritte von Pisten und Geschäften. Das Hotel liegt in einer verkehrsbeschränkten Zone (ZTL): Einfahrt über Via Bondi, Ausfahrt über Via Pienz.</p><div class=\"ad-note\"><b>ZTL:</b> Einfahrt Via Bondi (Zugang N.5) · Ausfahrt Via Pienz · Kennzeichen beim Check-in angeben</div><ul><li>Garage inklusive, 24/7</li><li>Ski- &amp; Bike-Depot</li><li>Pässe Foscagno &amp; Forcola</li><li>Munt-la-Schera-Tunnel</li><li>Zu Fuß zu Pisten &amp; Shopping</li></ul>",
+      "amenity.loc.maptitle":"Karte von Livigno",
+      "liv.eyebrow":"Livigno","liv.title":"Das Klein-Tibet der Alpen","liv.text":"Auf 1.816 m ist Livigno ein langes Alpental im Veltlin: zollfreie Zone mit steuerfreiem Shopping, Ski-Hauptstadt mit über 115 km Pisten und — im Sommer — ein Paradies für Wandern, Mountainbike und Bergseen.","liv.discover":"Mehr entdecken",
+      "liv.t1":"Wandern &amp; Wege","liv.t1s":"Über 3.000 m Höhenmeter zwischen Seen und Graten","liv.t2":"Bike &amp; MTB","liv.t2s":"Bike Park, Flow Trails und E-Bike-Touren","liv.t3":"Winter &amp; Olympia 2026","liv.t3s":"115 km Pisten, Snowpark und Nachtskifahren","liv.t4":"Shopping &amp; Events","liv.t4s":"Zollfreies Shopping und Events im Tal",
+      "gallery.eyebrow":"Galerie &amp; Gäste","gallery.title":"Ein Blick in unser Zuhause",
+      "rev.eyebrow":"Gäste","rev.title":"Familien, die wiederkommen",
+      "rev.1.text":"„Wir kommen jeden Winter wieder — für die Kinder ist es wie ein zweites Zuhause.“","rev.1.who":"Familie Bianchi · Mailand",
+      "rev.2.text":"„Wunderschöner Pool und freundlichstes Personal. Perfekte Lage zum Skifahren.“","rev.2.who":"Andrea & Sara · Bologna",
+      "rev.3.text":"„Die Valtellina-Küche ist authentisch. Wir haben uns wie Familie gefühlt.“","rev.3.who":"Familie Hofer · München",
+      "cta.title":"Bereit, nach Hause zu kommen?","cta.text":"Buchen Sie Ihren Aufenthalt zu den besten Preisen, direkt bei uns.","cta.button":"Jetzt buchen",
+      "footer.tagline":"Das Familienhotel in Livigno, seit 1970. Wo die Berge zum Zuhause werden.","footer.contact":"Kontakt","footer.explore":"Entdecken","footer.rights":"© 2026 Hotel Touring Livigno. Alle Rechte vorbehalten.",
+      "cookie.text":"Wir verwenden Cookies zur anonymen Analyse. Sie können annehmen oder ablehnen.","cookie.accept":"Annehmen","cookie.decline":"Ablehnen",
+      "doc.title":"Hotel Touring Livigno · 4-Sterne-Familienhotel"
+    }
   };
+
+  var SUPPORTED = ["it","en","de"];
+  var LS_LANG = "tl_lang", LS_CONSENT = "tl_consent_v1";
+  var currentLang = "it";
+
+  function detectLang(){
+    var stored = null;
+    try { stored = localStorage.getItem(LS_LANG); } catch(e){}
+    if (stored && SUPPORTED.indexOf(stored) !== -1) return stored;
+    var nav = (navigator.language || "it").slice(0,2).toLowerCase();
+    return SUPPORTED.indexOf(nav) !== -1 ? nav : "it";
+  }
+
+  function prefersReduced(){ return window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches; }
+
+  function swapText(dict){
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      if (dict[key] != null) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(function(el){
+      var key = el.getAttribute("data-i18n-title");
+      if (dict[key] != null) el.setAttribute("title", dict[key]);
+    });
+    if (dict["doc.title"]) document.title = dict["doc.title"];
+    refreshBookingI18n();
+    updateLivignoLinks();
+  }
+
+  function applyLang(lang, animate){
+    if (SUPPORTED.indexOf(lang) === -1) lang = "it";
+    currentLang = lang;
+    var dict = I18N[lang];
+    document.documentElement.setAttribute("lang", lang);
+    try { localStorage.setItem(LS_LANG, lang); } catch(e){}
+
+    document.querySelectorAll(".lang button").forEach(function(b){
+      var on = b.getAttribute("data-lang") === lang;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-pressed", on ? "true":"false");
+    });
+
+    // §2 smooth swap: fade+blur the changing text out, swap, settle back in.
+    if (animate && !prefersReduced()){
+      document.body.classList.add("lang-switching");
+      window.setTimeout(function(){
+        swapText(dict);
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){ document.body.classList.remove("lang-switching"); });
+        });
+      }, 200);
+    } else {
+      swapText(dict);
+    }
+  }
+
+  /* ---------- Booking (BookingExpert deep-link — params verified live) ----------
+     Engine reads: checkin / checkout (YYYY-MM-DD) and guesttypes[0][<typeId>]=<count>.
+     Type IDs for this property: 18482 Adults · 18484 Babies(0-2) · 18483 Children(3-6) · 19632 Children(7-12).
+     beginsearch=1&isnewsearch=1 makes the engine auto-run availability and land pre-filled. */
+  var BE_BASE = "https://be.bookingexpert.it/book/home/single";
+  var ci=document.getElementById("checkin"), co=document.getElementById("checkout"),
+      ad=document.getElementById("adults"), babies=document.getElementById("babies"),
+      kids1=document.getElementById("kids1"), kids2=document.getElementById("kids2");
+  var lblCheckin=document.getElementById("lblCheckin"), lblCheckout=document.getElementById("lblCheckout"), lblGuests=document.getElementById("lblGuests");
+  var popDate=document.getElementById("popDate"), popGuests=document.getElementById("popGuests");
+  var bookingForm=document.getElementById("bookingForm");
+  var bsDates=document.getElementById("bsDates"), bsGuests=document.getElementById("bsGuests");
+
+  function pad(n){ return n<10?"0"+n:""+n; }
+  function iso(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+  function midnight(d){ var x=new Date(d); x.setHours(0,0,0,0); return x; }
+  function addDays(d,n){ var x=new Date(d); x.setDate(x.getDate()+n); return x; }
+  function sameDay(a,b){ return a&&b&&a.getTime()===b.getTime(); }
+  function fmtShort(d){ return d ? d.toLocaleDateString(currentLang,{day:"numeric",month:"short"}) : "—"; }
+
+  var today=midnight(new Date()), ciDate=null, coDate=null, viewM;
+
+  function totalChildren(){ return (parseInt(babies.value,10)||0)+(parseInt(kids1.value,10)||0)+(parseInt(kids2.value,10)||0); }
+  function guestSummary(){
+    var dict=I18N[currentLang];
+    var a=parseInt(ad.value,10)||0, c=totalChildren();
+    var parts=[a+" "+dict[a===1?"book.guests_a1":"book.guests_a"]];
+    if(c>0) parts.push(c+" "+dict[c===1?"book.guests_c1":"book.guests_c"]);
+    return parts.join(", ");
+  }
+  function updateBookingSummary(){
+    if(lblGuests) lblGuests.textContent=guestSummary();
+    if(bsDates) bsDates.textContent=fmtShort(ciDate)+" → "+fmtShort(coDate);
+    if(bsGuests) bsGuests.textContent=guestSummary();
+  }
+  function syncDates(){
+    ci.value=ciDate?iso(ciDate):""; co.value=coDate?iso(coDate):"";
+    if(lblCheckin) lblCheckin.textContent=fmtShort(ciDate);
+    if(lblCheckout) lblCheckout.textContent=fmtShort(coDate);
+    updateBookingSummary();
+  }
+  function refreshBookingI18n(){
+    if(!ci) return; // booking not ready yet (first applyLang at startup)
+    if(lblCheckin) lblCheckin.textContent=fmtShort(ciDate);
+    if(lblCheckout) lblCheckout.textContent=fmtShort(coDate);
+    updateBookingSummary();
+    if(popDate && !popDate.hidden) renderCal();
+  }
+
+  /* ---- vanilla calendar (range select, no library) ---- */
+  var calTitle=document.getElementById("calTitle"), calGrid=document.getElementById("calGrid"),
+      calDows=document.getElementById("calDows"), calPrev=document.getElementById("calPrev"),
+      calNext=document.getElementById("calNext"), calHint=document.getElementById("calHint");
+
+  function renderDows(){
+    calDows.innerHTML=""; var ref=new Date(2024,0,1); // a Monday
+    for(var i=0;i<7;i++){ var s=document.createElement("span"); s.textContent=addDays(ref,i).toLocaleDateString(currentLang,{weekday:"short"}).slice(0,2); calDows.appendChild(s); }
+  }
+  function renderCal(){
+    if(!viewM) viewM=new Date((ciDate||today).getFullYear(),(ciDate||today).getMonth(),1);
+    renderDows();
+    calTitle.textContent=viewM.toLocaleDateString(currentLang,{month:"long",year:"numeric"});
+    calPrev.disabled=(viewM<=new Date(today.getFullYear(),today.getMonth(),1));
+    calGrid.innerHTML="";
+    var offset=(new Date(viewM.getFullYear(),viewM.getMonth(),1).getDay()+6)%7;
+    var dim=new Date(viewM.getFullYear(),viewM.getMonth()+1,0).getDate();
+    for(var i=0;i<offset;i++){ var e=document.createElement("span"); e.className="cal-cell empty"; calGrid.appendChild(e); }
+    for(var d=1;d<=dim;d++){
+      var cur=new Date(viewM.getFullYear(),viewM.getMonth(),d);
+      var b=document.createElement("button"); b.type="button"; b.className="cal-cell"; b.textContent=d;
+      if(cur<today){ b.disabled=true; }
+      else{
+        if(sameDay(cur,ciDate)) b.classList.add("range-start");
+        if(sameDay(cur,coDate)) b.classList.add("range-end");
+        if(ciDate&&coDate&&cur>ciDate&&cur<coDate) b.classList.add("in-range");
+        (function(c){ b.addEventListener("click", function(){ pickDay(c); }); })(cur);
+      }
+      calGrid.appendChild(b);
+    }
+    var dict=I18N[currentLang];
+    calHint.textContent=(!ciDate||coDate)?(dict["book.hint_in"]||""):(dict["book.hint_out"]||"");
+  }
+  function pickDay(d){
+    if(!ciDate || coDate || d<=ciDate){ ciDate=d; coDate=null; }
+    else { coDate=d; }
+    syncDates(); renderCal();
+    if(ciDate&&coDate) window.setTimeout(closePops,220);
+  }
+  calPrev.addEventListener("click", function(){ viewM=new Date(viewM.getFullYear(),viewM.getMonth()-1,1); renderCal(); });
+  calNext.addEventListener("click", function(){ viewM=new Date(viewM.getFullYear(),viewM.getMonth()+1,1); renderCal(); });
+
+  /* ---- guests steppers ---- */
+  var stepInputs={adults:ad,babies:babies,kids1:kids1,kids2:kids2};
+  function renderSteppers(){
+    document.querySelectorAll("#popGuests .stepper").forEach(function(st){
+      var key=st.getAttribute("data-key"), min=+st.getAttribute("data-min"), max=+st.getAttribute("data-max");
+      var v=parseInt(stepInputs[key].value,10)||0;
+      st.querySelector(".step-n").textContent=v;
+      st.querySelector(".step-dn").disabled=(v<=min);
+      st.querySelector(".step-up").disabled=(v>=max);
+    });
+  }
+  document.querySelectorAll("#popGuests .stepper").forEach(function(st){
+    var key=st.getAttribute("data-key"), min=+st.getAttribute("data-min"), max=+st.getAttribute("data-max");
+    st.querySelector(".step-dn").addEventListener("click", function(){ var v=parseInt(stepInputs[key].value,10)||0; if(v>min){ stepInputs[key].value=v-1; renderSteppers(); updateBookingSummary(); } });
+    st.querySelector(".step-up").addEventListener("click", function(){ var v=parseInt(stepInputs[key].value,10)||0; if(v<max){ stepInputs[key].value=v+1; renderSteppers(); updateBookingSummary(); } });
+  });
+
+  /* ---- popovers ---- */
+  var triggers=[document.getElementById("trigCheckin"),document.getElementById("trigCheckout"),document.getElementById("trigGuests")];
+  /* Fade a popover out (collapse animation) before pulling it from layout,
+     instead of snapping to display:none. A timer fallback guarantees it hides
+     even when the animation is suppressed (e.g. prefers-reduced-motion). */
+  function hidePop(pop){
+    if(pop.hidden) return;
+    if(pop._closeDone){ pop.removeEventListener("animationend", pop._closeDone); clearTimeout(pop._closeTimer); }
+    var done=function(){
+      pop.hidden=true;
+      pop.classList.remove("closing","open-up");
+      pop.removeEventListener("animationend", done);
+      clearTimeout(pop._closeTimer); pop._closeDone=null;
+    };
+    pop._closeDone=done;
+    pop.classList.add("closing");
+    pop.addEventListener("animationend", done);
+    pop._closeTimer=setTimeout(done, 260);
+  }
+  function closePops(){
+    hidePop(popDate); hidePop(popGuests);
+    triggers.forEach(function(t){ t.setAttribute("aria-expanded","false"); });
+  }
+  /* Viewport-aware placement: the calendar popover is shared by both the
+     check-in and check-out triggers, so anchor it horizontally to whichever
+     trigger was clicked (instead of a fixed CSS left/right). Also flip upward
+     when there isn't room below. */
+  function placePop(trig, pop){
+    pop.classList.remove("open-up");
+    var tr=trig.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+    var ph=pop.offsetHeight; // measured now that it's visible
+    var spaceBelow=vh-tr.bottom, spaceAbove=tr.top;
+    // Prefer upward when there isn't room below but there is above (with a small margin).
+    if(spaceBelow < ph+16 && spaceAbove > spaceBelow){ pop.classList.add("open-up"); }
+    // Horizontal: align the popover's left edge to the clicked trigger, clamped
+    // so it never spills past the booking card's padded edges.
+    var host=pop.offsetParent || trig.offsetParent;
+    if(host){
+      var hr=host.getBoundingClientRect(), pw=pop.offsetWidth;
+      var left=tr.left-hr.left, maxLeft=hr.width-pw-22;
+      if(left>maxLeft) left=maxLeft;
+      if(left<22) left=22;
+      pop.style.left=left+"px";
+      pop.style.right="auto";
+    }
+  }
+  function openFor(trig){
+    var type=trig.getAttribute("data-pop"), alreadyOpen=trig.getAttribute("aria-expanded")==="true";
+    closePops();
+    if(alreadyOpen) return;
+    var pop=(type==="date")?popDate:popGuests;
+    // cancel any in-flight fade-out on this panel before showing it again
+    if(pop._closeDone){ pop.removeEventListener("animationend", pop._closeDone); clearTimeout(pop._closeTimer); pop._closeDone=null; }
+    pop.classList.remove("closing");
+    pop.hidden=false;
+    if(type==="date") renderCal(); else renderSteppers();
+    trig.setAttribute("aria-expanded","true");
+    placePop(trig, pop);
+  }
+  triggers.forEach(function(t){ t.addEventListener("click", function(e){ e.stopPropagation(); openFor(t); }); });
+  document.getElementById("calDone").addEventListener("click", closePops);
+  document.getElementById("guestsDone").addEventListener("click", closePops);
+  [popDate,popGuests].forEach(function(p){ p.addEventListener("click", function(e){ e.stopPropagation(); }); });
+  document.addEventListener("click", closePops);
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closePops(); });
+
+  /* ---- deep link ---- */
+  function buildBookingUrl(){
+    var parts=["layout=14019","currency=EUR","nsid=99277590-3b11-4618-87eb-ca0a388150a1","lang="+currentLang];
+    if(ci.value) parts.push("checkin="+ci.value);
+    if(co.value) parts.push("checkout="+co.value);
+    parts.push("guesttypes[0][18482]="+(parseInt(ad.value,10)||1));
+    var b=parseInt(babies.value,10)||0, k1=parseInt(kids1.value,10)||0, k2=parseInt(kids2.value,10)||0;
+    if(b>0)  parts.push("guesttypes[0][18484]="+b);
+    if(k1>0) parts.push("guesttypes[0][18483]="+k1);
+    if(k2>0) parts.push("guesttypes[0][19632]="+k2);
+    parts.push("beginsearch=1","isnewsearch=1");
+    return BE_BASE+"?"+parts.join("&");
+  }
+  function openBooking(){ window.open(buildBookingUrl(),"_blank","noopener"); }
+  bookingForm.addEventListener("submit", function(e){ e.preventDefault(); openBooking(); });
+  document.querySelectorAll(".js-book").forEach(function(b){ b.addEventListener("click", openBooking); });
+
+  function initDates(){
+    ciDate=addDays(today,1); coDate=addDays(today,2);
+    viewM=new Date(ciDate.getFullYear(),ciDate.getMonth(),1);
+    syncDates(); renderSteppers();
+  }
+  document.getElementById("bsSummary").addEventListener("click", function(){ bookingForm.scrollIntoView({behavior:"smooth", block:"center"}); });
+
+  /* ---------- Slideshows (vanilla, dependency-free) ---------- */
+  function slideshow(rootId, prevId, nextId, dotsId){
+    var root=document.getElementById(rootId); if(!root) return;
+    var slides=root.querySelectorAll(".rs-slide,.ps-slide");
+    var dots=document.getElementById(dotsId);
+    var i=0, timer=null;
+    function paint(){
+      slides.forEach(function(s,n){ s.classList.toggle("is-active", n===i); });
+      if(dots) Array.prototype.forEach.call(dots.children, function(d,n){ d.classList.toggle("active", n===i); });
+    }
+    function go(n){ i=(n+slides.length)%slides.length; paint(); }
+    if(dots){ slides.forEach(function(s,idx){
+      var b=document.createElement("button"); b.type="button"; b.setAttribute("aria-label", "Slide "+(idx+1));
+      b.addEventListener("click", function(){ go(idx); restart(); }); dots.appendChild(b);
+    }); }
+    paint();
+    function start(){ if(prefersReduced()) return; timer=window.setInterval(function(){ go(i+1); }, 5200); }
+    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+    function restart(){ stop(); start(); }
+    var nx=document.getElementById(nextId), pv=document.getElementById(prevId);
+    if(nx) nx.addEventListener("click", function(){ go(i+1); restart(); });
+    if(pv) pv.addEventListener("click", function(){ go(i-1); restart(); });
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    start();
+  }
+  slideshow("roomShow","rsPrev","rsNext","rsDots");
+  slideshow("photoShow","psPrev","psNext","psDots");
+  slideshow("livShow","livPrev","livNext","livDots");
+
+  /* ---------- Amenity full-width expanding drawer (one open at a time) ---------- */
+  var drawer=document.getElementById("amenityDrawer");
+  var acards=document.querySelectorAll(".amenity[data-key]");
+  var amenitiesGrid=document.getElementById("amenities");
+  if(drawer){
+    var adPanels=drawer.querySelectorAll(".ad-panel");
+    var openKey=null, openCard=null;
+    function setPanel(key){ adPanels.forEach(function(p){ p.classList.toggle("is-active", p.getAttribute("data-key")===key); }); }
+    /* Point the drawer caret at the card that opened it. In a 1-col layout the
+       active card already sits directly above the drawer, so hide the caret. */
+    function positionCaret(card){
+      if(!card) return;
+      var oneCol=false;
+      if(amenitiesGrid){
+        var cols=getComputedStyle(amenitiesGrid).gridTemplateColumns.split(" ").length;
+        oneCol=cols<=1;
+      }
+      drawer.classList.toggle("no-caret", oneCol);
+      if(oneCol) return;
+      var cardR=card.getBoundingClientRect(), drawR=drawer.getBoundingClientRect();
+      var x=cardR.left+cardR.width/2-drawR.left;
+      var inner=drawer.querySelector(".ad-inner");
+      if(inner) inner.style.setProperty("--caret-x", x+"px");
+    }
+    function openDrawer(key,card){
+      setPanel(key); drawer.hidden=false;
+      drawer.style.height="auto"; var h=drawer.scrollHeight; drawer.style.height="0px";
+      void drawer.offsetHeight; drawer.style.height=h+"px"; openKey=key; openCard=card;
+      acards.forEach(function(c){ c.setAttribute("aria-expanded", c===card?"true":"false"); });
+      if(amenitiesGrid) amenitiesGrid.classList.add("has-open");
+      positionCaret(card);
+    }
+    function closeDrawer(){
+      drawer.style.height=drawer.scrollHeight+"px"; void drawer.offsetHeight; drawer.style.height="0px"; openKey=null; openCard=null;
+      acards.forEach(function(c){ c.setAttribute("aria-expanded","false"); });
+      if(amenitiesGrid) amenitiesGrid.classList.remove("has-open");
+    }
+    drawer.addEventListener("transitionend", function(e){
+      if(e.propertyName!=="height") return;
+      if(openKey===null){ drawer.hidden=true; } else { drawer.style.height="auto"; }
+    });
+    acards.forEach(function(c){ c.addEventListener("click", function(){
+      var key=c.getAttribute("data-key");
+      if(openKey===key) closeDrawer(); else openDrawer(key,c);
+    }); });
+    // keep the caret aligned to its card when the layout reflows
+    window.addEventListener("resize", function(){ if(openCard) positionCaret(openCard); }, {passive:true});
+  }
+
+  /* ---------- Guest review wall (★★★★★ — scattered across the section, multilingual) ---------- */
+  var REVIEWS=[
+    /* English */
+    ["Perfect family ski hotel with excellent facilities and an unbeatable location just steps from the slopes.","Marco"],
+    ["A flawless stay from start to finish. We will definitely return.","Sophie"],
+    ["The real luxury is the team. Friendly, welcoming, and always there to help.","Daniel"],
+    ["Fantastic New Year's holiday. Everything exceeded our expectations.","Laura"],
+    ["One of the best hotel experiences we've ever had. Every star is deserved.","James"],
+    ["Spacious rooms, covered parking, and excellent cuisine.","Rachel"],
+    ["Outstanding experience. We are already planning our next visit.","Peter"],
+    ["Great facilities for children and excellent access to skiing.","Thomas"],
+    ["Beautiful property in a prime location. We can't wait to come back.","Emma"],
+    ["Extremely friendly staff and impeccable cleanliness throughout.","Michael"],
+    ["Wonderful week, superb cuisine and truly warm hospitality.","Nicole"],
+    /* Italiano */
+    ["Hotel perfetto per famiglie, a due passi dalle piste. Torneremo senza dubbio.","Giulia"],
+    ["Il vero lusso è lo staff: gentile, accogliente e sempre disponibile.","Roberto"],
+    ["Camere spaziose, spa meravigliosa e servizi per bambini eccellenti.","Chiara"],
+    ["Posizione impareggiabile nel cuore di Livigno. Esperienza indimenticabile.","Davide"],
+    ["Colazione superba e cena ottima tutte le sere. Consigliatissimo.","Federico"],
+    ["Accoglienza calorosa e pulizia impeccabile. Cinque stelle meritate.","Alessia"],
+    ["Vacanza perfetta con i bambini, atmosfera familiare e curata.","Francesca"],
+    ["Ristorante fantastico e ospitalità genuina. Personale eccezionale.","Valentina"],
+    ["Soggiorno impeccabile dall'arrivo alla partenza. Grazie di cuore.","Luca"],
+    /* Deutsch */
+    ["Perfektes Familienhotel direkt an der Piste. Wir kommen ganz sicher wieder.","Andreas"],
+    ["Herzlicher Empfang, komfortable Zimmer und ausgezeichnete Küche.","Sabine"],
+    ["Der wahre Luxus ist das Team — freundlich, aufmerksam und immer hilfsbereit.","Markus"],
+    ["Wunderbarer Wellnessbereich und tolle Angebote für Kinder.","Julia"],
+    ["Traumhafte Lage im Herzen von Livigno. Ein unvergesslicher Urlaub.","Stefan"],
+    ["Hervorragendes Frühstück und ein fantastisches Abendessen jeden Tag.","Claudia"],
+    ["Familienfreundlich, sauber und einfach perfekt organisiert.","Florian"],
+    ["Eines der besten Hotels, in denen wir je übernachtet haben.","Katrin"],
+    /* Español */
+    ["Hotel perfecto para familias, a un paso de las pistas. Volveremos seguro.","Carlos"],
+    ["El verdadero lujo es el personal: amable, atento y siempre disponible.","Lucía"],
+    ["Habitaciones amplias, spa increíble y excelente gastronomía.","Javier"],
+    ["Ubicación inmejorable en el corazón de Livigno. Una experiencia inolvidable.","María"],
+    ["Desayuno espectacular y cena deliciosa cada noche. Muy recomendable.","Pablo"],
+    ["Acogida cálida y limpieza impecable. Cinco estrellas merecidas.","Elena"],
+    ["Vacaciones perfectas con los niños. Ambiente familiar y cuidado.","Sergio"],
+    ["Restaurante fantástico y hospitalidad genuina. Personal excepcional.","Marta"]
+  ];
+  var wall=document.getElementById("gvWall");
+  // Drop the reviews across the whole section like a scattered pile of cards on a table:
+  // each card is absolutely placed on a staggered grid with random jitter + tilt so they
+  // overlap and cover the background completely, no matter the viewport size.
+  function buildWall(){
+    if(!wall) return;
+    var w=wall.clientWidth, h=wall.clientHeight;
+    if(!w||!h) return;
+    wall.innerHTML="";
+    var small=w<560;
+    var cardW=small?150:208;        // card footprint
+    var stepX=cardW*0.58;           // tight horizontal spacing → heavy sideways overlap, no gaps
+    var stepY=small?92:100;         // tight vertical spacing → rows overlap, background fully hidden
+    var cols=Math.ceil(w/stepX)+3;
+    var rows=Math.ceil(h/stepY)+3;
+    var n=0;
+    for(var ry=-2; ry<rows; ry++){
+      for(var cx=-2; cx<cols; cx++){
+        var r=REVIEWS[n%REVIEWS.length];
+        var seed=((n+1)*2654435761)>>>0;            // deterministic pseudo-random per card
+        var jx=((seed%1000)/1000-0.5)*stepX*0.55;   // small jitter so cards stay overlapping (no gaps)
+        var jy=(((seed>>10)%1000)/1000-0.5)*stepY*0.55;
+        var rot=(((seed>>20)%1500)/100)-7.5;          // tilt −7.5°…+7.5°
+        var stagger=(ry&1)?stepX*0.5:0;               // brick offset so it never looks like a grid
+        // mostly 5★, with some 4★ and a few 3★ sprinkled in
+        var rr=(seed>>3)%100, rating=(rr<8)?3:(rr<26)?4:5;
+        var stars=new Array(rating+1).join("★")+new Array(6-rating).join("☆");
+        var b=document.createElement("blockquote"); b.className="gv-quote";
+        b.style.width=cardW+"px";
+        b.style.left=(cx*stepX+stagger+jx)+"px";
+        b.style.top=(ry*stepY+jy)+"px";
+        b.style.setProperty("--r", rot.toFixed(2)+"deg");
+        b.style.zIndex=String(seed%6);                // mixed stacking → looks tossed
+        b.innerHTML='<span class="gq-stars" aria-hidden="true">'+stars+'</span><p>“'+r[0]+'”</p><cite>'+r[1]+'</cite>';
+        wall.appendChild(b);
+        n++;
+      }
+    }
+  }
+  if(wall){
+    buildWall();
+    window.addEventListener("load", buildWall);           // re-fill after fonts/images settle the height
+    var wallT;
+    window.addEventListener("resize", function(){ clearTimeout(wallT); wallT=setTimeout(buildWall,200); });
+  }
+
+  /* ---------- Livigno links: keep them in the active language ---------- */
+  function updateLivignoLinks(){
+    var disc=document.getElementById("livDiscover");
+    if(disc) disc.href="https://www.livigno.eu/"+currentLang;
+  }
+
+  /* ---------- Nav: scroll state ---------- */
+  var nav = document.getElementById("nav");
+  var bookingSticky = document.getElementById("bookingSticky");
+
+  function onScroll(){
+    nav.classList.toggle("is-scrolled", window.scrollY > 40);
+    // show compact sticky bar once the main booking card is scrolled past the nav
+    var rect = bookingForm.getBoundingClientRect();
+    var past = rect.bottom < (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 74) + 8;
+    bookingSticky.classList.toggle("show", past);
+    bookingSticky.setAttribute("aria-hidden", past ? "false":"true");
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+
+  /* ---------- Scroll reveal (screenshot-safe) ---------- */
+  function revealAll(){ document.querySelectorAll(".reveal,.ridge").forEach(function(el){ el.classList.add("is-visible"); }); }
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)){
+    revealAll();
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add("is-visible"); io.unobserve(en.target); }
+      });
+    }, {threshold:0.12, rootMargin:"0px 0px -8% 0px"});
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+    document.querySelectorAll(".ridge").forEach(function(el){ io.observe(el); });
+    // Fallback: never leave content hidden (covers print, screenshots, edge cases)
+    window.addEventListener("load", function(){ setTimeout(revealAll, 1400); });
+  }
+
+  /* ---------- Cookie consent (GA4 stays denied until accept) ---------- */
+  var cookie = document.getElementById("cookie");
+  function consentStored(){ try { return localStorage.getItem(LS_CONSENT); } catch(e){ return null; } }
+  function setConsent(granted){
+    try { localStorage.setItem(LS_CONSENT, granted ? "granted":"denied"); } catch(e){}
+    if (typeof gtag === "function"){
+      gtag('consent','update',{ analytics_storage: granted ? "granted":"denied" });
+    }
+    cookie.classList.remove("show");
+  }
+  document.getElementById("cookieAccept").addEventListener("click", function(){ setConsent(true); });
+  document.getElementById("cookieDecline").addEventListener("click", function(){ setConsent(false); });
+
+  /* ---------- Init ---------- */
+  document.querySelectorAll(".lang button").forEach(function(b){
+    b.addEventListener("click", function(){ applyLang(b.getAttribute("data-lang"), true); });
+  });
+  initDates();
+  applyLang(detectLang(), false);
+  onScroll();
+  var prior = consentStored();
+  if (prior === "granted" && typeof gtag === "function"){ gtag('consent','update',{analytics_storage:"granted"}); }
+  else if (!prior){
+    // keep the hero + booking widget pristine on arrival: reveal consent on first
+    // scroll past the fold, with a generous fallback so it never gets missed.
+    var shown = false;
+    var showCookie = function(){ if(shown) return; shown = true; cookie.classList.add("show"); window.removeEventListener("scroll", onCookieScroll); };
+    var onCookieScroll = function(){ if (window.scrollY > 160) showCookie(); };
+    window.addEventListener("scroll", onCookieScroll, {passive:true});
+    setTimeout(showCookie, 6000);
+  }
 })();
+</script>
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Hotel",
+  "name":"Hotel Touring Livigno",
+  "starRating":{"@type":"Rating","ratingValue":"4"},
+  "description":"Hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale. Piscina e spa, sci ai piedi, Kinder Club Lupigno e cucina valtellinese. Dal 1970.",
+  "image":"assets/img/touring-hotel.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"Via Plan 117","postalCode":"23030","addressLocality":"Livigno","addressRegion":"SO","addressCountry":"IT"},
+  "telephone":"+39 0342 996131",
+  "email":"info@touringlivigno.com",
+  "petsAllowed":false,
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Piscina coperta","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Spa & bagno turco","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Kinder Club","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Ski-in access","value":true}
+  ]
+}
 </script>
 </body>
 </html>
