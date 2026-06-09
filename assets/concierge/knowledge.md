@@ -1,18 +1,27 @@
+<!--
+  HOW TO EDIT: this single file is everything the website assistant knows.
+  Edit it, commit to GitHub, and the live bot uses the new version within ~5 min.
+  The assistant answers ONLY from what is written here. Anything in [SQUARE BRACKETS]
+  is treated as "not confirmed" — the bot will send the guest to reception instead.
+  Don't put live prices/availability here: the bot points guests to "Prenota / Book".
+-->
+
 # Hotel Touring Livigno — Chatbot Knowledge Base
-**Generated from:** Real guest email analysis (100+ threads)
-**Languages:** English & Italian
-**Last updated:** June 2026
+**Sources:** Real guest email analysis (100+ threads) + official website (touringlivigno.com)
+**Languages:** Italian & English (the bot also replies in German)
+**Last updated:** 9 June 2026
 
 ---
 
 ## 1. HOTEL OVERVIEW / PANORAMICA DELL'HOTEL
 
-**Hotel Touring Livigno**
-Via Roma (centro di Livigno), Livigno (SO), 23041 — Italy
+**Hotel Touring Livigno** — Hotel 4 stelle per famiglie / 4-star family hotel
+Via Plan 117, 23030 Livigno (SO), Italia
+Tel: +39 0342 996131 · Email: info@touringlivigno.com · Web: touringlivigno.com
 
-Hotel Touring è un hotel familiare situato nel centro di Livigno, in Valtellina. Accoglie ospiti italiani e internazionali per soggiorni estivi e invernali. Il team è composto da Mariapia (Mapi), Emanuela (Manu) e Andrea.
+Hotel Touring è un hotel familiare a 4 stelle nel cuore di Livigno (Valtellina, Alpi italiane), gestito dalla stessa famiglia da tre generazioni, dal 1970. Livigno è zona extra-doganale (duty-free), dove lo shopping è esente da IVA. Accoglie ospiti italiani e internazionali per soggiorni estivi e invernali. Il team include Mariapia (Mapi), Emanuela (Manu) e Andrea.
 
-Hotel Touring is a family-run hotel in the heart of Livigno, Valtellina. It welcomes Italian and international guests for both summer and winter stays. The team includes Mariapia (Mapi), Emanuela (Manu), and Andrea.
+Hotel Touring is a family-run 4-star hotel in the heart of Livigno (Valtellina, Italian Alps), run by the same family for three generations since 1970. Livigno is a duty-free / extra-customs zone where shopping is VAT-free. It welcomes Italian and international guests for both summer and winter stays. The team includes Mariapia (Mapi), Emanuela (Manu), and Andrea.
 
 ---
 
@@ -30,20 +39,28 @@ Hotel Touring is a family-run hotel in the heart of Livigno, Valtellina. It welc
 - Alta stagione invernale: dicembre–marzo, con particolare richiesta per gennaio, febbraio e marzo.
 - Peak winter season: December–March, high demand for January, February, March.
 
-### Stagione estiva / Summer season stays
+### Durata soggiorni estivi / Summer stay lengths
 - Soggiorni più flessibili in estate (anche 1–4 notti disponibili).
 - More flexible stay lengths in summer (even 1–4 nights available).
 
 ---
 
-## 3. TIPOLOGIE DI CAMERA / ROOM TYPES
+## 3. CAMERE / ROOMS
 
+### Tipologie (prenotazione) / Booking types
 - **Camera doppia** (matrimoniale o twin) / Double room (double or twin beds)
 - **Camera singola** / Single room
 - **Camera tripla** (doppia + letto aggiunto) / Triple room (double + extra bed)
 - **Junior Suite** — disponibile per famiglie / available for families
-- **Camere comunicanti / Interconnecting rooms** — disponibili per famiglie numerose (es. doppia + singola) / available for larger families (e.g. double + single)
-- **Appartamenti** — disponibili per gruppi, capacità fino a 4 persone per appartamento / available for groups, up to 4 persons per apartment
+- **Camere comunicanti / Interconnecting rooms** — per famiglie numerose (es. doppia + singola) / for larger families (e.g. double + single)
+- **Appartamenti** — per gruppi, fino a 4 persone per appartamento / for groups, up to 4 persons per apartment
+
+### Le camere dell'hotel (dettaglio) / Hotel room styles (detail)
+- **Superior** — 2–3 ospiti, 22 m², legno antico di recupero, la più caratteristica / 2–3 guests, 22 m², reclaimed antique wood, the most characterful.
+- **Junior Suite Minimal** — 2–3 ospiti, 28 m², stile moderno, tessuti naturali / 2–3 guests, 28 m², modern style, natural fabrics.
+- **Camere Comunicanti** — 4–5 ospiti, due stanze unite da porta interna / 4–5 guests, two rooms joined by an internal door.
+- **Standard** — 2 ospiti, 16 m², letto alla francese, balcone sulla via / 2 guests, 16 m², French bed, balcony over the street.
+- **Camera Lupigno** (per bambini) — letti a castello, scivolo e murale alpino / kids room with bunk beds, a slide and an alpine mural.
 
 > Il numero di camera preferita può essere richiesto (es. camera 107, camera 308). Non sempre garantito, ma annotato.
 > Preferred room numbers can be requested (e.g. room 107, room 308). Not always guaranteed but noted.
@@ -57,80 +74,107 @@ Hotel Touring is a family-run hotel in the heart of Livigno, Valtellina. It welc
 | **B&B** | Solo colazione | Breakfast only |
 | **Mezza pensione (HB)** | Colazione + cena | Breakfast + dinner |
 
-- La colazione è inclusa in tutti i soggiorni.
-- Breakfast is included in all stays.
-- La mezza pensione include colazione e cena.
-- Half board includes breakfast and dinner.
+- La colazione è inclusa in tutti i soggiorni / Breakfast is included in all stays.
+- La mezza pensione include colazione e cena / Half board includes breakfast and dinner.
 - Il trattamento viene specificato nell'offerta personalizzata inviata via email.
 - The meal plan is specified in the personalised offer sent by email.
 
 ---
 
-## 5. PREZZI E OFFERTE / PRICING & OFFERS
+## 5. RISTORANTE & BAR / RESTAURANT & BAR
+
+- Cucina valtellinese e prodotti di stagione / Valtellina cuisine and seasonal produce.
+- **Orari / Hours:** colazione a buffet 7:30–10:00 · pranzo à la carte 12:00–14:00 · cena servita 19:00–21:00.
+  Breakfast buffet 7:30–10:00 · à la carte lunch 12:00–14:00 · served dinner 19:00–21:00.
+- Bar per aperitivo e dopocena, cocktail d'autore, carta dei vini / Bar for aperitivo and after-dinner, signature cocktails, wine list.
+- Menù e seggioloni per i bambini / Kids' menus and high chairs available.
+
+---
+
+## 6. PISCINA, SPA & BENESSERE / POOL, SPA & WELLNESS
+
+- **Piscina coperta riscaldata / Heated indoor pool:** 9:00–20:00.
+- **Spa / Spa hours:** lun–ven e domenica 16:00–20:00 · **sabato chiuso** · ultimo ingresso 19:30.
+  Mon–Fri & Sunday 16:00–20:00 · **closed Saturday** · last entry 19:30.
+- Strutture / Facilities: sauna finlandese (90°), bagno turco (45°), Brechelbad aromatico (55°), doccia cromoterapica, sala relax, idromassaggio, massaggi e trattamenti.
+  Finnish sauna (90°), Turkish bath (45°), aromatic Brechelbad (55°), chromotherapy shower, relaxation room, hydromassage, massages & treatments.
+
+---
+
+## 7. FAMIGLIA & KINDER CLUB LUPIGNO / FAMILY & KIDS CLUB
+
+- Hotel pensato per le famiglie, con la mascotte **Lupigno** (la marmotta).
+- A family-focused hotel, with its mascot **Lupigno** (the marmot).
+- **Mini Club / Kinder Club Lupigno:** lun–ven e domenica 16:00–22:00 · **sabato chiuso**.
+  Mon–Fri & Sunday 16:00–22:00 · **closed Saturday**.
+- Sala giochi e animazione per bambini, angolo bimbi in piscina, Camera Lupigno con scivolo.
+  Games room and kids' animation, children's corner in the pool, Camera Lupigno with slide.
+- Nelle vicinanze: Larix Park e laghi alpini / Nearby: Larix Park and alpine lakes.
+
+---
+
+## 8. PREZZI E OFFERTE / PRICING & OFFERS
 
 - L'hotel utilizza **prezzi dinamici** che variano in base alla domanda e al periodo.
 - The hotel uses **dynamic pricing** that varies according to demand and season.
 - Le offerte personalizzate vengono inviate via email separata (sistema Be Direct / BeSync).
 - Personalised offers are sent by a separate email (Be Direct / BeSync system).
-- **Caparra / Deposit:** 30% del totale al momento della conferma.
-- **Deposit:** 30% of the total at time of confirmation.
-- Il saldo può essere richiesto una settimana prima dell'arrivo.
-- The balance may be requested one week before arrival.
-- **Commissioni agenzie:** 7% per agenzie di viaggio / **Agency commission:** 7% for travel agencies.
-- **Sconto fedeltà / Loyalty discount:** applicabile per clienti abituali (es. 10%) / applicable for returning guests (e.g. 10%).
+- **Caparra / Deposit:** 30% del totale al momento della conferma / 30% of the total at confirmation.
+- Il saldo può essere richiesto una settimana prima dell'arrivo / The balance may be requested one week before arrival.
+- **Commissioni agenzie / Agency commission:** 7% per agenzie di viaggio / 7% for travel agencies.
+- **Sconto fedeltà / Loyalty discount:** per clienti abituali (es. 10%) / for returning guests (e.g. 10%).
 - **Early booking discount** disponibile in alcuni periodi / available in some periods.
-- **Buoni regalo / Gift vouchers** sono disponibili su richiesta / are available on request.
+- **Buoni regalo / Gift vouchers** disponibili su richiesta / available on request.
 
 ---
 
-## 6. PRENOTAZIONE E PAGAMENTO / BOOKING & PAYMENT
+## 9. PRENOTAZIONE E PAGAMENTO / BOOKING & PAYMENT
 
 ### Come prenotare / How to book
-1. Contattare l'hotel via email: **info@touringlivigno.com**
-2. Ricevere l'offerta personalizzata via email separata (controllare spam se non arriva).
-3. Confermare accettando l'offerta.
-4. Ricevere la conferma di prenotazione con IBAN per il bonifico di caparra.
-5. Effettuare il bonifico del 30% di caparra.
+- **Online (consigliato):** verifica disponibilità e prezzi e prenota direttamente con il pulsante **"Prenota / Book"** sul sito (motore di prenotazione ufficiale, tariffe migliori dirette).
+- **Online (recommended):** check availability and prices and book directly with the **"Prenota / Book"** button on the website (official booking engine, best direct rates).
+- **Via email:** richiedi un'offerta personalizzata scrivendo a **info@touringlivigno.com**.
+- **By email:** request a personalised offer at **info@touringlivigno.com**.
 
-1. Contact the hotel by email: **info@touringlivigno.com**
-2. Receive a personalised offer by separate email (check spam if not received).
-3. Confirm by accepting the offer.
-4. Receive booking confirmation with IBAN for the deposit transfer.
-5. Transfer the 30% deposit.
+Flusso offerta via email / Email offer flow:
+1. Contatta l'hotel / Contact the hotel by email.
+2. Ricevi l'offerta personalizzata via email separata (controlla lo spam) / Receive a personalised offer by separate email (check spam).
+3. Conferma accettando l'offerta / Confirm by accepting the offer.
+4. Ricevi la conferma con IBAN per la caparra / Receive confirmation with IBAN for the deposit.
+5. Effettua il bonifico del 30% / Transfer the 30% deposit.
 
 ### Metodo di pagamento / Payment method
-- **Bonifico bancario (bank transfer)** — metodo principale / main method.
-- L'IBAN viene fornito nella email di conferma prenotazione.
-- The IBAN is provided in the booking confirmation email.
+- **Bonifico bancario** — metodo principale; l'IBAN è nell'email di conferma.
+- **Bank transfer** — main method; the IBAN is in the confirmation email.
 
 ### Fatturazione / Invoicing
-- **Livigno è zona franca — esente da IVA.** Le fatture sono solo in formato cartaceo (non elettronico SDI).
-- **Livigno is a tax-free zone — VAT exempt.** Invoices are paper-only (not electronic SDI format).
+- **Livigno è zona franca esente da IVA.** Le fatture sono solo cartacee (non SDI elettronico).
+- **Livigno is a VAT-free zone.** Invoices are paper-only (not electronic SDI format).
 
 ---
 
-## 7. CHECK-IN E CHECK-OUT / CHECK-IN & CHECK-OUT
+## 10. CHECK-IN E CHECK-OUT / CHECK-IN & CHECK-OUT
 
-- **Check-in standard:** pomeriggio (le richieste di check-in anticipato dalle 10:00–12:00 vengono valutate caso per caso).
-- **Standard check-in:** afternoon (early check-in requests from 10:00–12:00 are evaluated case by case).
-- **Check-out standard:** mattina.
-- **Standard check-out:** morning.
-- Richieste di orario diverso vanno comunicate in anticipo all'hotel.
-- Requests for different times should be communicated to the hotel in advance.
+- **Check-in standard:** pomeriggio (richieste anticipate 10:00–12:00 valutate caso per caso).
+- **Standard check-in:** afternoon (early check-in 10:00–12:00 evaluated case by case).
+- **Check-out standard:** mattina / **Standard check-out:** morning.
+- Richieste di orario diverso vanno comunicate in anticipo / Different times should be arranged in advance.
 
 ---
 
-## 8. PARCHEGGIO / PARKING
+## 11. POSIZIONE, PARCHEGGIO & COME ARRIVARE / LOCATION, PARKING & GETTING HERE
 
-- L'hotel dispone di un **garage coperto** per gli ospiti.
-- The hotel has a **covered garage** for guests.
-- Il parcheggio è **incluso nel prezzo** del soggiorno.
-- Parking is **included in the price** of the stay.
-- Adatto anche per moto / motorcycles welcome.
+- Nel cuore di Livigno, in **Via Plan 117**, sulla via pedonale, a pochi passi da piste, impianti e negozi.
+- In the heart of Livigno, at **Via Plan 117**, on the pedestrian street, a short walk from the slopes, lifts and shops.
+- **Parcheggio / Parking:** garage coperto incluso nel prezzo, 24/7; adatto anche a moto. Deposito sci & bike.
+  Covered garage included in the price, 24/7; motorcycles welcome. Ski & bike storage.
+- **ZTL (zona a traffico limitato):** ingresso da **Via Bondi** (accesso N.5), uscita da **Via Pienz**. Comunicare la targa al check-in per la registrazione.
+  Limited-traffic zone: entry via **Via Bondi** (access N.5), exit via **Via Pienz**. Give your number plate at check-in to register it.
+- **In auto / By car:** passi Foscagno e Forcola; tunnel Munt la Schera / Foscagno & Forcola passes; Munt la Schera tunnel.
 
 ---
 
-## 9. POLITICA ANIMALI / PET POLICY
+## 12. POLITICA ANIMALI / PET POLICY
 
 > ⚠️ **Gli animali domestici NON sono ammessi in struttura.**
 > ⚠️ **Pets are NOT allowed at the hotel.**
@@ -140,193 +184,134 @@ If a guest is travelling with pets, the hotel informs them before sending an off
 
 ---
 
-## 10. POLITICA DI CANCELLAZIONE / CANCELLATION POLICY
+## 13. POLITICA DI CANCELLAZIONE / CANCELLATION POLICY
 
-- In caso di cancellazione, il rimborso della caparra viene effettuato tramite bonifico bancario all'IBAN fornito dall'ospite.
-- In case of cancellation, the deposit refund is made by bank transfer to the IBAN provided by the guest.
-- Le penali di cancellazione variano: cancellazioni con 7+ giorni di anticipo possono essere senza penale (verifica su Expedia/Booking).
+- In caso di cancellazione, il rimborso della caparra avviene tramite bonifico all'IBAN dell'ospite.
+- In case of cancellation, the deposit refund is made by bank transfer to the guest's IBAN.
+- Le penali variano: cancellazioni con 7+ giorni di anticipo possono essere senza penale (verifica su Expedia/Booking).
 - Cancellation fees vary: cancellations 7+ days before check-in may be fee-free (verify on Expedia/Booking).
 - Alcune tariffe includono assicurazione / Some rates include insurance.
 
 ---
 
-## 11. SERVIZI SPECIALI / SPECIAL SERVICES
+## 14. SERVIZI SPECIALI / SPECIAL SERVICES
 
 ### Torte e occasioni speciali / Birthday cakes & special occasions
-- L'hotel può organizzare torte di compleanno personalizzate tramite lo chef.
-- The hotel can arrange personalised birthday cakes through the chef.
-- Comunicare la richiesta in anticipo specificando gusti e preferenze.
-- Communicate the request in advance with flavour preferences.
+- Torte di compleanno personalizzate tramite lo chef; comunicare in anticipo gusti e preferenze.
+- Personalised birthday cakes through the chef; communicate flavour preferences in advance.
 
 ### Escursioni / Excursions
-- L'hotel ha una guida escursionistica propria (**Melissa**) con un programma attività.
-- The hotel has its own excursion guide (**Melissa**) with an activities programme.
-- Attività disponibili: Naturalista Esploratore e altre (programma inviato su richiesta).
-- Activities available: Nature Explorer and others (programme sent on request).
+- Guida escursionistica propria (**Melissa**) con programma attività (es. Naturalista Esploratore).
+- In-house excursion guide (**Melissa**) with an activities programme (e.g. Nature Explorer). Programme on request.
 
 ### Trenino del Bernina / Bernina Express
-- Il calendario delle attività del Trenino del Bernina viene pubblicato stagionalmente.
-- The Bernina Express activities calendar is published seasonally.
-- L'hotel può fornire informazioni aggiornate.
-- The hotel can provide up-to-date information.
+- Calendario attività pubblicato stagionalmente; l'hotel fornisce info aggiornate.
+- Activities calendar published seasonally; the hotel can provide up-to-date information.
 
 ### Noleggio biciclette / Bike rental
-- L'hotel può fornire contatti per noleggio biciclette e zaini porta-bambini nella zona.
-- The hotel can provide contacts for bicycle hire and child-carrier backpack rental in the area.
+- L'hotel può fornire contatti per noleggio bici e zaini porta-bambini in zona.
+- The hotel can provide contacts for bike hire and child-carrier backpacks in the area.
 
 ---
 
-## 12. FAMIGLIE E GRUPPI / FAMILIES & GROUPS
+## 15. FAMIGLIE E GRUPPI / FAMILIES & GROUPS
 
-- L'hotel è particolarmente adatto alle famiglie con bambini.
-- The hotel is particularly suitable for families with children.
-- Tariffe bambini disponibili / Children's rates available.
-- Per famiglie numerose: camere comunicanti o suite disponibili.
-- For larger families: interconnecting rooms or suites available.
-- Per gruppi (es. moto club, gruppi sportivi): preventivo su richiesta con più camere.
-- For groups (e.g. motorbike clubs, sports groups): quote on request for multiple rooms.
-- Per grandi gruppi (100+ persone): disponibilità limitata, valutare in anticipo.
-- For large groups (100+ persons): limited availability, plan well in advance.
+- Hotel particolarmente adatto alle famiglie con bambini; tariffe bambini disponibili.
+- Particularly suitable for families with children; children's rates available.
+- Famiglie numerose: camere comunicanti o suite / Larger families: interconnecting rooms or suites.
+- Gruppi (moto club, gruppi sportivi): preventivo su richiesta con più camere.
+- Groups (motorbike clubs, sports groups): quote on request for multiple rooms.
+- Grandi gruppi (100+ persone): disponibilità limitata, valutare in anticipo.
+- Large groups (100+): limited availability, plan well in advance.
 
 ---
 
-## 13. CLIENTI INTERNAZIONALI / INTERNATIONAL GUESTS
+## 16. CLIENTI INTERNAZIONALI / INTERNATIONAL GUESTS
 
-L'hotel accoglie ospiti da: Italia, Belgio, Repubblica Ceca, Polonia, Croazia, UK, USA, Francia e altri paesi.
-The hotel welcomes guests from: Italy, Belgium, Czech Republic, Poland, Croatia, UK, USA, France and other countries.
-
-- Comunicazioni in italiano e inglese / Communication in Italian and English.
-- Offerte inviate in lingua dell'ospite / Offers sent in the guest's language.
+- Ospiti da Italia, Belgio, Repubblica Ceca, Polonia, Croazia, UK, USA, Francia e altri paesi.
+- Guests from Italy, Belgium, Czech Republic, Poland, Croatia, UK, USA, France and others.
+- Comunicazioni in italiano e inglese; offerte nella lingua dell'ospite.
+- Communication in Italian and English; offers sent in the guest's language.
 - Tariffe commissionabili per agenzie straniere (7%) / Commissionable rates for foreign agencies (7%).
 
 ---
 
-## 14. AREA E DINTORNI / LOCAL AREA
+## 17. LIVIGNO E DINTORNI / ABOUT LIVIGNO & THE AREA
 
-**Livigno** è una zona turistica alpina in Valtellina, a circa 1800m slm, famosa per:
-**Livigno** is an Alpine tourist area in Valtellina at about 1800m a.s.l., famous for:
+**Livigno** — a 1.816 m, in Valtellina, soprannominata il "Piccolo Tibet delle Alpi"; zona extra-doganale (duty-free).
+**Livigno** — at 1,816 m in Valtellina, nicknamed the "Little Tibet of the Alps"; a duty-free zone.
 
-- ⛷️ **Sci / Skiing** — area sciistica di circa 115 km di piste.
-- 🛍️ **Shopping duty-free** — Livigno è zona franca, prodotti esenti da IVA.
-- 🚵 **Mountain bike e escursionismo** / mountain biking and hiking in estate.
-- 🚂 **Trenino del Bernina** — escursione iconica vicino a Livigno.
-- 🏔️ **Paesaggi alpini** e attività all'aria aperta.
-
----
-
-## 15. DOMANDE FREQUENTI / FAQ
-
-**Q: Come ricevo l'offerta?**
-A: L'offerta viene inviata via email separata dal sistema di preventivi. Se non la trova nella posta in arrivo, controlli nella cartella spam.
-
-**Q: How do I receive the offer?**
-A: The offer is sent by a separate email from our quotation system. If you don't find it in your inbox, please check your spam folder.
+- ⛷️ **Inverno / Winter:** oltre 115 km di piste, snowpark, sci notturno; area delle **Olimpiadi invernali 2026**.
+  115+ km of ski slopes, snowpark, night skiing; host area for the **2026 Winter Olympics**.
+- 🚵 **Estate / Summer:** trekking, mountain bike (Bike Park, flow trail, e-bike), laghi alpini.
+  Trekking, mountain biking (Bike Park, flow trails, e-bike), alpine lakes.
+- 🛍️ **Shopping duty-free** tutto l'anno (esente IVA) / year-round VAT-free shopping.
+- 🚂 **Trenino del Bernina** — escursione iconica vicino a Livigno / iconic excursion near Livigno.
+- ℹ️ Sito turistico ufficiale / Official tourism site: **livigno.eu**.
 
 ---
 
-**Q: Posso portare il mio cane/gatto?**
-A: Purtroppo no, gli animali domestici non sono ammessi in struttura.
+## 18. DOMANDE FREQUENTI / FAQ
 
-**Q: Can I bring my dog/cat?**
-A: Unfortunately no, pets are not allowed at the hotel.
-
----
-
-**Q: Il parcheggio è incluso?**
-A: Sì, disponiamo di un garage coperto incluso nel prezzo del soggiorno.
-
-**Q: Is parking included?**
-A: Yes, we have a covered garage included in the price of the stay.
+**Q: A che ora apre la piscina / la spa?**
+A: La piscina coperta è aperta 9:00–20:00. La spa è aperta lun–ven e domenica 16:00–20:00 (sabato chiusa, ultimo ingresso 19:30).
+**Q: What time do the pool and spa open?**
+A: The indoor pool is open 9:00–20:00. The spa is open Mon–Fri and Sunday 16:00–20:00 (closed Saturday, last entry 19:30).
 
 ---
 
-**Q: Posso fare il check-in prima del pomeriggio?**
-A: Le richieste di check-in anticipato vengono valutate in base alla disponibilità delle camere. Contattateci in anticipo.
-
-**Q: Can I check in before the afternoon?**
-A: Early check-in requests are assessed based on room availability. Please contact us in advance.
+**Q: Gli animali sono ammessi? / Are pets allowed?**
+A: No, purtroppo gli animali domestici non sono ammessi. / No, unfortunately pets are not allowed.
 
 ---
 
-**Q: Come faccio a pagare la caparra?**
-A: La caparra è il 30% del totale e si paga tramite bonifico bancario. L'IBAN è indicato nell'email di conferma prenotazione.
-
-**Q: How do I pay the deposit?**
-A: The deposit is 30% of the total and is paid by bank transfer. The IBAN is provided in the booking confirmation email.
+**Q: Il parcheggio è incluso? / Is parking included?**
+A: Sì, garage coperto incluso nel prezzo, 24/7. / Yes, a covered garage is included in the price, 24/7.
 
 ---
 
-**Q: Posso ricevere una fattura elettronica?**
-A: No. Livigno è zona franca esente da IVA, per cui le fatture vengono emesse solo in formato cartaceo.
-
-**Q: Can I receive an electronic invoice?**
-A: No. Livigno is a VAT-free zone, so invoices are issued in paper format only.
+**Q: Come prenoto? / How do I book?**
+A: Online con il pulsante "Prenota / Book" sul sito, oppure via email a info@touringlivigno.com per un'offerta personalizzata.
+A: Online via the "Prenota / Book" button on the website, or by email to info@touringlivigno.com for a personalised offer.
 
 ---
 
-**Q: I soggiorni invernali hanno una durata minima?**
-A: Sì, in inverno i soggiorni sono principalmente da sabato a sabato (7 notti).
-
-**Q: Do winter stays have a minimum length?**
-A: Yes, in winter stays are primarily Saturday to Saturday (7 nights).
+**Q: Come funziona la caparra? / How does the deposit work?**
+A: 30% del totale tramite bonifico; l'IBAN è nell'email di conferma. / 30% of the total by bank transfer; the IBAN is in the confirmation email.
 
 ---
 
-**Q: Avete camere per famiglie con bambini piccoli?**
-A: Sì, offriamo camere triple (doppia + letto aggiunto), camere comunicanti e junior suite adatte alle famiglie.
-
-**Q: Do you have rooms for families with young children?**
-A: Yes, we offer triple rooms (double + extra bed), interconnecting rooms, and junior suites suitable for families.
+**Q: I soggiorni invernali hanno una durata minima? / Is there a minimum stay in winter?**
+A: Sì, in inverno principalmente da sabato a sabato (7 notti). / Yes, in winter mostly Saturday to Saturday (7 nights).
 
 ---
 
-**Q: Posso richiedere una camera specifica?**
-A: Sì, puoi indicare la preferenza. Non è sempre garantita, ma la annoteremo.
-
-**Q: Can I request a specific room?**
-A: Yes, you can indicate a preference. It's not always guaranteed, but we will note it down.
+**Q: Avete camere per famiglie? / Do you have family rooms?**
+A: Sì: camere triple, comunicanti, junior suite e la Camera Lupigno con scivolo per i bambini.
+A: Yes: triple rooms, interconnecting rooms, junior suites, and the Camera Lupigno with a slide for children.
 
 ---
 
-**Q: Offrite sconti per clienti abituali?**
-A: Sì, per i clienti che tornano ogni anno valutiamo sconti fedeltà. Contattateci direttamente.
-
-**Q: Do you offer discounts for returning guests?**
-A: Yes, for guests who return each year we consider loyalty discounts. Please contact us directly.
+**Q: Come arrivo in hotel con la ZTL? / How do I reach the hotel with the ZTL?**
+A: Ingresso da Via Bondi (accesso N.5), uscita da Via Pienz. Comunica la targa al check-in.
+A: Entry via Via Bondi (access N.5), exit via Via Pienz. Give your number plate at check-in.
 
 ---
 
-**Q: Quando apre l'hotel in estate?**
-A: L'hotel apre indicativamente a metà giugno. Durante la chiusura stagionale continuiamo a rispondere alle email.
-
-**Q: When does the hotel open in summer?**
-A: The hotel opens approximately mid-June. During the seasonal closure we continue to respond to emails.
+**Q: Quando apre l'hotel in estate? / When does the hotel open in summer?**
+A: Indicativamente a metà giugno; durante la chiusura rispondiamo alle email. / Around mid-June; we answer emails during the closure.
 
 ---
 
-**Q: Avete buoni regalo?**
-A: Sì, i buoni regalo sono disponibili su richiesta. Contattateci per personalizzare il voucher.
+## 19. CONTATTI / CONTACTS
 
-**Q: Do you have gift vouchers?**
-A: Yes, gift vouchers are available on request. Contact us to personalise the voucher.
-
----
-
-**Q: Posso prenotare escursioni tramite l'hotel?**
-A: Sì, abbiamo un programma escursioni con la nostra guida Melissa. Contattateci per il calendario aggiornato.
-
-**Q: Can I book excursions through the hotel?**
-A: Yes, we have an excursion programme with our guide Melissa. Contact us for the updated calendar.
-
----
-
-## 16. CONTATTI / CONTACTS
-
+- **Telefono / Phone:** +39 0342 996131
 - **Email:** info@touringlivigno.com
 - **Sito web / Website:** touringlivigno.com
+- **Indirizzo / Address:** Via Plan 117, 23030 Livigno (SO), Italia
 - **Booking platforms:** Booking.com, Expedia
 
 ---
 
-*Questo file è generato automaticamente da email reali di Hotel Touring Livigno e deve essere aggiornato periodicamente.*
-*This file is automatically generated from real Hotel Touring Livigno emails and should be updated periodically.*
+*File basato su email reali di Hotel Touring Livigno e arricchito con il sito ufficiale. Da aggiornare periodicamente.*
+*File based on real Hotel Touring Livigno emails and enriched with the official website. To be updated periodically.*
