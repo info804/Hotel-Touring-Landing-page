@@ -7,6 +7,13 @@
 <meta name="description" content="Hotel Touring Livigno — hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale. Piscina e spa, sci ai piedi, Kinder Club Lupigno e cucina valtellinese. Dal 1970.">
 <link rel="canonical" href="https://touringlivigno.com/">
 
+<!-- Favicons / app icons — Stella Alpina mark (used for the browser tab and search-result icon) -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
+
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hotel Touring Livigno · Dove le montagne diventano casa">
@@ -140,9 +147,11 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 .nav{
   position:fixed; inset:0 0 auto 0; z-index:100; height:var(--nav-h);
   display:flex; align-items:center;
-  transition:background .35s,box-shadow .35s,border-color .35s;
+  transition:background .35s,box-shadow .35s,border-color .35s,transform .4s cubic-bezier(.4,0,.2,1);
   border-bottom:1px solid transparent; color:var(--warm-white);
 }
+/* when the compact "your stay" strip takes over the top, slide the TOURING banner away */
+.nav.nav-hidden{transform:translateY(-100%); pointer-events:none;}
 .nav.is-scrolled{
   background:rgba(252,250,245,.94); backdrop-filter:saturate(1.2) blur(8px);
   color:var(--charcoal); border-bottom-color:rgba(42,39,36,.08);
@@ -285,11 +294,12 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 
 /* compact sticky strip */
 .booking-sticky{
-  position:fixed; left:0; right:0; top:var(--nav-h); z-index:90;
-  background:rgba(252,250,245,.96); backdrop-filter:blur(8px);
+  position:fixed; left:0; right:0; top:0; z-index:101;
+  background:rgba(252,250,245,.97); backdrop-filter:blur(8px);
   border-bottom:1px solid rgba(42,39,36,.1); box-shadow:0 10px 30px -22px rgba(28,50,43,.6);
-  /* travel its own height + the nav offset so it hides fully above the viewport */
-  transform:translateY(calc(-100% - var(--nav-h) - 14px)); transition:transform .4s cubic-bezier(.4,0,.2,1);
+  /* sits at the very top, replacing the nav; hides fully above the viewport */
+  transform:translateY(-110%); transition:transform .4s cubic-bezier(.4,0,.2,1);
+  cursor:pointer; /* whole strip jumps back to the stay settings */
 }
 .booking-sticky.show{transform:translateY(0);}
 .booking-sticky .wrap{display:flex; align-items:center; gap:18px; padding-block:12px;}
@@ -593,7 +603,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       <b data-i18n="book.your">Il tuo soggiorno</b>
       <span id="bsDates">—</span><span class="dot">·</span><span id="bsGuests">—</span>
     </button>
-    <button type="button" class="btn btn-gold js-book" data-i18n="book.submit">Verifica disponibilità</button>
+    <button type="button" class="btn btn-gold bs-edit" data-i18n="book.submit">Verifica disponibilità</button>
   </div>
 </div>
 
@@ -843,18 +853,21 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       <h2 class="h2" data-i18n="gallery.title">Uno sguardo a casa nostra</h2>
     </div>
 
+    <!-- Slides are built from assets/img/gallery/manifest.json (any image dropped
+         into that folder appears here after `node scripts/build-assets.js`).
+         The markup below is the no-JS / fetch-failure fallback. -->
     <div class="photo-show reveal" id="photoShow" aria-roledescription="carousel" aria-label="Galleria fotografica">
       <div class="ps-frame">
-        <figure class="ps-slide is-active"><img src="assets/img/touring-hotel.jpg" alt="La valle di Livigno"></figure>
-        <figure class="ps-slide"><img src="assets/img/TOURING_PISCINA_0168.jpg" alt="Piscina coperta dell'hotel" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/5-ristorante.jpg" alt="Sala ristorante" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/BagnoTurco.jpg" alt="Bagno turco" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/slider_hotel-1.jpg" alt="Esterno dell'hotel in estate" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/TOURING_GIOCHI_043.jpg" alt="Sala giochi per bambini" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/family-hotel-livigno.jpg" alt="Famiglia in camera" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/touring-winter.jpg" alt="Le montagne di Livigno in inverno" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/box-3.jpg" alt="Camera Superior" loading="lazy"></figure>
-        <figure class="ps-slide"><img src="assets/img/family-hotel-livigno-1.jpg" alt="Camera Lupigno" loading="lazy"></figure>
+        <figure class="ps-slide is-active"><img src="assets/img/gallery/touring-hotel.jpg" alt="La valle di Livigno"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/TOURING_PISCINA_0168.jpg" alt="Piscina coperta dell'hotel" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/5-ristorante.jpg" alt="Sala ristorante" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/BagnoTurco.jpg" alt="Bagno turco" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/slider_hotel-1.jpg" alt="Esterno dell'hotel in estate" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/TOURING_GIOCHI_043.jpg" alt="Sala giochi per bambini" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/family-hotel-livigno.jpg" alt="Famiglia in camera" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/touring-winter.jpg" alt="Le montagne di Livigno in inverno" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/box-3.jpg" alt="Camera Superior" loading="lazy"></figure>
+        <figure class="ps-slide"><img src="assets/img/gallery/family-hotel-livigno-1.jpg" alt="Camera Lupigno" loading="lazy"></figure>
       </div>
       <button type="button" class="rs-arrow rs-prev" id="psPrev" aria-label="‹">‹</button>
       <button type="button" class="rs-arrow rs-next" id="psNext" aria-label="›">›</button>
@@ -1286,7 +1299,8 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     viewM=new Date(ciDate.getFullYear(),ciDate.getMonth(),1);
     syncDates(); renderSteppers();
   }
-  document.getElementById("bsSummary").addEventListener("click", function(){ bookingForm.scrollIntoView({behavior:"smooth", block:"center"}); });
+  // tapping anywhere on the compact strip jumps back up to the stay settings
+  document.getElementById("bookingSticky").addEventListener("click", function(){ bookingForm.scrollIntoView({behavior:"smooth", block:"center"}); });
 
   /* ---------- Slideshows (vanilla, dependency-free) ---------- */
   function slideshow(rootId, prevId, nextId, dotsId){
@@ -1315,8 +1329,30 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     start();
   }
   slideshow("roomShow","rsPrev","rsNext","rsDots");
-  slideshow("photoShow","psPrev","psNext","psDots");
   slideshow("livShow","livPrev","livNext","livDots");
+
+  /* ---------- Gallery: build slides from the folder manifest ---------- */
+  (function buildGallery(){
+    var frame=document.querySelector("#photoShow .ps-frame");
+    function init(){ slideshow("photoShow","psPrev","psNext","psDots"); }
+    if(!frame || !window.fetch){ init(); return; }
+    fetch("assets/img/gallery/manifest.json", {cache:"no-cache"})
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(list){
+        if(!Array.isArray(list) || !list.length) throw 0;
+        frame.innerHTML="";
+        list.forEach(function(it,n){
+          var fig=document.createElement("figure");
+          fig.className="ps-slide"+(n===0?" is-active":"");
+          var img=document.createElement("img");
+          img.src=it.src; img.alt=it.alt||"";
+          if(n>0) img.loading="lazy";
+          fig.appendChild(img); frame.appendChild(fig);
+        });
+      })
+      .catch(function(){ /* keep static fallback slides */ })
+      .then(init);
+  })();
 
   /* ---------- Amenity full-width expanding drawer (one open at a time) ---------- */
   var drawer=document.getElementById("amenityDrawer");
@@ -1473,6 +1509,8 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     var past = rect.bottom < (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 74) + 8;
     bookingSticky.classList.toggle("show", past);
     bookingSticky.setAttribute("aria-hidden", past ? "false":"true");
+    // once the strip is up, hide the TOURING banner so only "your stay" shows
+    nav.classList.toggle("nav-hidden", past);
   }
   window.addEventListener("scroll", onScroll, {passive:true});
 
@@ -1547,6 +1585,254 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     {"@type":"LocationFeatureSpecification","name":"Ski-in access","value":true}
   ]
 }
+</script>
+
+<!-- ============================================================
+     Concierge assistant — self-contained widget (no dependencies)
+     Backend: Cloudflare Worker (see /concierge-worker). Set WORKER_URL below.
+     ============================================================ -->
+<style>
+  .tlc-launcher{position:fixed; right:20px; bottom:20px; z-index:150; width:64px; height:64px;
+    border-radius:50%; border:none; padding:0; cursor:pointer; overflow:hidden;
+    background:var(--pine); color:var(--cream); box-shadow:var(--shadow-lg);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .25s ease, box-shadow .25s ease;}
+  .tlc-launcher:hover{transform:translateY(-3px); box-shadow:0 0 0 3px var(--gold-soft), var(--shadow-lg);}
+  .tlc-launcher img{width:100%; height:100%; object-fit:cover;}
+  .tlc-launcher .tlc-fallback{font-size:26px; line-height:1;}
+  .tlc-launcher.is-open{transform:scale(.9); opacity:.85;}
+
+  .tlc-panel{position:fixed; right:20px; bottom:96px; z-index:150; width:360px; max-width:calc(100vw - 32px);
+    max-height:min(70vh,560px); display:flex; flex-direction:column; overflow:hidden;
+    background:var(--warm-white); border-radius:18px; box-shadow:var(--shadow-lg);
+    border:1px solid rgba(42,39,36,.08);
+    opacity:0; transform:translateY(12px) scale(.98); pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease;}
+  .tlc-panel.is-open{opacity:1; transform:none; pointer-events:auto;}
+
+  .tlc-head{display:flex; align-items:center; gap:12px; padding:14px 16px; background:var(--pine); color:var(--cream);}
+  .tlc-head .tlc-avatar{width:38px; height:38px; border-radius:50%; overflow:hidden; flex:0 0 auto;
+    background:var(--pine-deep); display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--cream);}
+  .tlc-head .tlc-avatar img{width:100%; height:100%; object-fit:cover;}
+  .tlc-head-id{display:flex; flex-direction:column; line-height:1.2; min-width:0;}
+  .tlc-head-id strong{font-family:var(--serif); font-weight:500; font-size:16px; color:var(--warm-white);}
+  .tlc-head-id span{font-size:12px; color:var(--gold-soft);}
+  .tlc-close{margin-left:auto; background:transparent; border:none; color:var(--cream); font-size:20px;
+    cursor:pointer; width:32px; height:32px; border-radius:50%; line-height:1;}
+  .tlc-close:hover{background:rgba(255,255,255,.12);}
+
+  .tlc-log{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:var(--cream);}
+  .tlc-msg{max-width:84%; padding:10px 13px; border-radius:14px; font-size:14px; line-height:1.5;
+    white-space:pre-wrap; word-wrap:break-word;}
+  .tlc-msg.bot{align-self:flex-start; background:var(--warm-white); color:var(--charcoal);
+    border:1px solid rgba(42,39,36,.08); border-bottom-left-radius:4px;}
+  .tlc-msg.me{align-self:flex-end; background:var(--pine); color:var(--cream); border-bottom-right-radius:4px;}
+  .tlc-typing{align-self:flex-start; display:flex; gap:4px; padding:12px 14px;}
+  .tlc-typing span{width:7px; height:7px; border-radius:50%; background:var(--stone); animation:tlc-bounce 1.2s infinite;}
+  .tlc-typing span:nth-child(2){animation-delay:.15s;} .tlc-typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes tlc-bounce{0%,60%,100%{transform:translateY(0); opacity:.5;} 30%{transform:translateY(-5px); opacity:1;}}
+
+  .tlc-quick{padding:8px 16px 0; display:flex; gap:8px; flex-wrap:wrap; background:var(--cream);}
+  .tlc-chip{font-family:var(--sans); font-size:13px; font-weight:600; padding:7px 14px; border-radius:999px;
+    border:1.5px solid var(--gold); background:transparent; color:var(--pine); cursor:pointer;}
+  .tlc-chip:hover{background:var(--gold); color:var(--pine-deep);}
+
+  .tlc-input{display:flex; gap:8px; padding:12px 14px; background:var(--warm-white); border-top:1px solid rgba(42,39,36,.08);}
+  .tlc-input input{flex:1; min-width:0; font-family:var(--sans); font-size:14px; color:var(--charcoal);
+    padding:11px 14px; border:1px solid rgba(42,39,36,.18); border-radius:999px; background:#fff;}
+  .tlc-input input:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(194,162,78,.18);}
+  .tlc-send{flex:0 0 auto; width:42px; height:42px; border-radius:50%; border:none; cursor:pointer;
+    background:var(--gold); color:var(--pine-deep); font-size:18px; line-height:1;}
+  .tlc-send:hover{background:var(--gold-soft);}
+  .tlc-send:disabled{opacity:.5; cursor:default;}
+
+  @media (max-width:520px){
+    .tlc-panel{right:12px; left:12px; width:auto; bottom:88px; max-height:78vh;}
+    .tlc-launcher{right:16px; bottom:16px; width:58px; height:58px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .tlc-launcher,.tlc-panel{transition:none;} .tlc-typing span{animation:none;}
+  }
+</style>
+
+<button id="tlcLauncher" class="tlc-launcher" aria-label="Open assistant" aria-expanded="false" aria-controls="tlcPanel">
+  <img src="assets/img/concierge-girl.png" alt="" id="tlcLauncherImg">
+  <span class="tlc-fallback" hidden>&#128172;</span>
+</button>
+<div id="tlcPanel" class="tlc-panel" role="dialog" aria-label="Hotel assistant" aria-modal="false" hidden>
+  <div class="tlc-head">
+    <span class="tlc-avatar"><img src="assets/img/concierge-girl.png" alt="" id="tlcAvatarImg"><span class="tlc-fallback" hidden>&#128105;</span></span>
+    <div class="tlc-head-id">
+      <strong id="tlcTitle">Assistente</strong>
+      <span id="tlcStatus">Online</span>
+    </div>
+    <button type="button" class="tlc-close" id="tlcClose" aria-label="Close">&#10005;</button>
+  </div>
+  <div class="tlc-log" id="tlcLog" aria-live="polite"></div>
+  <div class="tlc-quick"><button type="button" class="tlc-chip" id="tlcBook">Prenota</button></div>
+  <form class="tlc-input" id="tlcForm" autocomplete="off">
+    <input id="tlcText" type="text" aria-label="Message">
+    <button type="submit" class="tlc-send" id="tlcSend" aria-label="Send">&#10142;</button>
+  </form>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* >>> SET THIS to your deployed Worker URL (see concierge-worker/README.md) <<< */
+  var WORKER_URL = "https://touring-concierge.touringlivigno.workers.dev";
+
+  var T = {
+    it:{ title:"Concierge", status:"Di solito risponde subito", book:"Prenota",
+         placeholder:"Scrivi un messaggio…", open:"Apri l'assistente", close:"Chiudi",
+         greet:"Ciao! Sono l'assistente dell'Hotel Touring. Come posso aiutarti? Posso darti info su camere, spa, ristorante, posizione e prenotazioni.",
+         err:"Mi dispiace, c'è stato un problema. Riprova o contattaci allo +39 0342 996131.",
+         cfg:"L'assistente non è ancora configurato. (Imposta WORKER_URL)" },
+    en:{ title:"Concierge", status:"Usually replies right away", book:"Book",
+         placeholder:"Type a message…", open:"Open the assistant", close:"Close",
+         greet:"Hi! I'm the Hotel Touring assistant. How can I help? I can tell you about rooms, spa, restaurant, location and bookings.",
+         err:"Sorry, something went wrong. Please try again or call us at +39 0342 996131.",
+         cfg:"The assistant isn't configured yet. (Set WORKER_URL)" },
+    de:{ title:"Concierge", status:"Antwortet meist sofort", book:"Buchen",
+         placeholder:"Nachricht schreiben…", open:"Assistenten öffnen", close:"Schließen",
+         greet:"Hallo! Ich bin der Assistent des Hotel Touring. Wie kann ich helfen? Ich informiere gern über Zimmer, Spa, Restaurant, Lage und Buchungen.",
+         err:"Entschuldigung, etwas ist schiefgelaufen. Bitte erneut versuchen oder +39 0342 996131 anrufen.",
+         cfg:"Der Assistent ist noch nicht konfiguriert. (WORKER_URL setzen)" }
+  };
+
+  function detectLang(){
+    var saved = localStorage.getItem("tl_lang");
+    if(saved && T[saved]) return saved;
+    var n = (navigator.language || "it").slice(0,2);
+    return n==="de" ? "de" : (n==="en" ? "en" : "it");
+  }
+  var lang = detectLang();
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  var launcher=document.getElementById("tlcLauncher"),
+      panel=document.getElementById("tlcPanel"),
+      log=document.getElementById("tlcLog"),
+      form=document.getElementById("tlcForm"),
+      text=document.getElementById("tlcText"),
+      sendBtn=document.getElementById("tlcSend"),
+      closeBtn=document.getElementById("tlcClose"),
+      bookBtn=document.getElementById("tlcBook");
+
+  // Graceful fallback if the girl icon image isn't present yet.
+  function imgFallback(img){
+    img.addEventListener("error", function(){
+      img.hidden = true;
+      var sib = img.parentNode.querySelector(".tlc-fallback");
+      if(sib) sib.hidden = false;
+    });
+  }
+  imgFallback(document.getElementById("tlcLauncherImg"));
+  imgFallback(document.getElementById("tlcAvatarImg"));
+
+  var messages = [];
+  try { var saved = sessionStorage.getItem("tlc_chat"); if(saved) messages = JSON.parse(saved)||[]; } catch(e){}
+
+  function save(){ try{ sessionStorage.setItem("tlc_chat", JSON.stringify(messages.slice(-24))); }catch(e){} }
+
+  function applyLabels(){
+    var d=T[lang];
+    document.getElementById("tlcTitle").textContent=d.title;
+    document.getElementById("tlcStatus").textContent=d.status;
+    bookBtn.textContent=d.book;
+    text.placeholder=d.placeholder;
+    launcher.setAttribute("aria-label", d.open);
+    closeBtn.setAttribute("aria-label", d.close);
+    // refresh greeting if it's the only (bot) message and not yet sent to
+    if(messages.length===1 && messages[0].role==="assistant" && !messages[0]._user){
+      messages[0].content=d.greet; render();
+    }
+  }
+
+  function bubble(role, content){
+    var el=document.createElement("div");
+    el.className="tlc-msg "+(role==="user"?"me":"bot");
+    el.textContent=content;
+    return el;
+  }
+  function render(){
+    log.innerHTML="";
+    messages.forEach(function(m){ log.appendChild(bubble(m.role, m.content)); });
+    log.scrollTop=log.scrollHeight;
+  }
+  function showTyping(){
+    var t=document.createElement("div"); t.className="tlc-typing"; t.id="tlcTyping";
+    t.innerHTML="<span></span><span></span><span></span>";
+    log.appendChild(t); log.scrollTop=log.scrollHeight;
+  }
+  function hideTyping(){ var t=document.getElementById("tlcTyping"); if(t) t.remove(); }
+
+  function open(){
+    panel.hidden=false;
+    requestAnimationFrame(function(){ panel.classList.add("is-open"); });
+    launcher.classList.add("is-open");
+    launcher.setAttribute("aria-expanded","true");
+    if(!messages.length){ messages.push({role:"assistant", content:T[lang].greet}); save(); }
+    render();
+    setTimeout(function(){ text.focus(); }, reduce?0:220);
+  }
+  function close(){
+    panel.classList.remove("is-open");
+    launcher.classList.remove("is-open");
+    launcher.setAttribute("aria-expanded","false");
+    setTimeout(function(){ panel.hidden=true; }, reduce?0:220);
+  }
+  launcher.addEventListener("click", function(){ panel.hidden ? open() : close(); });
+  closeBtn.addEventListener("click", close);
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape" && !panel.hidden) close(); });
+
+  // Reuse the page's existing booking flow (opens BookingExpert pre-filled).
+  bookBtn.addEventListener("click", function(){
+    var b=document.querySelector(".js-book");
+    if(b){ b.click(); }
+    else { window.open("https://be.bookingexpert.it/book/home/single?layout=14019&currency=EUR&nsid=99277590-3b11-4618-87eb-ca0a388150a1&lang="+lang+"&beginsearch=1&isnewsearch=1","_blank","noopener"); }
+  });
+
+  function setBusy(b){ sendBtn.disabled=b; }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var q=text.value.trim(); if(!q) return;
+    text.value="";
+    messages.push({role:"user", content:q}); save(); render();
+
+    if(WORKER_URL.indexOf("REPLACE_WITH")!==-1){
+      messages.push({role:"assistant", content:T[lang].cfg}); save(); render(); return;
+    }
+
+    setBusy(true); showTyping();
+    fetch(WORKER_URL, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ lang:lang, messages:messages.filter(function(m){return m.role==="user"||m.role==="assistant";}) })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      hideTyping(); setBusy(false);
+      messages.push({role:"assistant", content:(data && data.reply) ? data.reply : T[lang].err});
+      save(); render();
+    })
+    .catch(function(){
+      hideTyping(); setBusy(false);
+      messages.push({role:"assistant", content:T[lang].err}); save(); render();
+    });
+  });
+
+  // Follow the site's language switch (the .lang buttons set tl_lang + swap text).
+  document.querySelectorAll(".lang button[data-lang]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var l=b.getAttribute("data-lang");
+      if(T[l]){ lang=l; applyLabels(); }
+    });
+  });
+
+  applyLabels();
+})();
 </script>
 </body>
 </html>

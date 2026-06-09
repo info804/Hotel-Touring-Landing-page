@@ -1,0 +1,14 @@
+name = "touring-concierge"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# AI engine switch: "gemini" (free) now, "claude" (~$5/mo) later. One line to upgrade.
+[vars]
+PROVIDER = "gemini"
+# Optional model overrides (defaults are fine to leave commented):
+# GEMINI_MODEL = "gemini-2.0-flash"
+# CLAUDE_MODEL = "claude-haiku-4-5"
+
+# Secrets are NOT stored here. Set them once from the terminal:
+#   wrangler secret put GEMINI_API_KEY      (while PROVIDER = "gemini")
+#   wrangler secret put ANTHROPIC_API_KEY   (when you switch PROVIDER = "claude")
