@@ -26,4 +26,6 @@ m_*.png
 err.txt
 
 # Separate sub-project (has its own git repository & deployment)
-concierge/
+# Leading slash anchors this to the repo root so it does NOT also ignore
+# assets/concierge/ (the chatbot knowledge file lives there).
+/concierge/
