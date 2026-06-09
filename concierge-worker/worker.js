@@ -141,7 +141,7 @@ async function callLLM(env, system, messages) {
 async function callGemini(env, system, messages) {
   const key = env.GEMINI_API_KEY;
   if (!key) throw new Error("GEMINI_API_KEY not set");
-  const model = env.GEMINI_MODEL || "gemini-2.0-flash";
+  const model = env.GEMINI_MODEL || "gemini-2.5-flash";
   const url =
     "https://generativelanguage.googleapis.com/v1beta/models/" +
     encodeURIComponent(model) + ":generateContent?key=" + encodeURIComponent(key);
@@ -151,16 +151,26 @@ async function callGemini(env, system, messages) {
     parts: [{ text: m.content }],
   }));
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: system }] },
-      contents,
-      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: 0.4 },
-    }),
+  const payload = JSON.stringify({
+    system_instruction: { parts: [{ text: system }] },
+    contents,
+    generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: 0.4 },
   });
-  if (!res.ok) throw new Error("Gemini " + res.status + " " + (await res.text()).slice(0, 300));
+
+  // Retry transient free-tier hiccups (429 rate limit / 503 high demand) so
+  // guests never see an error for a temporary blip.
+  let res, lastErr = "";
+  for (let attempt = 0; attempt < 3; attempt++) {
+    res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: payload });
+    if (res.ok) break;
+    if (res.status === 429 || res.status === 503) {
+      lastErr = res.status + " " + (await res.text()).slice(0, 200);
+      if (attempt < 2) await new Promise((r) => setTimeout(r, 700 * (attempt + 1)));
+      continue;
+    }
+    throw new Error("Gemini " + res.status + " " + (await res.text()).slice(0, 1000));
+  }
+  if (!res.ok) throw new Error("Gemini unavailable after retries: " + lastErr);
   const data = await res.json();
   const parts = data && data.candidates && data.candidates[0] &&
     data.candidates[0].content && data.candidates[0].content.parts;
@@ -189,7 +199,7 @@ async function callClaude(env, system, messages) {
       messages,
     }),
   });
-  if (!res.ok) throw new Error("Claude " + res.status + " " + (await res.text()).slice(0, 300));
+  if (!res.ok) throw new Error("Claude " + res.status + " " + (await res.text()).slice(0, 1000));
   const data = await res.json();
   const block = data && data.content && data.content.find((b) => b.type === "text");
   const text = block && block.text ? block.text.trim() : "";
