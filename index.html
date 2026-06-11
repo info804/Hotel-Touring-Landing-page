@@ -8,11 +8,12 @@
 <link rel="canonical" href="https://touringlivigno.com/">
 
 <!-- Favicons / app icons — Stella Alpina mark (used for the browser tab and search-result icon) -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
-<link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
-<link rel="manifest" href="assets/site.webmanifest">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -27,7 +28,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <!-- LCP hero preload -->
-<link rel="preload" as="image" href="assets/img/slider_hotel-1.jpg">
+<link rel="preload" as="image" href="assets/img/slider_hotel-1-1920.jpg" imagesrcset="assets/img/slider_hotel-1-1280.jpg 1280w, assets/img/slider_hotel-1-1920.jpg 1920w, assets/img/slider_hotel-1-2560.jpg 2560w" imagesizes="100vw" fetchpriority="high">
 
 <!-- Google Analytics 4 — Consent Mode v2. Defaults to DENIED. Dormant placeholder:
      paste your real "G-XXXXXXXXXX" id into GA_MEASUREMENT_ID below to activate.
@@ -121,11 +122,19 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 /* ---- Buttons -------------------------------------------- */
 .btn{
   display:inline-flex; align-items:center; gap:.55em; justify-content:center;
+  position:relative; overflow:hidden; isolation:isolate;
   font-family:var(--sans); font-weight:600; font-size:15px; letter-spacing:.01em;
   border-radius:999px; padding:14px 28px; border:1.5px solid transparent;
-  transition:background .25s,color .25s,border-color .25s,transform .25s,box-shadow .25s;
+  transition:background .25s,color .25s,border-color .25s,transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .25s;
   white-space:nowrap;
 }
+/* gold sheen — a soft light sweeps across on hover */
+.btn::after{
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);
+  transform:translateX(-120%); transition:transform .7s cubic-bezier(.22,.61,.36,1);
+}
+.btn:hover::after{transform:translateX(120%);}
 .btn-primary{background:var(--pine); color:var(--warm-white);}
 .btn-primary:hover{background:var(--pine-deep); transform:translateY(-2px); box-shadow:var(--shadow);}
 .btn-gold{background:var(--gold); color:var(--pine-deep);}
@@ -165,13 +174,13 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 
 .nav-right{display:flex; align-items:center; gap:16px;}
 .lang{display:inline-flex; align-items:center; gap:2px; font-size:13px; font-weight:600;}
-.lang button{background:none; border:none; color:currentColor; opacity:.55; padding:4px 5px; letter-spacing:.04em; transition:opacity .2s;}
+.lang button{background:none; border:none; color:currentColor; opacity:.7; font-weight:700; padding:4px 5px; letter-spacing:.04em; transition:opacity .2s;}
 .lang button:hover{opacity:.9;}
 .lang button.active{opacity:1; color:var(--gold);}
 .nav.is-scrolled .lang button.active{color:var(--brick);}
 .lang span{opacity:.35;}
 
-.nav .btn-ghost{padding:10px 22px; font-size:14px;}
+.nav .btn-ghost{padding:10px 22px; font-size:14px; font-weight:700;}
 .nav:not(.is-scrolled) .btn-ghost{color:var(--warm-white); border-color:var(--gold-soft);}
 .nav:not(.is-scrolled) .btn-ghost:hover{background:var(--gold-soft); color:var(--pine-deep);}
 
@@ -207,25 +216,36 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 .booking{
   position:relative;
   background:var(--warm-white); border-radius:var(--radius); box-shadow:var(--shadow-lg);
-  margin-top:clamp(-200px,-24vh,-156px); margin-bottom:8px; padding:22px;
-  display:grid; grid-template-columns:1fr 1fr 1.05fr auto; gap:16px; align-items:end;
+  margin-top:clamp(-200px,-24vh,-156px); margin-bottom:8px; padding:14px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr) auto;
+  gap:0 clamp(4px,1.2vw,12px); align-items:center;
   border:1px solid rgba(42,39,36,.06);
 }
-.field{display:flex; flex-direction:column; gap:6px; min-width:0;}
-.field-label{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--stone);}
+.field{
+  display:flex; flex-direction:column; gap:5px; min-width:0;
+  position:relative; padding:4px clamp(8px,1.4vw,14px);
+}
+/* Airbnb-style hairline divider between connected segments */
+.field + .field::before{
+  content:""; position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:1px; height:60%; background:rgba(42,39,36,.12);
+  transition:opacity .2s;
+}
+.field-label{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--stone); padding-left:2px;}
 
-/* custom picker trigger (replaces native date/select chrome) */
+/* custom picker trigger (replaces native date/select chrome) — borderless segment */
 .picker{
   display:flex; align-items:center; gap:10px; width:100%; text-align:left;
   font-family:var(--sans); font-size:15px; color:var(--charcoal);
-  border:1px solid rgba(42,39,36,.16); border-radius:10px; padding:11px 14px; background:#fff;
-  transition:border-color .2s,box-shadow .2s;
+  border:1px solid transparent; border-radius:10px; padding:9px 10px; background:transparent;
+  transition:border-color .2s,box-shadow .2s,background .2s;
 }
-.picker:hover{border-color:rgba(194,162,78,.6);}
-.picker[aria-expanded="true"]{border-color:var(--gold); box-shadow:0 0 0 3px rgba(194,162,78,.18);}
+.picker:hover{background:rgba(194,162,78,.08);}
+.picker[aria-expanded="true"]{border-color:var(--gold); box-shadow:0 0 0 3px rgba(194,162,78,.18); background:#fff;}
 .picker-ico{width:18px; height:18px; flex:none; fill:none; stroke:var(--pine); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; opacity:.8;}
 .picker-val{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.booking .bk-submit{height:46px; align-self:end;}
+.booking .bk-submit{height:48px; align-self:center; margin-left:clamp(4px,1vw,10px);}
 
 /* popovers — styled as a drawer that grows OUT of the booking card (rather than
    a detached floating card): flush to the card edge, no top seam, shared
@@ -257,8 +277,8 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 .bk-pop.open-up.closing{ animation:bkCollapseUp .2s cubic-bezier(.4,0,.2,1) forwards; }
 @keyframes bkCollapse{ from{opacity:1; transform:none;} to{opacity:0; transform:translateY(-6px) scaleY(.94);} }
 @keyframes bkCollapseUp{ from{opacity:1; transform:none;} to{opacity:0; transform:translateY(6px) scaleY(.94);} }
-.bk-pop-date{left:22px;}
-.bk-pop-guests{right:22px;}
+.bk-pop-date{left:14px;}
+.bk-pop-guests{right:14px;}
 
 /* calendar */
 .cal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
@@ -326,6 +346,9 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 .rs-slide{position:absolute; inset:0; margin:0; opacity:0; transition:opacity .6s ease;}
 .rs-slide.is-active{opacity:1;}
 .rs-slide img{width:100%; height:100%; object-fit:cover;}
+/* active slide drifts gently while shown (transform only; never below 1) */
+@keyframes rsZoom{ from{transform:scale(1);} to{transform:scale(1.05);} }
+.rs-slide.is-active img{animation:rsZoom 9s ease-out forwards; transform-origin:50% 50%;}
 .rs-slide figcaption{position:absolute; left:0; right:0; bottom:0; padding:52px 32px 26px; color:var(--warm-white);
   background:linear-gradient(to top, rgba(28,50,43,.85), rgba(28,50,43,0));}
 .rs-slide figcaption b{display:block; font-family:var(--serif); font-weight:500; font-size:clamp(20px,2.4vw,28px); margin-bottom:6px;}
@@ -521,19 +544,38 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 /* ============================================================
    MOTION — reveal (screenshot-safe: never permanently hidden)
    ============================================================ */
-.reveal{opacity:0; transform:translateY(16px); transition:opacity .5s ease,transform .5s ease;}
+/* soft, refined easing + faint scale; transform/opacity only */
+.reveal{opacity:0; transform:translateY(20px) scale(.985); transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
 .reveal.is-visible{opacity:1; transform:none;}
+
+/* staggered children — JS sets --r-delay on direct children of [data-stagger] */
+[data-stagger] > .reveal{transition-delay:var(--r-delay,0ms);}
 
 /* §2 language switch — quick fade + blur on the changing text */
 [data-i18n]{transition:opacity .2s ease, filter .2s ease;}
 body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
 
+/* hero "Ken Burns" — slow cinematic scale drift (never below 1, stays object-fit:cover) */
+@keyframes heroDrift{ from{transform:scale(1);} to{transform:scale(1.06);} }
+.hero-img{transform-origin:50% 46%; will-change:transform; animation:heroDrift 24s ease-in-out infinite alternate;}
+
+/* nav entrance — wordmark + nav-right ease in once on load */
+@keyframes navIn{ from{opacity:0; transform:translateY(-10px);} to{opacity:1; transform:none;} }
+.nav .wordmark,.nav .nav-right{animation:navIn .9s cubic-bezier(.22,.61,.36,1) both;}
+.nav .nav-right{animation-delay:.12s;}
+
 @media (prefers-reduced-motion:reduce){
   *{scroll-behavior:auto !important;}
-  .reveal{opacity:1 !important; transform:none !important;}
+  .reveal{opacity:1 !important; transform:none !important; transition:none !important; transition-delay:0ms !important;}
+  [data-stagger] > .reveal{transition-delay:0ms !important;}
   .ridge polyline{transition:none; stroke-dashoffset:0;}
   [data-i18n]{transition:none !important; opacity:1 !important; filter:none !important;}
   .bk-pop,.bk-pop.open-up{animation:none !important;}
+  /* neutralize every new keyframe animation */
+  .hero-img{animation:none !important; transform:none !important;}
+  .nav .wordmark,.nav .nav-right{animation:none !important;}
+  .btn::after{display:none !important;}
+  .rs-slide.is-active img{animation:none !important; transform:none !important;}
 }
 
 /* ============================================================
@@ -541,36 +583,118 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
    ============================================================ */
 @media (max-width:1024px){
   .amenities{grid-template-columns:repeat(2,1fr);}
+  /* tablet: stay one segmented row, just slightly tighter */
+  .booking{padding:12px; gap:0 clamp(2px,0.8vw,8px);}
 }
 @media (max-width:768px){
-  .booking{grid-template-columns:1fr 1fr; gap:14px;}
+  /* 2-up stacked: become discrete boxed pickers again, drop hairline dividers */
+  .booking{grid-template-columns:1fr 1fr; gap:14px; padding:18px; align-items:end;}
+  .field{padding:0; gap:6px;}
+  .field + .field::before{display:none;}
+  .field-label{padding-left:0;}
+  .picker{
+    border-color:rgba(42,39,36,.16); padding:12px 14px; background:#fff; min-height:48px;
+  }
+  .picker:hover{border-color:rgba(194,162,78,.6); background:#fff;}
   .booking .field-guests{grid-column:1 / -1;}
-  .booking .bk-submit{grid-column:1 / -1; height:50px;}
-  .bk-pop-guests{right:auto; left:22px;}
+  .booking .bk-submit{grid-column:1 / -1; height:52px; margin-left:0; align-self:end;}
+  .bk-pop-date{left:18px;}
+  .bk-pop-guests{right:auto; left:18px;}
   .booking-sticky .bs-summary{font-size:13px;}
   .rs-frame{aspect-ratio:4/3;}
   .rs-slide figcaption{padding:40px 22px 22px;}
+  .rs-slide figcaption b{font-size:clamp(19px,5.2vw,24px);}
+  .rs-slide figcaption span{font-size:14px;}
   .ad-body ul{columns:1;}
   .liv-grid{grid-template-columns:1fr; gap:32px;}
   .liv-show .rs-frame{aspect-ratio:16/10;}
+  /* slightly tighter section rhythm on tablets/phones so blocks don't tower */
+  :root{--section-y:clamp(56px,9vh,104px);}
+  /* bigger tap area for the inline Livigno links */
+  .liv-links{gap:6px 22px;}
+  .liv-links a{padding:6px 0 4px;}
 }
 @media (max-width:560px){
-  .amenities{grid-template-columns:1fr;}
+  /* tighten the page gutter + vertical rhythm so phone echoes desktop, scaled down */
+  :root{--gutter:clamp(16px,5vw,28px); --section-y:clamp(48px,7.5vh,84px);}
+  .amenities{grid-template-columns:1fr; gap:18px;}
+  /* phone: single full-width column, every field + submit easy to tap */
+  .booking{grid-template-columns:1fr; gap:12px; padding:16px;}
+  .booking .field-guests{grid-column:auto;}
+  .booking .bk-submit{grid-column:auto; height:52px;}
+  .bk-pop-date,.bk-pop-guests{left:16px; right:auto;}
+  .booking-sticky .wrap{gap:12px; padding-block:10px;}
+  .booking-sticky .bs-summary{gap:8px 10px;}
   .booking-sticky .bs-summary b{font-size:14px;}
+  .booking-sticky .btn{padding:10px 16px; font-size:13px;}
   .footer-grid{grid-template-columns:1fr; gap:36px;}
   .footer-contact{justify-self:start; text-align:left;}
-  .hero-inner{padding-bottom:clamp(212px,34vh,280px);}
-  .rs-arrow{width:34px; height:34px; font-size:18px;}
-  .gv-quote{padding:10px 12px;}
-  .gv-quote p{font-size:12.5px;}
+
+  /* hero: keep heading roomy + reserve the right overlap space for the booking card */
+  .hero-inner{padding-top:96px; padding-bottom:clamp(196px,32vh,260px);}
+  .hero h1{font-size:clamp(38px,10vw,52px);}
+  .hero .hero-sub{margin-top:16px; font-size:16px;}
+
+  /* slideshow: readable captions, comfortably tappable arrows + dots (≥40px touch) */
+  .room-show{margin-bottom:22px;}
+  .rs-frame{aspect-ratio:3/2;}
+  .rs-slide figcaption{padding:36px 18px 18px;}
+  .rs-arrow{width:40px; height:40px; font-size:19px; opacity:.78;}
+  .rs-prev{left:8px;} .rs-next{right:8px;}
+  .rs-dots{bottom:12px; gap:10px;}
+  .rs-dots button{width:9px; height:9px; position:relative;}
+  /* invisible padded hit-area so each dot is ~40px tall to tap */
+  .rs-dots button::after{content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:34px; height:34px;}
+
+  /* amenity card: comfy title + drawer copy that isn't squished */
+  .amenity-media{aspect-ratio:16/10;}
+  .amenity-body{padding:14px 16px 15px;}
+  .amenity-body .ah{font-size:18px;}
+  .ad-inner{padding:20px 18px;}
+  .ad-figure{min-height:0; aspect-ratio:16/11;}
+  .ad-panel h3{font-size:clamp(20px,6vw,25px); margin-bottom:10px;}
+  .ad-body p{font-size:15px;}
+  .ad-note{font-size:13px;}
+
+  /* gallery: foreground photo + heading stay legible; review wall reads softer */
+  .photo-show{max-width:none;}
+  .ps-frame{aspect-ratio:4/3;}
+  .gv-quote{padding:9px 11px;}
+  .gv-quote p{font-size:12px; line-height:1.35;}
+  .gv-quote .gq-stars{font-size:10px; margin-bottom:4px;}
+  .gv-quote cite{font-size:11px;}
 }
 @media (max-width:400px){
   /* keep wordmark-left + lang/Book-right on one clean line at 375 */
   .nav .wrap{gap:10px;}
   .nav-right{gap:9px;}
-  .lang button{padding:4px 3px;}
+  .lang button{padding:6px 4px;}      /* taller tap target while staying on one line */
   .nav .btn-ghost{padding:9px 15px; font-size:13px;}
   .wm-main{font-size:17px; letter-spacing:.2em;}
+  /* very narrow: trim the hero overlap reserve a touch so text isn't pushed up */
+  .hero-inner{padding-bottom:clamp(184px,30vh,236px);}
+  .booking{padding:14px;}
+  .ad-inner{padding:18px 15px;}
+  .cta-band .lead{margin-bottom:24px;}
+}
+@media (max-width:360px){
+  /* squeeze gracefully on the smallest phones — no horizontal overflow */
+  :root{--gutter:14px;}
+  .nav .wrap{gap:8px;}
+  .nav-right{gap:6px;}
+  .nav .btn-ghost{padding:8px 12px; font-size:12px;}
+  .wm-main{font-size:16px; letter-spacing:.16em;}
+  .hero h1{font-size:clamp(34px,11vw,42px);}
+  .rs-slide figcaption b{font-size:18px;}
+}
+/* ---- touch behaviour: no grey tap flash, allow normal panning ---- */
+@media (hover:none){
+  .picker,.btn,.amenity,.rs-arrow,.lang button,.cal-nav,.cal-cell,.step-btn,
+  .tlc-launcher,.tlc-chip,.tlc-send,.tlc-close,.rs-dots button,.bs-summary,.cookie .btn{
+    -webkit-tap-highlight-color:transparent;
+  }
+  /* iOS: inputs <16px zoom the page on focus — bump the concierge input to 16px on touch */
+  .tlc-input input{font-size:16px;}
 }
 </style>
 </head>
@@ -611,7 +735,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
 
 <!-- ============================== HERO ============================== -->
 <section class="hero" id="hero">
-  <img class="hero-img" src="assets/img/slider_hotel-1.jpg" alt="L'Hotel Touring di Livigno: l'edificio giallo con l'insegna HOTEL e la terrazza, fra le montagne" fetchpriority="high">
+  <img class="hero-img" src="assets/img/slider_hotel-1-1920.jpg" srcset="assets/img/slider_hotel-1-1280.jpg 1280w, assets/img/slider_hotel-1-1920.jpg 1920w, assets/img/slider_hotel-1-2560.jpg 2560w" sizes="100vw" alt="L'Hotel Touring di Livigno: l'edificio giallo con l'insegna HOTEL e la terrazza, fra le montagne" fetchpriority="high" decoding="async">
   <div class="wrap">
     <div class="hero-inner reveal is-visible">
       <p class="eyebrow" data-i18n="hero.eyebrow">Livigno · Alpi Italiane · dal 1970</p>
@@ -735,7 +859,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     </div>
 
     <!-- four cards → full-width expanding drawer below the row -->
-    <div class="amenities" id="amenities">
+    <div class="amenities" id="amenities" data-stagger>
       <button type="button" class="amenity acard reveal" data-key="pool" aria-expanded="false" aria-controls="amenityDrawer">
         <span class="amenity-media"><img src="assets/img/TOURING_PISCINA_0168.jpg" alt="Piscina coperta con pareti in pietra e legno" loading="lazy"></span>
         <span class="amenity-body"><span class="ah" data-i18n="amenity.pool.title">Piscina & Spa</span><span class="achev" aria-hidden="true"></span></span>
@@ -749,7 +873,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
         <span class="amenity-body"><span class="ah" data-i18n="amenity.rest.title">Ristorante</span><span class="achev" aria-hidden="true"></span></span>
       </button>
       <button type="button" class="amenity acard reveal acard-center" data-key="loc" aria-expanded="false" aria-controls="amenityDrawer">
-        <span class="amenity-media"><img src="assets/img/slider_hotel-1.jpg" alt="L'hotel nel cuore di Livigno" loading="lazy"></span>
+        <span class="amenity-media"><img src="assets/img/slider_hotel-1-1280.jpg" alt="L'hotel nel cuore di Livigno" loading="lazy"></span>
         <span class="amenity-body"><span class="ah" data-i18n="amenity.loc.title">Posizione</span><span class="achev" aria-hidden="true"></span></span>
       </button>
     </div>
@@ -858,7 +982,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
          The markup below is the no-JS / fetch-failure fallback. -->
     <div class="photo-show reveal" id="photoShow" aria-roledescription="carousel" aria-label="Galleria fotografica">
       <div class="ps-frame">
-        <figure class="ps-slide is-active"><img src="assets/img/gallery/touring-hotel.jpg" alt="La valle di Livigno"></figure>
+        <figure class="ps-slide is-active"><img src="assets/img/gallery/touring-hotel.jpg" alt="La valle di Livigno" fetchpriority="high"></figure>
         <figure class="ps-slide"><img src="assets/img/gallery/TOURING_PISCINA_0168.jpg" alt="Piscina coperta dell'hotel" loading="lazy"></figure>
         <figure class="ps-slide"><img src="assets/img/gallery/5-ristorante.jpg" alt="Sala ristorante" loading="lazy"></figure>
         <figure class="ps-slide"><img src="assets/img/gallery/BagnoTurco.jpg" alt="Bagno turco" loading="lazy"></figure>
@@ -891,8 +1015,8 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
 <!-- ============================== FOOTER ============================== -->
 <footer class="footer" id="footer">
   <div class="footer-ridge"></div>
-  <div class="wrap footer-grid">
-    <div>
+  <div class="wrap footer-grid" data-stagger>
+    <div class="reveal">
       <span class="wordmark">
         <span class="wm-main">TOURING</span>
         <span class="wm-sub">LIVIGNO</span>
@@ -900,7 +1024,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       </span>
       <p class="ftagline" data-i18n="footer.tagline">L'hotel di famiglia a Livigno, dal 1970. Dove le montagne diventano casa.</p>
     </div>
-    <div class="footer-contact">
+    <div class="footer-contact reveal">
       <h4 data-i18n="footer.contact">Contatti</h4>
       <address>
         Via Plan 117<br>23030 Livigno (SO), Italia<br>
@@ -1326,6 +1450,17 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     if(pv) pv.addEventListener("click", function(){ go(i-1); restart(); });
     root.addEventListener("mouseenter", stop);
     root.addEventListener("mouseleave", start);
+    /* horizontal swipe (phones): left = next, right = prev; vertical drags scroll normally */
+    var tsX=0, tsY=0, swiping=false;
+    root.addEventListener("touchstart", function(e){
+      if(e.touches.length!==1){ swiping=false; return; }
+      tsX=e.touches[0].clientX; tsY=e.touches[0].clientY; swiping=true;
+    }, {passive:true});
+    root.addEventListener("touchend", function(e){
+      if(!swiping) return; swiping=false;
+      var t=e.changedTouches[0], dx=t.clientX-tsX, dy=t.clientY-tsY;
+      if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)*1.3){ go(dx<0?i+1:i-1); restart(); }
+    }, {passive:true});
     start();
   }
   slideshow("roomShow","rsPrev","rsNext","rsDots");
@@ -1346,7 +1481,8 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
           fig.className="ps-slide"+(n===0?" is-active":"");
           var img=document.createElement("img");
           img.src=it.src; img.alt=it.alt||"";
-          if(n>0) img.loading="lazy";
+          if(n===0){ img.loading="eager"; img.setAttribute("fetchpriority","high"); }
+          else { img.loading="lazy"; }
           fig.appendChild(img); frame.appendChild(fig);
         });
       })
@@ -1517,6 +1653,18 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   /* ---------- Scroll reveal (screenshot-safe) ---------- */
   function revealAll(){ document.querySelectorAll(".reveal,.ridge").forEach(function(el){ el.classList.add("is-visible"); }); }
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  /* staggered cascade: give each direct .reveal child of a [data-stagger] container an incremental delay */
+  if (!reduce){
+    document.querySelectorAll("[data-stagger]").forEach(function(group){
+      var i = 0;
+      Array.prototype.forEach.call(group.children, function(child){
+        if (child.classList && child.classList.contains("reveal")){
+          child.style.setProperty("--r-delay", (i * 75) + "ms");
+          i++;
+        }
+      });
+    });
+  }
   if (reduce || !("IntersectionObserver" in window)){
     revealAll();
   } else {
@@ -1592,17 +1740,20 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
      Backend: Cloudflare Worker (see /concierge-worker). Set WORKER_URL below.
      ============================================================ -->
 <style>
-  .tlc-launcher{position:fixed; right:20px; bottom:20px; z-index:150; width:64px; height:64px;
-    border-radius:50%; border:none; padding:0; cursor:pointer; overflow:hidden;
-    background:var(--pine); color:var(--cream); box-shadow:var(--shadow-lg);
+  .tlc-launcher{position:fixed; right:20px; bottom:20px; z-index:150; width:92px; height:92px;
+    border:none; padding:0; cursor:pointer;
+    background:transparent; color:var(--cream);
     display:flex; align-items:center; justify-content:center;
-    transition:transform .25s ease, box-shadow .25s ease;}
-  .tlc-launcher:hover{transform:translateY(-3px); box-shadow:0 0 0 3px var(--gold-soft), var(--shadow-lg);}
-  .tlc-launcher img{width:100%; height:100%; object-fit:cover;}
-  .tlc-launcher .tlc-fallback{font-size:26px; line-height:1;}
+    transition:transform .25s ease;}
+  .tlc-launcher:hover{transform:translateY(-3px) scale(1.04);}
+  .tlc-launcher img{width:100%; height:100%; object-fit:contain;
+    filter:drop-shadow(0 6px 14px rgba(28,50,43,.35));}
+  .tlc-launcher .tlc-fallback{display:flex; align-items:center; justify-content:center;
+    width:64px; height:64px; border-radius:50%; background:var(--pine); color:var(--cream);
+    font-size:26px; line-height:1; box-shadow:var(--shadow-lg);}
   .tlc-launcher.is-open{transform:scale(.9); opacity:.85;}
 
-  .tlc-panel{position:fixed; right:20px; bottom:96px; z-index:150; width:360px; max-width:calc(100vw - 32px);
+  .tlc-panel{position:fixed; right:20px; bottom:124px; z-index:150; width:360px; max-width:calc(100vw - 32px);
     max-height:min(70vh,560px); display:flex; flex-direction:column; overflow:hidden;
     background:var(--warm-white); border-radius:18px; box-shadow:var(--shadow-lg);
     border:1px solid rgba(42,39,36,.08);
@@ -1647,8 +1798,8 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   .tlc-send:disabled{opacity:.5; cursor:default;}
 
   @media (max-width:520px){
-    .tlc-panel{right:12px; left:12px; width:auto; bottom:88px; max-height:78vh;}
-    .tlc-launcher{right:16px; bottom:16px; width:58px; height:58px;}
+    .tlc-panel{right:12px; left:12px; width:auto; bottom:108px; max-height:78vh;}
+    .tlc-launcher{right:16px; bottom:16px; width:78px; height:78px;}
   }
   @media (prefers-reduced-motion:reduce){
     .tlc-launcher,.tlc-panel{transition:none;} .tlc-typing span{animation:none;}
@@ -1684,19 +1835,19 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   var WORKER_URL = "https://touring-concierge.touringlivigno.workers.dev";
 
   var T = {
-    it:{ title:"Concierge", status:"Di solito risponde subito", book:"Prenota",
+    it:{ title:"Mapi", status:"Di solito risponde subito", book:"Prenota",
          placeholder:"Scrivi un messaggio…", open:"Apri l'assistente", close:"Chiudi",
-         greet:"Ciao! Sono l'assistente dell'Hotel Touring. Come posso aiutarti? Posso darti info su camere, spa, ristorante, posizione e prenotazioni.",
+         greet:"Ciao! Sono Mapi, l'assistente AI del Touring. Come posso aiutarti?",
          err:"Mi dispiace, c'è stato un problema. Riprova o contattaci allo +39 0342 996131.",
          cfg:"L'assistente non è ancora configurato. (Imposta WORKER_URL)" },
-    en:{ title:"Concierge", status:"Usually replies right away", book:"Book",
+    en:{ title:"Mapi", status:"Usually replies right away", book:"Book",
          placeholder:"Type a message…", open:"Open the assistant", close:"Close",
-         greet:"Hi! I'm the Hotel Touring assistant. How can I help? I can tell you about rooms, spa, restaurant, location and bookings.",
+         greet:"Hey there, I'm Mapi the AI assistant of Touring, what can I help you with?",
          err:"Sorry, something went wrong. Please try again or call us at +39 0342 996131.",
          cfg:"The assistant isn't configured yet. (Set WORKER_URL)" },
-    de:{ title:"Concierge", status:"Antwortet meist sofort", book:"Buchen",
+    de:{ title:"Mapi", status:"Antwortet meist sofort", book:"Buchen",
          placeholder:"Nachricht schreiben…", open:"Assistenten öffnen", close:"Schließen",
-         greet:"Hallo! Ich bin der Assistent des Hotel Touring. Wie kann ich helfen? Ich informiere gern über Zimmer, Spa, Restaurant, Lage und Buchungen.",
+         greet:"Hallo! Ich bin Mapi, die KI-Assistentin des Touring. Wie kann ich dir helfen?",
          err:"Entschuldigung, etwas ist schiefgelaufen. Bitte erneut versuchen oder +39 0342 996131 anrufen.",
          cfg:"Der Assistent ist noch nicht konfiguriert. (WORKER_URL setzen)" }
   };
