@@ -56,11 +56,14 @@ Hotel Touring is a family-run 4-star hotel in the heart of Livigno (Valtellina, 
 - **Appartamenti** — per gruppi, fino a 4 persone per appartamento / for groups, up to 4 persons per apartment
 
 ### Le camere dell'hotel (dettaglio) / Hotel room styles (detail)
-- **Superior** — 2–3 ospiti, 22 m², legno antico di recupero, la più caratteristica / 2–3 guests, 22 m², reclaimed antique wood, the most characterful.
-- **Junior Suite Minimal** — 2–3 ospiti, 28 m², stile moderno, tessuti naturali / 2–3 guests, 28 m², modern style, natural fabrics.
-- **Camere Comunicanti** — 4–5 ospiti, due stanze unite da porta interna / 4–5 guests, two rooms joined by an internal door.
-- **Standard** — 2 ospiti, 16 m², letto alla francese, balcone sulla via / 2 guests, 16 m², French bed, balcony over the street.
-- **Camera Lupigno** (per bambini) — letti a castello, scivolo e murale alpino / kids room with bunk beds, a slide and an alpine mural.
+- **Camera Classica** — relax e semplicità, nel calore del legno / Classic room: relax and simplicity, wrapped in warm wood.
+- **Junior Suite** — spaziosa, pensata per le famiglie numerose / spacious, made for larger families.
+- **Kids Room** — pensata per i nostri piccoli ospiti, a tema con murale alpino / themed for our littlest guests, with an alpine mural.
+- **Suite Alpina** — una fuga romantica per le coppie / Alpine Suite: a romantic escape for two.
+- **Camera Superior** — rinnovata nel caldo stile alpino / Superior: renewed in warm alpine style.
+- **Superior Plus** — spazi divisi, pensati per le famiglie / Superior Plus: separate spaces, designed for families.
+- **Superior Family** — spaziosa e classica, per tutta la famiglia / Superior Family: spacious and classic, for the whole family.
+- **Tana dell'Orso** — come stare dentro una favola / Bear's Den: like stepping into a fairytale.
 
 > Il numero di camera preferita può essere richiesto (es. camera 107, camera 308). Non sempre garantito, ma annotato.
 > Preferred room numbers can be requested (e.g. room 107, room 308). Not always guaranteed but noted.

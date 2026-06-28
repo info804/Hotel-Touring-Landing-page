@@ -175,13 +175,14 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 .nav-right{display:flex; align-items:center; gap:16px;}
 .lang{display:inline-flex; align-items:center; gap:2px; font-size:13px; font-weight:600;}
 .lang button{background:none; border:none; color:currentColor; opacity:.7; font-weight:700; padding:4px 5px; letter-spacing:.04em; transition:opacity .2s;}
+.nav:not(.is-scrolled) .lang button{text-shadow:0 1px 3px rgba(0,0,0,.45);}
 .lang button:hover{opacity:.9;}
 .lang button.active{opacity:1; color:var(--gold);}
 .nav.is-scrolled .lang button.active{color:var(--brick);}
 .lang span{opacity:.35;}
 
 .nav .btn-ghost{padding:10px 22px; font-size:14px; font-weight:700;}
-.nav:not(.is-scrolled) .btn-ghost{color:var(--warm-white); border-color:var(--gold-soft);}
+.nav:not(.is-scrolled) .btn-ghost{color:var(--warm-white); border-color:var(--gold-soft); box-shadow:0 2px 10px rgba(0,0,0,.25);}
 .nav:not(.is-scrolled) .btn-ghost:hover{background:var(--gold-soft); color:var(--pine-deep);}
 
 /* ============================================================
@@ -413,6 +414,10 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
   border-top-left-radius:4px; transition:left .35s cubic-bezier(.4,0,.2,1);}
 .amenity-drawer.no-caret .ad-inner{margin-top:0;}
 .amenity-drawer.no-caret .ad-inner::before{display:none;}
+/* mobile: drawer tucked directly under the tapped card → close the grid gap and
+   square the top so card + drawer read as one continuous bordered panel */
+.amenity-drawer.inline-drawer{margin-top:-18px;}
+.amenity-drawer.inline-drawer .ad-inner{margin-top:0; border-top:0; border-top-left-radius:0; border-top-right-radius:0;}
 .ad-panel{display:none;}
 .ad-panel.is-active{display:block; animation:adFade .5s cubic-bezier(.4,0,.2,1) both;}
 @keyframes adFade{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
@@ -842,16 +847,22 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     <!-- large top card → room slideshow (vanilla JS, no library) -->
     <div class="room-show reveal" id="roomShow" aria-roledescription="carousel" aria-label="Le nostre camere">
       <div class="rs-frame">
-        <figure class="rs-slide is-active"><img src="assets/img/box-3.jpg" alt="Camera Superior" fetchpriority="low">
-          <figcaption><b data-i18n="room.superior.name">Camera Superior</b><span data-i18n="room.superior.desc">Legno di recupero e luce calda: la nostra camera più caratteristica.</span></figcaption></figure>
-        <figure class="rs-slide"><img src="assets/img/c_minimal2.jpg" alt="Junior Suite Minimal" loading="lazy">
-          <figcaption><b data-i18n="room.junior.name">Junior Suite Minimal</b><span data-i18n="room.junior.desc">Linee pulite e tessuti naturali, per chi ama la semplicità.</span></figcaption></figure>
-        <figure class="rs-slide"><img src="assets/img/c_comunicanti1.jpg" alt="Camere Comunicanti" loading="lazy">
-          <figcaption><b data-i18n="room.connecting.name">Camere Comunicanti</b><span data-i18n="room.connecting.desc">Due stanze unite da una porta: spazio e tranquillità per tutti.</span></figcaption></figure>
-        <figure class="rs-slide"><img src="assets/img/c_francese1.jpg" alt="Camera Standard alla francese" loading="lazy">
-          <figcaption><b data-i18n="room.standard.name">Camera Standard</b><span data-i18n="room.standard.desc">Accogliente e luminosa, con balcone affacciato sulla via.</span></figcaption></figure>
-        <figure class="rs-slide"><img src="assets/img/family-hotel-livigno-1.jpg" alt="Camera Lupigno per bambini" loading="lazy">
-          <figcaption><b data-i18n="room.kids.name">Camera Lupigno</b><span data-i18n="room.kids.desc">Letti a castello, scivolo e murale: i bambini non vorranno più uscire.</span></figcaption></figure>
+        <figure class="rs-slide is-active"><img src="assets/img/Rooms/room-classica.jpg" alt="Camera Classica" fetchpriority="high">
+          <figcaption><b data-i18n="room.classica.name">Camera Classica</b><span data-i18n="room.classica.desc">Relax e semplicità, nel calore del legno.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/Rooms/room-junior.jpg" alt="Junior Suite" loading="lazy">
+          <figcaption><b data-i18n="room.junior.name">Junior Suite</b><span data-i18n="room.junior.desc">Spaziosa e pensata per le famiglie numerose.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/Rooms/room-kids.jpg" alt="Kids Room" loading="lazy">
+          <figcaption><b data-i18n="room.kids.name">Kids Room</b><span data-i18n="room.kids.desc">Pensata per i nostri piccoli ospiti.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/Rooms/room-alpina.jpg" alt="Suite Alpina" loading="lazy">
+          <figcaption><b data-i18n="room.alpina.name">Suite Alpina</b><span data-i18n="room.alpina.desc">Una fuga romantica per le coppie.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/Rooms/room-superior.jpg" alt="Camera Superior" loading="lazy">
+          <figcaption><b data-i18n="room.superior.name">Camera Superior</b><span data-i18n="room.superior.desc">Rinnovata nel caldo stile alpino.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/Rooms/room-superior-plus.jpg" alt="Superior Plus" loading="lazy">
+          <figcaption><b data-i18n="room.superiorplus.name">Superior Plus</b><span data-i18n="room.superiorplus.desc">Spazi divisi, pensati per le famiglie.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/Rooms/room-superior-family.jpg" alt="Superior Family" loading="lazy">
+          <figcaption><b data-i18n="room.superiorfamily.name">Superior Family</b><span data-i18n="room.superiorfamily.desc">Spaziosa e classica, per tutta la famiglia.</span></figcaption></figure>
+        <figure class="rs-slide"><img src="assets/img/Rooms/room-tana.jpg" alt="Tana dell'Orso" loading="lazy">
+          <figcaption><b data-i18n="room.tana.name">Tana dell'Orso</b><span data-i18n="room.tana.desc">Come stare dentro una favola.</span></figcaption></figure>
       </div>
       <button type="button" class="rs-arrow rs-prev" id="rsPrev" aria-label="‹">‹</button>
       <button type="button" class="rs-arrow rs-next" id="rsNext" aria-label="›">›</button>
@@ -1064,11 +1075,14 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "book.guests":"Ospiti","book.adults_sub":"14+ anni","book.kids2":"Bambini","book.kids2_sub":"7–12 anni","book.kids1":"Bambini","book.kids1_sub":"3–6 anni","book.babies":"Neonati","book.babies_sub":"0–2 anni","book.done":"Fatto","book.hint_in":"Seleziona l'arrivo","book.hint_out":"Seleziona la partenza",
       "why.eyebrow":"Dal 1970","why.text":"Tre generazioni della stessa famiglia, la stessa accoglienza. Vi aspettiamo come si aspetta <em>chi torna a casa</em>.",
       "rooms.eyebrow":"Le camere","rooms.title":"Spazi caldi, pensati per la famiglia","room.book":"Prenota →",
-      "room.superior.name":"Camera Superior","room.superior.f1":"2–3 ospiti","room.superior.f2":"22 m²","room.superior.f3":"legno antico","room.superior.desc":"Legno di recupero e luce calda: la nostra camera più caratteristica.",
-      "room.junior.name":"Junior Suite Minimal","room.junior.f1":"2–3 ospiti","room.junior.f2":"28 m²","room.junior.f3":"stile moderno","room.junior.desc":"Linee pulite e tessuti naturali, per chi ama la semplicità.",
-      "room.connecting.name":"Camere Comunicanti","room.connecting.f1":"4–5 ospiti","room.connecting.f2":"2 stanze","room.connecting.f3":"porta interna","room.connecting.desc":"Due stanze unite da una porta: spazio e tranquillità per tutti.",
-      "room.standard.name":"Camera Standard","room.standard.f1":"2 ospiti","room.standard.f2":"16 m²","room.standard.f3":"letto alla francese","room.standard.desc":"Accogliente e luminosa, con balcone affacciato sulla via.",
-      "room.kids.name":"Camera Lupigno","room.kids.f1":"famiglia","room.kids.f2":"scivolo","room.kids.f3":"murale alpino","room.kids.desc":"Letti a castello, scivolo e murale: i bambini non vorranno più uscire.",
+      "room.classica.name":"Camera Classica","room.classica.desc":"Relax e semplicità, nel calore del legno.",
+      "room.junior.name":"Junior Suite","room.junior.desc":"Spaziosa e pensata per le famiglie numerose.",
+      "room.kids.name":"Kids Room","room.kids.desc":"Pensata per i nostri piccoli ospiti.",
+      "room.alpina.name":"Suite Alpina","room.alpina.desc":"Una fuga romantica per le coppie.",
+      "room.superior.name":"Camera Superior","room.superior.desc":"Rinnovata nel caldo stile alpino.",
+      "room.superiorplus.name":"Superior Plus","room.superiorplus.desc":"Spazi divisi, pensati per le famiglie.",
+      "room.superiorfamily.name":"Superior Family","room.superiorfamily.desc":"Spaziosa e classica, per tutta la famiglia.",
+      "room.tana.name":"Tana dell'Orso","room.tana.desc":"Come stare dentro una favola.",
       "fam.eyebrow":"Famiglia & benessere","fam.title":"Tutto a portata di famiglia","fam.caption":"Lo spazio dove le famiglie si ritrovano.",
       "amenity.pool.title":"Piscina & Spa","amenity.pool.text":"Piscina coperta, idromassaggio e relax fra pietra e legno.",
       "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Sala giochi, animazione e la nostra marmotta Lupigno.",
@@ -1102,11 +1116,14 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "book.guests":"Guests","book.adults_sub":"14+ yrs","book.kids2":"Children","book.kids2_sub":"7–12 yrs","book.kids1":"Children","book.kids1_sub":"3–6 yrs","book.babies":"Infants","book.babies_sub":"0–2 yrs","book.done":"Done","book.hint_in":"Select arrival","book.hint_out":"Select departure",
       "why.eyebrow":"Since 1970","why.text":"Three generations of the same family, the same welcome. We greet you the way you greet <em>someone coming home</em>.",
       "rooms.eyebrow":"The rooms","rooms.title":"Warm spaces, made for families","room.book":"Book →",
-      "room.superior.name":"Superior Room","room.superior.f1":"2–3 guests","room.superior.f2":"22 m²","room.superior.f3":"old wood","room.superior.desc":"Reclaimed wood and warm light — our most characterful room.",
-      "room.junior.name":"Minimal Junior Suite","room.junior.f1":"2–3 guests","room.junior.f2":"28 m²","room.junior.f3":"modern style","room.junior.desc":"Clean lines and natural fabrics, for lovers of simplicity.",
-      "room.connecting.name":"Connecting Rooms","room.connecting.f1":"4–5 guests","room.connecting.f2":"2 rooms","room.connecting.f3":"inner door","room.connecting.desc":"Two rooms joined by a door — space and calm for everyone.",
-      "room.standard.name":"Standard Room","room.standard.f1":"2 guests","room.standard.f2":"16 m²","room.standard.f3":"French bed","room.standard.desc":"Cosy and bright, with a balcony over the street.",
-      "room.kids.name":"Lupigno Kids Room","room.kids.f1":"family","room.kids.f2":"slide","room.kids.f3":"alpine mural","room.kids.desc":"Bunk beds, a slide and a mural — kids won't want to leave.",
+      "room.classica.name":"Classic Room","room.classica.desc":"Relax and simplicity, wrapped in warm wood.",
+      "room.junior.name":"Junior Suite","room.junior.desc":"Spacious and made for larger families.",
+      "room.kids.name":"Kids Room","room.kids.desc":"Designed for our littlest guests.",
+      "room.alpina.name":"Alpine Suite","room.alpina.desc":"A romantic escape for two.",
+      "room.superior.name":"Superior Room","room.superior.desc":"Renewed in warm alpine style.",
+      "room.superiorplus.name":"Superior Plus","room.superiorplus.desc":"Separate spaces, designed for families.",
+      "room.superiorfamily.name":"Superior Family","room.superiorfamily.desc":"Spacious and classic, for the whole family.",
+      "room.tana.name":"Bear's Den","room.tana.desc":"Like stepping into a fairytale.",
       "fam.eyebrow":"Family & wellness","fam.title":"Everything within family reach","fam.caption":"The space where families come together.",
       "amenity.pool.title":"Pool & Spa","amenity.pool.text":"Indoor pool, hot tub and relaxation in stone and wood.",
       "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Playroom, activities and our marmot Lupigno.",
@@ -1140,11 +1157,14 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "book.guests":"Gäste","book.adults_sub":"14+ J.","book.kids2":"Kinder","book.kids2_sub":"7–12 J.","book.kids1":"Kinder","book.kids1_sub":"3–6 J.","book.babies":"Kleinkinder","book.babies_sub":"0–2 J.","book.done":"Fertig","book.hint_in":"Anreise wählen","book.hint_out":"Abreise wählen",
       "why.eyebrow":"Seit 1970","why.text":"Drei Generationen derselben Familie, dieselbe Herzlichkeit. Wir empfangen Sie, wie man <em>jemanden empfängt, der nach Hause kommt</em>.",
       "rooms.eyebrow":"Die Zimmer","rooms.title":"Warme Räume, für Familien gemacht","room.book":"Buchen →",
-      "room.superior.name":"Superior-Zimmer","room.superior.f1":"2–3 Gäste","room.superior.f2":"22 m²","room.superior.f3":"Altholz","room.superior.desc":"Altholz und warmes Licht — unser charaktervollstes Zimmer.",
-      "room.junior.name":"Junior-Suite Minimal","room.junior.f1":"2–3 Gäste","room.junior.f2":"28 m²","room.junior.f3":"moderner Stil","room.junior.desc":"Klare Linien und natürliche Stoffe, für Freunde der Schlichtheit.",
-      "room.connecting.name":"Verbindungszimmer","room.connecting.f1":"4–5 Gäste","room.connecting.f2":"2 Räume","room.connecting.f3":"Verbindungstür","room.connecting.desc":"Zwei Zimmer mit Verbindungstür — Platz und Ruhe für alle.",
-      "room.standard.name":"Standard-Zimmer","room.standard.f1":"2 Gäste","room.standard.f2":"16 m²","room.standard.f3":"französisches Bett","room.standard.desc":"Gemütlich und hell, mit Balkon zur Straße.",
-      "room.kids.name":"Lupigno-Kinderzimmer","room.kids.f1":"Familie","room.kids.f2":"Rutsche","room.kids.f3":"Alpen-Wandbild","room.kids.desc":"Etagenbetten, eine Rutsche und ein Wandbild — Kinder wollen nicht mehr raus.",
+      "room.classica.name":"Classic-Zimmer","room.classica.desc":"Entspannung und Schlichtheit, im warmen Holz.",
+      "room.junior.name":"Junior-Suite","room.junior.desc":"Geräumig und für große Familien gedacht.",
+      "room.kids.name":"Kinderzimmer","room.kids.desc":"Für unsere kleinsten Gäste gemacht.",
+      "room.alpina.name":"Alpen-Suite","room.alpina.desc":"Eine romantische Auszeit zu zweit.",
+      "room.superior.name":"Superior-Zimmer","room.superior.desc":"Erneuert im warmen alpinen Stil.",
+      "room.superiorplus.name":"Superior Plus","room.superiorplus.desc":"Getrennte Bereiche, für Familien gedacht.",
+      "room.superiorfamily.name":"Superior Family","room.superiorfamily.desc":"Geräumig und klassisch, für die ganze Familie.",
+      "room.tana.name":"Bärenhöhle","room.tana.desc":"Wie in einem Märchen.",
       "fam.eyebrow":"Familie & Wellness","fam.title":"Alles in Familiennähe","fam.caption":"Der Ort, an dem Familien zusammenkommen.",
       "amenity.pool.title":"Pool & Spa","amenity.pool.text":"Hallenbad, Whirlpool und Entspannung in Stein und Holz.",
       "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Spielzimmer, Animation und unser Murmeltier Lupigno.",
@@ -1231,7 +1251,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
      Engine reads: checkin / checkout (YYYY-MM-DD) and guesttypes[0][<typeId>]=<count>.
      Type IDs for this property: 18482 Adults · 18484 Babies(0-2) · 18483 Children(3-6) · 19632 Children(7-12).
      beginsearch=1&isnewsearch=1 makes the engine auto-run availability and land pre-filled. */
-  var BE_BASE = "https://be.bookingexpert.it/book/home/single";
+  var BE_BASE = "https://be.bookingexpert.it/book/simple/step2";
   var ci=document.getElementById("checkin"), co=document.getElementById("checkout"),
       ad=document.getElementById("adults"), babies=document.getElementById("babies"),
       kids1=document.getElementById("kids1"), kids2=document.getElementById("kids2");
@@ -1401,17 +1421,48 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   document.addEventListener("click", closePops);
   document.addEventListener("keydown", function(e){ if(e.key==="Escape") closePops(); });
 
-  /* ---- deep link ---- */
+  /* ---- deep link ----
+     step2 wants checkin/checkout as epoch-ms at Europe/Rome local midnight, one
+     ages[0][typeId]=<age> per guest alongside the guesttypes[0][typeId]=<count>,
+     plus a fresh client-side searchId + nsid. We build the timestamp from the
+     plain Y-M-D using a fixed Rome DST offset so the calendar day can't slip for
+     a visitor in another timezone. */
+  function uuid(){
+    if(typeof crypto!=="undefined" && crypto.randomUUID) return crypto.randomUUID();
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
+      var r=Math.random()*16|0, v=c==="x"?r:(r&0x3|0x8); return v.toString(16);
+    });
+  }
+  /* Europe/Rome UTC offset (hours) for a given Y-M-D: CEST=+2 last Sun Mar →
+     last Sun Oct, otherwise CET=+1. Date-granular, so the 01:00-UTC switch edge
+     is irrelevant. */
+  function romeOffsetHours(y,m,d){
+    function lastSunday(year,month0){ var last=new Date(Date.UTC(year,month0+1,0)); return last.getUTCDate()-last.getUTCDay(); }
+    if(m<3 || m>10) return 1;
+    if(m>3 && m<10) return 2;
+    if(m===3)  return d>=lastSunday(y,2) ? 2 : 1;
+    return d<lastSunday(y,9) ? 2 : 1; // October
+  }
+  function romeMidnightMs(isoStr){
+    var p=isoStr.split("-"), y=+p[0], m=+p[1], d=+p[2];
+    return Date.UTC(y,m-1,d) - romeOffsetHours(y,m,d)*3600000;
+  }
+  /* representative age per guest-type bracket (engine wants a real age each) */
+  function pushGuests(parts, typeId, count, age){
+    if(count<=0) return;
+    parts.push("guesttypes[0]["+typeId+"]="+count);
+    for(var i=0;i<count;i++) parts.push("ages[0]["+typeId+"]="+age);
+  }
   function buildBookingUrl(){
-    var parts=["layout=14019","currency=EUR","nsid=99277590-3b11-4618-87eb-ca0a388150a1","lang="+currentLang];
-    if(ci.value) parts.push("checkin="+ci.value);
-    if(co.value) parts.push("checkout="+co.value);
-    parts.push("guesttypes[0][18482]="+(parseInt(ad.value,10)||1));
-    var b=parseInt(babies.value,10)||0, k1=parseInt(kids1.value,10)||0, k2=parseInt(kids2.value,10)||0;
-    if(b>0)  parts.push("guesttypes[0][18484]="+b);
-    if(k1>0) parts.push("guesttypes[0][18483]="+k1);
-    if(k2>0) parts.push("guesttypes[0][19632]="+k2);
-    parts.push("beginsearch=1","isnewsearch=1");
+    var parts=["layout=14019","currency=EUR","lang="+currentLang,
+               "searchId="+uuid(),"nsid="+uuid()];
+    if(ci.value) parts.push("checkin="+romeMidnightMs(ci.value));
+    if(co.value) parts.push("checkout="+romeMidnightMs(co.value));
+    pushGuests(parts, 18482, parseInt(ad.value,10)||1, 18);                 // adults
+    pushGuests(parts, 18484, parseInt(babies.value,10)||0, 1);              // babies 0–2
+    pushGuests(parts, 18483, parseInt(kids1.value,10)||0, 5);               // children 3–6
+    pushGuests(parts, 19632, parseInt(kids2.value,10)||0, 10);              // children 7–12
+    parts.push("winding=1","beginsearch=1","isnewsearch=1");
     return BE_BASE+"?"+parts.join("&");
   }
   function openBooking(){ window.open(buildBookingUrl(),"_blank","noopener"); }
@@ -1497,16 +1548,31 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   if(drawer){
     var adPanels=drawer.querySelectorAll(".ad-panel");
     var openKey=null, openCard=null;
+    /* remember the drawer's home so we can restore it after a mobile inline move */
+    var drawerParent=drawer.parentNode, drawerAnchor=drawer.nextSibling;
     function setPanel(key){ adPanels.forEach(function(p){ p.classList.toggle("is-active", p.getAttribute("data-key")===key); }); }
+    function isOneCol(){
+      if(!amenitiesGrid) return false;
+      return getComputedStyle(amenitiesGrid).gridTemplateColumns.split(" ").length<=1;
+    }
+    /* On mobile (single column) tuck the drawer directly under the tapped card so
+       it reads as one continuous panel; on desktop keep it in its home spot as the
+       full-width caret row. */
+    function placeDrawer(card){
+      var oneCol=isOneCol();
+      if(oneCol){ card.after(drawer); drawer.classList.add("inline-drawer"); }
+      else { drawerParent.insertBefore(drawer, drawerAnchor); drawer.classList.remove("inline-drawer"); }
+      return oneCol;
+    }
+    function restoreDrawerHome(){
+      drawer.classList.remove("inline-drawer");
+      drawerParent.insertBefore(drawer, drawerAnchor);
+    }
     /* Point the drawer caret at the card that opened it. In a 1-col layout the
-       active card already sits directly above the drawer, so hide the caret. */
+       drawer sits directly under its card, so hide the caret. */
     function positionCaret(card){
       if(!card) return;
-      var oneCol=false;
-      if(amenitiesGrid){
-        var cols=getComputedStyle(amenitiesGrid).gridTemplateColumns.split(" ").length;
-        oneCol=cols<=1;
-      }
+      var oneCol=isOneCol();
       drawer.classList.toggle("no-caret", oneCol);
       if(oneCol) return;
       var cardR=card.getBoundingClientRect(), drawR=drawer.getBoundingClientRect();
@@ -1515,12 +1581,15 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       if(inner) inner.style.setProperty("--caret-x", x+"px");
     }
     function openDrawer(key,card){
-      setPanel(key); drawer.hidden=false;
+      setPanel(key);
+      var oneCol=placeDrawer(card);
+      drawer.hidden=false;
       drawer.style.height="auto"; var h=drawer.scrollHeight; drawer.style.height="0px";
       void drawer.offsetHeight; drawer.style.height=h+"px"; openKey=key; openCard=card;
       acards.forEach(function(c){ c.setAttribute("aria-expanded", c===card?"true":"false"); });
       if(amenitiesGrid) amenitiesGrid.classList.add("has-open");
       positionCaret(card);
+      if(oneCol) drawer.scrollIntoView({block:"nearest"});
     }
     function closeDrawer(){
       drawer.style.height=drawer.scrollHeight+"px"; void drawer.offsetHeight; drawer.style.height="0px"; openKey=null; openCard=null;
@@ -1529,14 +1598,14 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     }
     drawer.addEventListener("transitionend", function(e){
       if(e.propertyName!=="height") return;
-      if(openKey===null){ drawer.hidden=true; } else { drawer.style.height="auto"; }
+      if(openKey===null){ drawer.hidden=true; restoreDrawerHome(); } else { drawer.style.height="auto"; }
     });
     acards.forEach(function(c){ c.addEventListener("click", function(){
       var key=c.getAttribute("data-key");
       if(openKey===key) closeDrawer(); else openDrawer(key,c);
     }); });
-    // keep the caret aligned to its card when the layout reflows
-    window.addEventListener("resize", function(){ if(openCard) positionCaret(openCard); }, {passive:true});
+    // keep the drawer placed + caret aligned to its card when the layout reflows
+    window.addEventListener("resize", function(){ if(openCard){ placeDrawer(openCard); positionCaret(openCard); } }, {passive:true});
   }
 
   /* ---------- Guest review wall (★★★★★ — scattered across the section, multilingual) ---------- */
@@ -1940,7 +2009,11 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   bookBtn.addEventListener("click", function(){
     var b=document.querySelector(".js-book");
     if(b){ b.click(); }
-    else { window.open("https://be.bookingexpert.it/book/home/single?layout=14019&currency=EUR&nsid=99277590-3b11-4618-87eb-ca0a388150a1&lang="+lang+"&beginsearch=1&isnewsearch=1","_blank","noopener"); }
+    else {
+      var nu=(typeof crypto!=="undefined"&&crypto.randomUUID)?crypto.randomUUID:function(){return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0,v=c==="x"?r:(r&0x3|0x8);return v.toString(16);});};
+      var sid=nu(), nsid=nu();
+      window.open("https://be.bookingexpert.it/book/simple/step2?layout=14019&currency=EUR&lang="+lang+"&searchId="+sid+"&nsid="+nsid+"&guesttypes[0][18482]=2&ages[0][18482]=18&ages[0][18482]=18&winding=1&beginsearch=1&isnewsearch=1","_blank","noopener");
+    }
   });
 
   function setBusy(b){ sendBtn.disabled=b; }

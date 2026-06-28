@@ -32,6 +32,10 @@ const GALLERY_SOURCES = [
   { src: "touring-winter.jpg",           alt: "Le montagne di Livigno in inverno" },
   { src: "box-3.jpg",                    alt: "Camera Superior" },
   { src: "family-hotel-livigno-1.jpg",   alt: "Camera Lupigno" },
+  { src: "camera-legno-antico.jpg",      alt: "Camera in legno antico con stampe storiche di Livigno" },
+  { src: "camera-murale-montagne.jpg",   alt: "Camera con murale panoramico delle montagne" },
+  { src: "camera-famiglia-bambini.jpg",  alt: "Camera famiglia a tema per i bambini" },
+  { src: "piscina-scivolo.jpg",          alt: "Scivolo d'acqua nella piscina per bambini" },
 ];
 
 const MAX_W = 1600;   // gallery display never exceeds this on screen

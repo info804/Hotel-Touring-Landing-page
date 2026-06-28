@@ -112,14 +112,23 @@ Type scale (fluid):
 | `5-ristorante.jpg`             | 1920×1280  | Gallery / dining                 |
 | `slider_hotel-1.jpg`           | 1920×1280  | Location summer card / CTA band  |
 | `family-hotel-livigno.jpg`     | 1920×1280  | Family section lead (candid)     |
-| `box-3.jpg`                    | 1080×1280  | Room: **Superior** (hi-res)      |
-| `family-hotel-livigno-1.jpg`   | 1080×1280  | Room: **Kids Room** (hi-res)     |
-| `c_minimal2.jpg`               | 229×162 ⚠️ | Room: Junior Suite — LOW-RES     |
-| `c_comunicanti1.jpg`           | 229×162 ⚠️ | Room: Connecting — LOW-RES       |
-| `c_francese1.jpg`              | 229×240 ⚠️ | Room: Standard French — LOW-RES  |
+| `box-3.jpg`                    | 1080×1280  | Gallery (Superior room)          |
+| `family-hotel-livigno-1.jpg`   | 1080×1280  | Gallery (Lupigno kids room)      |
+| `camera-legno-antico.jpg`      | ≤1600px    | Gallery (room w/ Livigno prints) |
+| `camera-murale-montagne.jpg`   | ≤1600px    | Gallery (room w/ mountain mural) |
+| `camera-famiglia-bambini.jpg`  | ≤1600px    | Gallery (themed family room)     |
+| `piscina-scivolo.jpg`          | ≤1600px    | Gallery (pool water slide)       |
+| `Rooms/room-classica.jpg`      | ≤1600px    | Room carousel: **Camera Classica**   |
+| `Rooms/room-junior.jpg`        | ≤1600px    | Room carousel: **Junior Suite**      |
+| `Rooms/room-kids.jpg`          | ≤1600px    | Room carousel: **Kids Room**         |
+| `Rooms/room-alpina.jpg`        | ≤1600px    | Room carousel: **Suite Alpina**      |
+| `Rooms/room-superior.jpg`      | ≤1600px    | Room carousel: **Camera Superior**   |
+| `Rooms/room-superior-plus.jpg` | ≤1600px    | Room carousel: **Superior Plus**     |
+| `Rooms/room-superior-family.jpg`| ≤1600px   | Room carousel: **Superior Family**   |
+| `Rooms/room-tana.jpg`          | ≤1600px    | Room carousel: **Tana dell'Orso**    |
 
-⚠️ **Low-res rule:** the three 229px room photos get `object-fit:cover`, **no hover zoom**, and a
-flag `data-lowres` so JS/CSS never scale them aggressively. Cards keep them small to hide softness.
+**Room carousel:** 8 hi-res photos in `assets/img/Rooms/`, web-optimised (≤1600px, mozjpeg q80) from
+the originals — full hover zoom, no low-res handling needed. The slideshow JS is count-agnostic.
 
 ## 7. Motion (keep light)
 

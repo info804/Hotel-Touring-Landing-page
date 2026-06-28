@@ -15,7 +15,7 @@ node server.js     →  http://localhost:8080
 ├── index.html                  # the entire site — inline CSS + JS, no dependencies
 ├── DESIGN.md                   # design system (source of truth)
 ├── server.js                   # zero-dep local preview server
-├── assets/img/                 # 17 local JPEGs incl. livigno-1..4 (no hotlinks, no CDN)
+├── assets/img/                 # local JPEGs (no hotlinks/CDN); Rooms/ = carousel · gallery/ = manifest-driven
 └── Hotel Touring Livigno.html  # OLD over-complex build — superseded, safe to delete
 ```
 
@@ -84,7 +84,12 @@ smooth scroll, nav + booking-bar shrink on scroll, a ~200ms fade/blur on the lan
 vanilla crossfade slideshows. All motion is disabled under `prefers-reduced-motion`.
 
 ## Images
-17 local JPEGs in `assets/img/` (incl. `livigno-1..4.jpg`, Livigno scenery sourced from livigno.eu and
-**downloaded locally** — never hotlinked). Three room photos (`c_minimal2`, `c_comunicanti1`,
-`c_francese1`) are low-res (229px) — rendered in small cards with **no hover zoom** so softness stays
-hidden. Replace with official hi-res files (same names) to upgrade.
+All photos are local in `assets/img/` — never hotlinked (Livigno scenery `livigno-1..12.jpg` sourced
+from livigno.eu and downloaded locally). Two generated/curated sets:
+- **Gallery slideshow** — manifest-driven: 14 web-optimised photos in `assets/img/gallery/`, regenerated
+  by `scripts/build-assets.js` from `GALLERY_SOURCES` (resize ≤1600px, mozjpeg q80). The page reads
+  `gallery/manifest.json`, so drop-ins are picked up automatically.
+- **Room carousel** — 8 hi-res room photos in `assets/img/Rooms/` (`room-classica`, `room-junior`,
+  `room-kids`, `room-alpina`, `room-superior`, `room-superior-plus`, `room-superior-family`,
+  `room-tana`), each web-optimised (≤1600px, mozjpeg q80) from the originals. The slideshow JS is
+  count-agnostic, so adding/removing a `.rs-slide` figure needs no JS change.

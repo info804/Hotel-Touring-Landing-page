@@ -38,5 +38,21 @@
   {
     "src": "assets/img/gallery/family-hotel-livigno-1.jpg",
     "alt": "Camera Lupigno"
+  },
+  {
+    "src": "assets/img/gallery/camera-legno-antico.jpg",
+    "alt": "Camera in legno antico con stampe storiche di Livigno"
+  },
+  {
+    "src": "assets/img/gallery/camera-murale-montagne.jpg",
+    "alt": "Camera con murale panoramico delle montagne"
+  },
+  {
+    "src": "assets/img/gallery/camera-famiglia-bambini.jpg",
+    "alt": "Camera famiglia a tema per i bambini"
+  },
+  {
+    "src": "assets/img/gallery/piscina-scivolo.jpg",
+    "alt": "Scivolo d'acqua nella piscina per bambini"
   }
 ]
