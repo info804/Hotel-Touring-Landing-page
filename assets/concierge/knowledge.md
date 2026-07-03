@@ -10,7 +10,7 @@
 
 ## Hotel
 Hotel 4 stelle a gestione familiare nel centro di Livigno.
-Indirizzo: Via Plan 117, 23030 Livigno (SO)
+Indirizzo: Via Plan 117, 23041 Livigno (SO)
 Telefono: +39 0342 996131
 Email: info@touringlivigno.com
 WhatsApp: +39 339 772 6822

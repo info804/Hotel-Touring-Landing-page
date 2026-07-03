@@ -29,3 +29,6 @@ err.txt
 # Leading slash anchors this to the repo root so it does NOT also ignore
 # assets/concierge/ (the chatbot knowledge file lives there).
 /concierge/
+
+# Personal scratch files - not part of the site
+12-WEEK-PROGRAM.md

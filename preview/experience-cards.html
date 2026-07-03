@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experience Cards Preview — Hotel Touring Livigno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ── Design tokens (mirrored from index.html :root) ───────────────────── */
+:root {
+  --pine:#27433A; --pine-deep:#1C322B;
+  --stone:#B8A98F;
+  --cream:#F6F1E7; --warm-white:#FCFAF5;
+  --charcoal:#2A2724;
+  --gold:#C2A24E; --gold-soft:#D8BE78;
+  --radius:14px;
+  --shadow:0 18px 40px -24px rgba(28,50,43,.35);
+  --shadow-lg:0 28px 60px -28px rgba(28,50,43,.45);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --maxw:1200px;
+  --gutter:clamp(20px,5vw,64px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: #e8e2d8; color: var(--charcoal);
+  font-family: var(--sans); font-size: clamp(15px,1vw,17px);
+  line-height: 1.7; -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+button { font-family: inherit; cursor: pointer; }
+h1,h2,h3 { font-family: var(--serif); font-weight: 500; margin: 0; color: var(--pine); line-height: 1.15; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+/* ── Page chrome ─────────────────────────────────────────────────────────── */
+.page-header {
+  background: var(--pine); color: var(--cream);
+  padding: 32px var(--gutter) 28px;
+  display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap;
+}
+.page-header h1 { font-size: clamp(22px,2.4vw,30px); color: var(--warm-white); }
+.page-header p { margin: 0; font-size: 14px; color: rgba(246,241,231,.7); }
+.page-header .ph-note {
+  margin-left: auto; font-size: 13px; color: var(--gold-soft);
+  background: rgba(194,162,78,.15); border: 1px solid rgba(194,162,78,.3);
+  border-radius: 999px; padding: 6px 16px; white-space: nowrap;
+}
+.nav-pills {
+  background: var(--pine-deep); padding: 12px var(--gutter);
+  display: flex; gap: 8px; flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
+}
+.nav-pills a {
+  font-size: 13px; font-weight: 600; color: rgba(246,241,231,.7);
+  padding: 6px 16px; border-radius: 999px; border: 1px solid transparent;
+  text-decoration: none; transition: all .2s;
+}
+.nav-pills a:hover { color: var(--warm-white); border-color: rgba(194,162,78,.4); }
+.nav-pills a.rec { background: var(--gold); color: var(--pine-deep); border-color: var(--gold); }
+
+.variant-section {
+  padding: clamp(48px,8vh,80px) var(--gutter);
+  max-width: var(--maxw); margin: 0 auto;
+}
+.variant-header { margin-bottom: 32px; }
+.variant-header .badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
+}
+.badge-rec { background: var(--gold); color: var(--pine-deep); }
+.badge-alt { background: rgba(42,39,36,.1); color: var(--charcoal); }
+.variant-header h2 { font-size: clamp(24px,2.2vw,32px); margin-bottom: 8px; }
+.variant-header p { margin: 0; color: #6b6660; max-width: 60ch; }
+
+.divider { height: 1px; background: rgba(42,39,36,.12); margin: 0 var(--gutter); }
+
+/* ── SHARED card styles ────────────────────────────────────────────────── */
+.amenities {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) { .amenities { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .amenities { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VARIANT A — Enriched Drawer
+   ══════════════════════════════════════════════════════════════════════════ */
+.va-card {
+  position: relative; display: flex; flex-direction: column; text-align: left;
+  padding: 0; background: var(--warm-white); border-radius: var(--radius);
+  overflow: hidden; border: 1px solid rgba(42,39,36,.07);
+  box-shadow: var(--shadow);
+  transition: transform .32s cubic-bezier(.4,0,.2,1), box-shadow .32s, border-color .25s;
+  cursor: pointer;
+}
+.va-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(194,162,78,.4); }
+.va-card[aria-expanded="true"] {
+  transform: none; border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold), var(--shadow-lg);
+  border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+  border-bottom-color: transparent; z-index: 2;
+}
+.amenities.has-open .va-card:not([aria-expanded="true"]) { opacity: .5; filter: saturate(.75); }
+.amenities.has-open .va-card:not([aria-expanded="true"]):hover { opacity: 1; filter: none; }
+
+.va-media { position: relative; display: block; aspect-ratio: 3/2; overflow: hidden; background: var(--stone); }
+.va-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.va-media::after {
+  content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s;
+  background: linear-gradient(to top, rgba(28,50,43,.38), transparent 58%);
+}
+.va-card:hover .va-media img { transform: scale(1.06); }
+.va-card:hover .va-media::after, .va-card[aria-expanded="true"] .va-media::after { opacity: 1; }
+
+.va-body { display: flex; flex-direction: column; padding: 14px 18px 16px; }
+.va-cat {
+  font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 4px;
+}
+.va-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.va-title { font-family: var(--serif); font-weight: 500; font-size: clamp(16px,1.3vw,19px); color: var(--pine); }
+.va-tease { font-size: 12.5px; color: #8a8278; margin-top: 3px; }
+.va-chevron {
+  flex: none; width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(194,162,78,.13); position: relative;
+  transition: background .25s, transform .4s cubic-bezier(.4,0,.2,1);
+}
+.va-chevron::before {
+  content: ""; position: absolute; left: 50%; top: 42%; width: 8px; height: 8px;
+  margin-left: -4px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+  transform: translateY(-50%) rotate(45deg); transition: border-color .25s;
+}
+.va-card:hover .va-chevron { background: var(--gold); }
+.va-card:hover .va-chevron::before { border-color: var(--warm-white); }
+.va-card[aria-expanded="true"] .va-chevron { background: var(--gold); transform: rotate(180deg); }
+.va-card[aria-expanded="true"] .va-chevron::before { border-color: var(--warm-white); }
+
+/* Drawer */
+.va-drawer { height: 0; overflow: hidden; transition: height .42s cubic-bezier(.4,0,.2,1); }
+.va-drawer-inner {
+  background: var(--warm-white); border: 2px solid var(--gold);
+  border-radius: var(--radius); margin-top: 16px;
+  box-shadow: var(--shadow-lg); overflow: hidden;
+}
+.va-panel { display: none; }
+.va-panel.is-active {
+  display: block;
+  animation: va-fade .45s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes va-fade { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+/* Drawer interior: signature + split */
+.va-panel-inner { padding: clamp(20px,3vw,36px); }
+.va-signature {
+  font-family: var(--serif); font-style: italic; font-size: clamp(15px,1.2vw,17px);
+  color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+}
+.va-signature::before, .va-signature::after {
+  content: ""; flex: 1; height: 1px; background: rgba(194,162,78,.3);
+}
+
+/* Mini gallery inside drawer */
+.va-gallery {
+  position: relative; border-radius: 12px; overflow: hidden;
+  box-shadow: var(--shadow); min-height: 220px; background: var(--stone); aspect-ratio: 4/3;
+}
+.va-gallery-slide {
+  position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease;
+}
+.va-gallery-slide.is-active { opacity: 1; }
+.va-gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+.va-gallery-dots {
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 2;
+}
+.va-gallery-dots button {
+  width: 7px; height: 7px; border-radius: 50%; border: none; padding: 0;
+  background: rgba(252,250,245,.45); transition: background .2s, transform .2s;
+}
+.va-gallery-dots button.active { background: var(--warm-white); transform: scale(1.3); }
+.va-gallery-prev, .va-gallery-next {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  background: rgba(252,250,245,.85); border: none; border-radius: 50%;
+  width: 30px; height: 30px; font-size: 14px; display: flex; align-items: center; justify-content: center;
+  color: var(--pine); transition: background .2s;
+}
+.va-gallery-prev:hover, .va-gallery-next:hover { background: var(--warm-white); }
+.va-gallery-prev { left: 8px; }
+.va-gallery-next { right: 8px; }
+
+.va-split { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(18px,2.8vw,38px); align-items: start; }
+.va-copy { min-width: 0; }
+.va-eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.va-copy h3 { font-size: clamp(20px,2vw,26px); margin-bottom: 10px; }
+.va-lead { margin: 0 0 8px; color: #5d5a52; font-size: 15px; line-height: 1.65; max-width: 55ch; }
+.va-note {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin: 14px 0 4px; padding: 10px 13px;
+  border-left: 3px solid var(--gold); background: rgba(194,162,78,.08);
+  border-radius: 0 9px 9px 0; color: var(--pine); font-size: 13px; font-weight: 500; line-height: 1.5;
+}
+.va-note::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: 6px; border-radius: 50%; background: var(--gold); }
+.va-note b { font-weight: 700; }
+.va-list { margin: 16px 0 0; padding: 0; list-style: none; columns: 2; column-gap: 28px; }
+.va-list li { font-size: 13.5px; font-weight: 500; color: var(--pine); padding: 7px 0 7px 24px; position: relative; break-inside: avoid; }
+.va-list li::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; border-radius: 50%; background: rgba(194,162,78,.2); }
+.va-list li::after { content: ""; position: absolute; left: 4.5px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.va-list li i { font-style: normal; font-weight: 600; font-size: 11.5px; color: var(--gold); margin-left: 5px; padding: 1px 7px; border-radius: 999px; background: rgba(194,162,78,.14); white-space: nowrap; }
+
+@media (max-width: 700px) {
+  .va-split { grid-template-columns: 1fr; }
+  .va-gallery { min-height: 180px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VARIANT B — Full-Screen Modal
+   ══════════════════════════════════════════════════════════════════════════ */
+.vb-card {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); aspect-ratio: 3/4; cursor: pointer;
+  transition: transform .32s cubic-bezier(.4,0,.2,1), box-shadow .32s;
+}
+.vb-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.vb-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.vb-card:hover img { transform: scale(1.06); }
+.vb-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(28,50,43,.82) 38%, rgba(28,50,43,.1) 72%, transparent);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 20px;
+}
+.vb-cat { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 6px; }
+.vb-title { font-family: var(--serif); font-weight: 500; font-size: clamp(18px,1.6vw,22px); color: var(--warm-white); margin: 0 0 10px; }
+.vb-tease { font-size: 13px; color: rgba(246,241,231,.75); margin: 0 0 14px; }
+.vb-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 600; color: var(--pine-deep);
+  background: var(--gold); border: none; border-radius: 999px; padding: 8px 18px;
+  transition: background .2s; align-self: flex-start;
+}
+.vb-btn:hover { background: var(--gold-soft); }
+.vb-btn svg { flex: none; }
+
+/* Modal */
+.vb-modal-bg {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(28,50,43,.9); backdrop-filter: blur(10px);
+  opacity: 0; pointer-events: none; transition: opacity .3s ease;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.vb-modal-bg.is-open { opacity: 1; pointer-events: auto; }
+.vb-modal {
+  background: var(--warm-white); border-radius: 20px; overflow: hidden;
+  max-width: 960px; width: 100%; max-height: calc(100vh - 40px);
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,.6);
+  transform: scale(.95) translateY(12px); transition: transform .3s ease;
+}
+.vb-modal-bg.is-open .vb-modal { transform: none; }
+.vb-modal-hero { position: relative; min-height: 400px; overflow: hidden; }
+.vb-modal-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vb-modal-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(28,50,43,.55), transparent);
+}
+.vb-modal-badge {
+  position: absolute; top: 20px; left: 20px;
+  background: var(--gold); color: var(--pine-deep);
+  font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 999px;
+}
+.vb-modal-content {
+  padding: 36px 32px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 0;
+}
+.vb-modal-content h3 { font-size: clamp(22px,2.2vw,29px); margin-bottom: 6px; }
+.vb-modal-sig {
+  font-family: var(--serif); font-style: italic; color: var(--gold);
+  font-size: 14.5px; margin-bottom: 18px; line-height: 1.4;
+}
+.vb-modal-lead { color: #5d5a52; font-size: 15px; line-height: 1.68; margin-bottom: 14px; }
+.vb-modal-note {
+  display: flex; align-items: flex-start; gap: 8px; padding: 10px 13px;
+  border-left: 3px solid var(--gold); background: rgba(194,162,78,.09);
+  border-radius: 0 9px 9px 0; color: var(--pine); font-size: 13px; font-weight: 500;
+  line-height: 1.5; margin-bottom: 16px;
+}
+.vb-modal-note b { font-weight: 700; }
+.vb-modal-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.vb-modal-list li { font-size: 13.5px; font-weight: 500; color: var(--pine); padding-left: 22px; position: relative; }
+.vb-modal-list li::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; border-radius: 50%; background: rgba(194,162,78,.2); }
+.vb-modal-list li::after { content: ""; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.vb-modal-list li i { font-style: normal; font-size: 11.5px; color: var(--gold); margin-left: 5px; padding: 1px 7px; border-radius: 999px; background: rgba(194,162,78,.14); }
+.vb-modal-close {
+  position: absolute; top: 16px; right: 16px; z-index: 10;
+  background: rgba(252,250,245,.9); border: none; border-radius: 50%;
+  width: 38px; height: 38px; font-size: 17px; display: flex; align-items: center; justify-content: center;
+  color: var(--pine); cursor: pointer; transition: background .2s;
+}
+.vb-modal-close:hover { background: var(--warm-white); }
+@media (max-width: 700px) {
+  .vb-modal { grid-template-columns: 1fr; }
+  .vb-modal-hero { min-height: 260px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VARIANT C — Always-Open Editorial
+   ══════════════════════════════════════════════════════════════════════════ */
+.vc-bands { display: flex; flex-direction: column; gap: 0; }
+.vc-band {
+  display: grid; grid-template-columns: 1fr 1fr; min-height: 440px;
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.vc-band.reverse { direction: rtl; }
+.vc-band.reverse > * { direction: ltr; }
+.vc-band-img { position: relative; overflow: hidden; }
+.vc-band-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.vc-band:hover .vc-band-img img { transform: scale(1.04); }
+.vc-band-copy {
+  background: var(--warm-white); padding: clamp(28px,4vw,52px);
+  display: flex; flex-direction: column; justify-content: center; gap: 0;
+}
+.vc-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.vc-band-copy h3 { font-size: clamp(22px,2.2vw,30px); margin-bottom: 8px; }
+.vc-sig {
+  font-family: var(--serif); font-style: italic; font-size: 15px; color: #8a8278;
+  margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(194,162,78,.25);
+}
+.vc-lead { color: #5a5750; font-size: 15px; line-height: 1.68; margin-bottom: 14px; }
+.vc-note {
+  display: flex; align-items: flex-start; gap: 8px; padding: 10px 13px;
+  border-left: 3px solid var(--gold); background: rgba(194,162,78,.08);
+  border-radius: 0 9px 9px 0; color: var(--pine); font-size: 13px; font-weight: 500; margin-bottom: 16px;
+}
+.vc-note b { font-weight: 700; }
+.vc-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.vc-chip {
+  font-size: 12.5px; font-weight: 500; color: var(--pine); padding: 5px 13px;
+  border-radius: 999px; background: rgba(194,162,78,.12); border: 1px solid rgba(194,162,78,.25);
+}
+@media (max-width: 768px) {
+  .vc-band { grid-template-columns: 1fr; min-height: auto; }
+  .vc-band.reverse { direction: ltr; }
+  .vc-band-img { aspect-ratio: 16/9; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <h1>Experience Cards — 3 Variants</h1>
+    <p>Hotel Touring Livigno · Pick the one you want integrated into index.html</p>
+  </div>
+  <span class="ph-note">⚠ Placeholder images — replace before launch</span>
+</div>
+
+<nav class="nav-pills" aria-label="Jump to variant">
+  <a href="#variantA" class="rec">★ Variant A — Enriched Drawer (recommended)</a>
+  <a href="#variantB">Variant B — Full-Screen Modal</a>
+  <a href="#variantC">Variant C — Always-Open Editorial</a>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════════════════
+     VARIANT A — Enriched Drawer
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="variantA" style="background:var(--cream);">
+<div class="variant-section">
+  <div class="variant-header">
+    <div class="badge badge-rec">★ Recommended</div>
+    <h2>Variant A — Enriched Drawer</h2>
+    <p>Click any card. The drawer expands with a multi-image gallery, evocative signature line, lead paragraph, and staggered bullet list. Lowest-risk upgrade — proven interaction, elevated presentation.</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="amenities" id="vaCArds">
+
+    <button type="button" class="va-card" data-key="pool" aria-expanded="false" aria-controls="vaDrawer">
+      <span class="va-media"><img src="../assets/img/TOURING_PISCINA_0168.jpg" alt="Piscina coperta" loading="lazy"></span>
+      <span class="va-body">
+        <span class="va-cat">Wellness</span>
+        <span class="va-title-row">
+          <span class="va-title">Pool &amp; Spa</span>
+          <span class="va-chevron" aria-hidden="true"></span>
+        </span>
+        <span class="va-tease">Pool &amp; sauna</span>
+      </span>
+    </button>
+
+    <button type="button" class="va-card" data-key="family" aria-expanded="false" aria-controls="vaDrawer">
+      <span class="va-media"><img src="../assets/img/TOURING_GIOCHI_043.jpg" alt="Mini Club Lupigno" loading="lazy"></span>
+      <span class="va-body">
+        <span class="va-cat">For the kids</span>
+        <span class="va-title-row">
+          <span class="va-title">Family</span>
+          <span class="va-chevron" aria-hidden="true"></span>
+        </span>
+        <span class="va-tease">Play &amp; kids</span>
+      </span>
+    </button>
+
+    <button type="button" class="va-card" data-key="rest" aria-expanded="false" aria-controls="vaDrawer">
+      <span class="va-media"><img src="../assets/img/5-ristorante.jpg" alt="Ristorante" loading="lazy"></span>
+      <span class="va-body">
+        <span class="va-cat">Taste</span>
+        <span class="va-title-row">
+          <span class="va-title">Restaurant</span>
+          <span class="va-chevron" aria-hidden="true"></span>
+        </span>
+        <span class="va-tease">Valtellina taste</span>
+      </span>
+    </button>
+
+    <button type="button" class="va-card" data-key="loc" aria-expanded="false" aria-controls="vaDrawer">
+      <span class="va-media"><img src="../assets/img/slider_hotel-1-1280.jpg" alt="Hotel nel cuore di Livigno" loading="lazy"></span>
+      <span class="va-body">
+        <span class="va-cat">Location</span>
+        <span class="va-title-row">
+          <span class="va-title">Location</span>
+          <span class="va-chevron" aria-hidden="true"></span>
+        </span>
+        <span class="va-tease">Heart of Livigno</span>
+      </span>
+    </button>
+
+  </div><!-- /amenities -->
+
+  <!-- Expanding drawer -->
+  <div class="va-drawer" id="vaDrawer" role="region" aria-live="polite" style="overflow:hidden;height:0;">
+    <div class="va-drawer-inner">
+
+      <!-- Pool panel -->
+      <div class="va-panel" data-key="pool">
+        <div class="va-panel-inner">
+          <div class="va-signature">Water, warmth, and stillness — at 1,816 metres.</div>
+          <div class="va-split">
+            <div>
+              <div class="va-gallery" role="region" aria-label="Pool &amp; Spa gallery">
+                <div class="va-gallery-slide is-active"><img src="../assets/img/TOURING_PISCINA_0168.jpg" alt="Heated indoor pool at Hotel Touring" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/BagnoTurco.jpg" alt="Steam-filled Turkish bath" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/stock/spa-massage.jpg" alt="Wellness treatment in the massage room" loading="lazy"></div>
+                <div class="va-gallery-dots" role="tablist"></div>
+                <button class="va-gallery-prev" aria-label="Previous image">&#8249;</button>
+                <button class="va-gallery-next" aria-label="Next image">&#8250;</button>
+              </div>
+            </div>
+            <div class="va-copy">
+              <p class="va-eyebrow">Wellness</p>
+              <h3>Pool &amp; Spa</h3>
+              <p class="va-lead">A sensory journey through water and heat: from the heated indoor pool to the aromatic Brechelbad steam, from the Finnish sauna to the quiet of the relaxation room. Every moment is designed to make you feel whole again.</p>
+              <div class="va-note"><b>Spa:</b> Mon–Fri &amp; Sun 16:00–20:00 · Sat closed · last entry 19:30 · pool 9:00–20:00</div>
+              <ul class="va-list">
+                <li>Finnish sauna <i>90°</i></li>
+                <li>Turkish bath <i>45°</i></li>
+                <li>Aromatic Brechelbad <i>55°</i></li>
+                <li>Chromotherapy shower</li>
+                <li>Relaxation room</li>
+                <li>Heated indoor pool</li>
+                <li>Massage &amp; treatments</li>
+                <li>Fitness room</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Family panel -->
+      <div class="va-panel" data-key="family">
+        <div class="va-panel-inner">
+          <div class="va-signature">Lupigno is waiting — a warm welcome for the whole family.</div>
+          <div class="va-split">
+            <div>
+              <div class="va-gallery" role="region" aria-label="Family gallery">
+                <div class="va-gallery-slide is-active"><img src="../assets/img/TOURING_GIOCHI_043.jpg" alt="Lupigno Mini Club — games room for children" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/Rooms/room-tana.jpg" alt="Bear's Den room with bunk beds and slide" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/stock/family-outdoor.jpg" alt="Family holiday in the mountains of Livigno" loading="lazy"></div>
+                <div class="va-gallery-dots" role="tablist"></div>
+                <button class="va-gallery-prev" aria-label="Previous image">&#8249;</button>
+                <button class="va-gallery-next" aria-label="Next image">&#8250;</button>
+              </div>
+            </div>
+            <div class="va-copy">
+              <p class="va-eyebrow">For the kids</p>
+              <h3>Family</h3>
+              <p class="va-lead">We've thought of every detail to make your children's holiday truly unforgettable: from the Lupigno Mini Club (4+) with games and activities to the Bear's Den room with bunk beds and slide, from the pool kids' corner to the simple flavours of the junior menu.</p>
+              <div class="va-note"><b>Mini Club (4+):</b> Mon–Fri &amp; Sun 16:00–22:00 · Sat closed</div>
+              <ul class="va-list">
+                <li>Mini Club &amp; games room</li>
+                <li>Children's activities</li>
+                <li>Kids' corner in the pool</li>
+                <li>Lupigno Room with slide</li>
+                <li>Kids' menu &amp; high chairs</li>
+                <li>Larix Park &amp; alpine lakes</li>
+                <li>Babysitting on request</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Restaurant panel -->
+      <div class="va-panel" data-key="rest">
+        <div class="va-panel-inner">
+          <div class="va-signature">Mountain cooking, family memory — since 1970.</div>
+          <div class="va-split">
+            <div>
+              <div class="va-gallery" role="region" aria-label="Restaurant gallery">
+                <div class="va-gallery-slide is-active"><img src="../assets/img/5-ristorante.jpg" alt="Hotel Touring restaurant dining room" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/stock/rest-breakfast-buffet.jpg" alt="Breakfast buffet with local produce" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/stock/rest-dish-pizzoccheri.jpg" alt="Valtellina pizzoccheri, the region's signature dish" loading="lazy"></div>
+                <div class="va-gallery-dots" role="tablist"></div>
+                <button class="va-gallery-prev" aria-label="Previous image">&#8249;</button>
+                <button class="va-gallery-next" aria-label="Next image">&#8250;</button>
+              </div>
+            </div>
+            <div class="va-copy">
+              <p class="va-eyebrow">Taste</p>
+              <h3>Restaurant</h3>
+              <p class="va-lead">Three generations of the same family bring the flavours of Valtellina to your table: buckwheat pizzoccheri with butter and cheese, valley-cured bresaola, mountain cheeses and wines from local cellars. Every meal is a story.</p>
+              <div class="va-note"><b>Hours:</b> breakfast 7:30–10:00 · lunch 12:00–14:00 · dinner 19:00–21:00</div>
+              <ul class="va-list">
+                <li>Valtellina cuisine</li>
+                <li>Pizzoccheri &amp; bresaola</li>
+                <li>Breakfast buffet</li>
+                <li>À la carte lunch</li>
+                <li>Half-board</li>
+                <li>Bar &amp; signature cocktails</li>
+                <li>Wine list</li>
+                <li>Vegetarian, vegan &amp; GF</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location panel -->
+      <div class="va-panel" data-key="loc">
+        <div class="va-panel-inner">
+          <div class="va-signature">Livigno centre — everything on foot.</div>
+          <div class="va-split">
+            <div>
+              <div class="va-gallery" role="region" aria-label="Location gallery">
+                <div class="va-gallery-slide is-active"><img src="../assets/img/livigno-1.jpg" alt="Livigno alpine valley" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/livigno-3.jpg" alt="Livigno ski slopes" loading="lazy"></div>
+                <div class="va-gallery-slide"><img src="../assets/img/livigno-5.jpg" alt="Livigno village centre" loading="lazy"></div>
+                <div class="va-gallery-dots" role="tablist"></div>
+                <button class="va-gallery-prev" aria-label="Previous image">&#8249;</button>
+                <button class="va-gallery-next" aria-label="Next image">&#8250;</button>
+              </div>
+            </div>
+            <div class="va-copy">
+              <p class="va-eyebrow">Location</p>
+              <h3>Location</h3>
+              <p class="va-lead">At Via Plan 117, on Livigno's pedestrian street, steps from the ski lifts and duty-free shops. The hotel sits in a Limited Traffic Zone (ZTL): entry via Via Bondi, exit via Via Pienz.</p>
+              <div class="va-note"><b>ZTL:</b> entry Via Bondi (access N.5) · exit Via Pienz · give your plate at check-in</div>
+              <ul class="va-list">
+                <li>Covered garage, included 24/7</li>
+                <li>Ski &amp; bike storage</li>
+                <li>Foscagno &amp; Forcola passes</li>
+                <li>Munt la Schera tunnel</li>
+                <li>Walk to slopes &amp; shopping</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /va-drawer-inner -->
+  </div><!-- /va-drawer -->
+
+</div><!-- /variant-section -->
+</div><!-- /variantA bg -->
+
+<div class="divider"></div>
+
+
+<!-- ════════════════════════════════════════════════════════════════════
+     VARIANT B — Full-Screen Modal
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="variantB" style="background:var(--warm-white);">
+<div class="variant-section">
+  <div class="variant-header">
+    <div class="badge badge-alt">Option B</div>
+    <h2>Variant B — Full-Screen Modal</h2>
+    <p>Click any card for a cinematic full-screen lightbox. Cinematic hero image + scrollable editorial story. Higher visual impact, higher implementation cost.</p>
+  </div>
+
+  <div class="amenities">
+
+    <button type="button" class="vb-card" data-modal="pool">
+      <img src="../assets/img/TOURING_PISCINA_0168.jpg" alt="">
+      <div class="vb-overlay">
+        <div class="vb-cat">Wellness</div>
+        <h3 class="vb-title">Pool &amp; Spa</h3>
+        <p class="vb-tease">Water, warmth, and stillness at 1,816 metres</p>
+        <span class="vb-btn">Open <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+
+    <button type="button" class="vb-card" data-modal="family">
+      <img src="../assets/img/TOURING_GIOCHI_043.jpg" alt="">
+      <div class="vb-overlay">
+        <div class="vb-cat">For the kids</div>
+        <h3 class="vb-title">Family</h3>
+        <p class="vb-tease">Lupigno is waiting for the whole family</p>
+        <span class="vb-btn">Open <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+
+    <button type="button" class="vb-card" data-modal="rest">
+      <img src="../assets/img/5-ristorante.jpg" alt="">
+      <div class="vb-overlay">
+        <div class="vb-cat">Taste</div>
+        <h3 class="vb-title">Restaurant</h3>
+        <p class="vb-tease">Mountain cooking, family memory — since 1970</p>
+        <span class="vb-btn">Open <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+
+    <button type="button" class="vb-card" data-modal="loc">
+      <img src="../assets/img/slider_hotel-1-1280.jpg" alt="">
+      <div class="vb-overlay">
+        <div class="vb-cat">Location</div>
+        <h3 class="vb-title">Location</h3>
+        <p class="vb-tease">Livigno centre — everything on foot</p>
+        <span class="vb-btn">Open <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </button>
+
+  </div>
+</div>
+</div>
+
+<!-- Variant B Modal overlay -->
+<div class="vb-modal-bg" id="vbModal" role="dialog" aria-modal="true" aria-label="Experience detail" hidden>
+  <div class="vb-modal" id="vbModalContent">
+    <div class="vb-modal-hero" id="vbModalHero">
+      <img id="vbModalImg" src="" alt="">
+      <div class="vb-modal-hero-overlay"></div>
+      <div class="vb-modal-badge" id="vbModalBadge"></div>
+    </div>
+    <div class="vb-modal-content" id="vbModalBody"></div>
+  </div>
+  <button class="vb-modal-close" id="vbModalClose" aria-label="Close">&#10005;</button>
+</div>
+
+<div class="divider"></div>
+
+
+<!-- ════════════════════════════════════════════════════════════════════
+     VARIANT C — Always-Open Editorial
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="variantC" style="background:var(--cream);">
+<div class="variant-section">
+  <div class="variant-header">
+    <div class="badge badge-alt">Option C</div>
+    <h2>Variant C — Always-Open Editorial</h2>
+    <p>Each experience as an alternating image/text band — no clicks, no drawers. Pure editorial. Great for storytelling, but significantly changes the page structure.</p>
+  </div>
+
+  <div class="vc-bands">
+
+    <div class="vc-band">
+      <div class="vc-band-img"><img src="../assets/img/TOURING_PISCINA_0168.jpg" alt="Heated indoor pool at Hotel Touring"></div>
+      <div class="vc-band-copy">
+        <p class="vc-eyebrow">Wellness</p>
+        <h3>Pool &amp; Spa</h3>
+        <p class="vc-sig">Water, warmth, and stillness — at 1,816 metres.</p>
+        <p class="vc-lead">A sensory journey through water and heat, where the mountain's rhythm dissolves in the sauna's steam and the quiet of the relaxation room. From the heated indoor pool to the aromatic Brechelbad waters, every moment is designed to make you feel whole again.</p>
+        <div class="vc-note"><b>Spa:</b> Mon–Fri &amp; Sun 16:00–20:00 · Sat closed · pool 9:00–20:00</div>
+        <div class="vc-chips">
+          <span class="vc-chip">Finnish sauna 90°</span>
+          <span class="vc-chip">Turkish bath 45°</span>
+          <span class="vc-chip">Brechelbad 55°</span>
+          <span class="vc-chip">Heated pool</span>
+          <span class="vc-chip">Massages</span>
+          <span class="vc-chip">Fitness room</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vc-band reverse">
+      <div class="vc-band-img"><img src="../assets/img/TOURING_GIOCHI_043.jpg" alt="Mini Club Lupigno games room"></div>
+      <div class="vc-band-copy">
+        <p class="vc-eyebrow">For the kids</p>
+        <h3>Family</h3>
+        <p class="vc-sig">Lupigno is waiting — a warm welcome for the whole family.</p>
+        <p class="vc-lead">We've thought of every detail to make your children's holiday truly unforgettable: from the Lupigno Mini Club (4+) with games and activities to the Bear's Den room with bunk beds and slide, from the pool kids' corner to the simple flavours of the junior menu.</p>
+        <div class="vc-note"><b>Mini Club (4+):</b> Mon–Fri &amp; Sun 16:00–22:00 · Sat closed</div>
+        <div class="vc-chips">
+          <span class="vc-chip">Mini Club 4+</span>
+          <span class="vc-chip">Kids' pool corner</span>
+          <span class="vc-chip">Lupigno Room</span>
+          <span class="vc-chip">Kids' menu</span>
+          <span class="vc-chip">Babysitting</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vc-band">
+      <div class="vc-band-img"><img src="../assets/img/5-ristorante.jpg" alt="Hotel Touring restaurant dining room"></div>
+      <div class="vc-band-copy">
+        <p class="vc-eyebrow">Taste</p>
+        <h3>Restaurant</h3>
+        <p class="vc-sig">Mountain cooking, family memory — since 1970.</p>
+        <p class="vc-lead">Three generations of the same family bring the flavours of Valtellina to your table: buckwheat pizzoccheri with butter and cheese, valley-cured bresaola, mountain cheeses and wines from local cellars. Every meal — from the morning buffet to the evening aperitivo — is a story.</p>
+        <div class="vc-note"><b>Hours:</b> breakfast 7:30–10:00 · lunch 12:00–14:00 · dinner 19:00–21:00</div>
+        <div class="vc-chips">
+          <span class="vc-chip">Pizzoccheri &amp; bresaola</span>
+          <span class="vc-chip">Breakfast buffet</span>
+          <span class="vc-chip">Bar &amp; cocktails</span>
+          <span class="vc-chip">Wine list</span>
+          <span class="vc-chip">Vegan &amp; GF options</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vc-band reverse">
+      <div class="vc-band-img"><img src="../assets/img/livigno-1.jpg" alt="Livigno alpine valley"></div>
+      <div class="vc-band-copy">
+        <p class="vc-eyebrow">Location</p>
+        <h3>Location</h3>
+        <p class="vc-sig">Livigno centre — everything on foot.</p>
+        <p class="vc-lead">At Via Plan 117, on Livigno's pedestrian street, steps from the ski lifts and duty-free shops. The hotel sits in a Limited Traffic Zone (ZTL): entry via Via Bondi, exit via Via Pienz. The mountain is right outside the door.</p>
+        <div class="vc-note"><b>ZTL:</b> entry Via Bondi (access N.5) · exit Via Pienz · give your plate at check-in</div>
+        <div class="vc-chips">
+          <span class="vc-chip">Covered garage 24/7</span>
+          <span class="vc-chip">Ski &amp; bike storage</span>
+          <span class="vc-chip">Walk to slopes</span>
+          <span class="vc-chip">Duty-free shopping</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /vc-bands -->
+</div>
+</div><!-- /variantC -->
+
+
+<script>
+/* ── Variant A: drawer + mini-gallery ───────────────────────────────── */
+(function(){
+  var grid = document.getElementById("vaCArds");
+  var drawer = document.getElementById("vaDrawer");
+  if(!grid || !drawer) return;
+  var cards = grid.querySelectorAll(".va-card[data-key]");
+  var panels = drawer.querySelectorAll(".va-panel[data-key]");
+  var openKey = null;
+
+  function setPanel(key){
+    panels.forEach(function(p){ p.classList.toggle("is-active", p.getAttribute("data-key")===key); });
+  }
+  function openDrawer(key, card){
+    setPanel(key);
+    drawer.hidden = false;
+    drawer.style.height = "auto";
+    var h = drawer.scrollHeight;
+    drawer.style.height = "0px";
+    void drawer.offsetHeight;
+    drawer.style.height = h + "px";
+    openKey = key;
+    cards.forEach(function(c){ c.setAttribute("aria-expanded", c===card ? "true" : "false"); });
+    grid.classList.add("has-open");
+    drawer.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+  function closeDrawer(){
+    drawer.style.height = drawer.scrollHeight + "px";
+    void drawer.offsetHeight;
+    drawer.style.height = "0px";
+    openKey = null;
+    cards.forEach(function(c){ c.setAttribute("aria-expanded","false"); });
+    grid.classList.remove("has-open");
+  }
+  drawer.addEventListener("transitionend", function(e){
+    if(e.propertyName !== "height") return;
+    if(openKey === null){ drawer.hidden = true; } else { drawer.style.height = "auto"; }
+  });
+  cards.forEach(function(c){ c.addEventListener("click", function(){
+    var key = c.getAttribute("data-key");
+    if(openKey === key) closeDrawer(); else openDrawer(key, c);
+  }); });
+
+  // Mini-gallery for each drawer panel
+  drawer.querySelectorAll(".va-gallery").forEach(function(gallery){
+    var slides = gallery.querySelectorAll(".va-gallery-slide");
+    var dotsEl = gallery.querySelector(".va-gallery-dots");
+    var prev = gallery.querySelector(".va-gallery-prev");
+    var next = gallery.querySelector(".va-gallery-next");
+    var i = 0;
+    // build dots
+    slides.forEach(function(s, n){
+      var b = document.createElement("button");
+      b.type = "button"; b.setAttribute("aria-label", "Image " + (n+1));
+      if(n===0) b.className = "active";
+      b.addEventListener("click", function(){ go(n); });
+      dotsEl.appendChild(b);
+    });
+    function go(n){
+      slides[i].classList.remove("is-active");
+      dotsEl.children[i].classList.remove("active");
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add("is-active");
+      dotsEl.children[i].classList.add("active");
+    }
+    if(prev) prev.addEventListener("click", function(){ go(i - 1); });
+    if(next) next.addEventListener("click", function(){ go(i + 1); });
+    // keyboard nav
+    gallery.addEventListener("keydown", function(e){
+      if(e.key === "ArrowLeft") go(i - 1);
+      if(e.key === "ArrowRight") go(i + 1);
+    });
+  });
+})();
+
+/* ── Variant B: modal ────────────────────────────────────────────────── */
+(function(){
+  var modalBg = document.getElementById("vbModal");
+  var modalImg = document.getElementById("vbModalImg");
+  var modalBadge = document.getElementById("vbModalBadge");
+  var modalBody = document.getElementById("vbModalBody");
+  var modalClose = document.getElementById("vbModalClose");
+  if(!modalBg) return;
+
+  var data = {
+    pool: {
+      img: "../assets/img/TOURING_PISCINA_0168.jpg",
+      badge: "Wellness",
+      title: "Pool & Spa",
+      sig: "Water, warmth, and stillness — at 1,816 metres.",
+      lead: "A sensory journey through water and heat, where the mountain's rhythm dissolves in the sauna's steam and the quiet of the relaxation room. From the heated indoor pool to the aromatic Brechelbad waters, every moment is designed to make you feel whole again.",
+      note: "<b>Spa:</b> Mon–Fri &amp; Sun 16:00–20:00 · Sat closed · last entry 19:30 · pool 9:00–20:00",
+      list: ["Finnish sauna <i>90°</i>","Turkish bath <i>45°</i>","Aromatic Brechelbad <i>55°</i>","Chromotherapy shower","Relaxation room","Heated indoor pool","Massage &amp; treatments","Fitness room"]
+    },
+    family: {
+      img: "../assets/img/TOURING_GIOCHI_043.jpg",
+      badge: "For the kids",
+      title: "Family",
+      sig: "Lupigno is waiting — a warm welcome for the whole family.",
+      lead: "We've thought of every detail to make your children's holiday truly unforgettable: from the Lupigno Mini Club (4+) with games and activities to the Bear's Den room with bunk beds and slide, from the pool kids' corner to the simple flavours of the junior menu.",
+      note: "<b>Mini Club (4+):</b> Mon–Fri &amp; Sun 16:00–22:00 · Sat closed",
+      list: ["Mini Club &amp; games room","Children's activities","Kids' corner in the pool","Lupigno Room with slide","Kids' menu &amp; high chairs","Larix Park &amp; alpine lakes","Babysitting on request"]
+    },
+    rest: {
+      img: "../assets/img/5-ristorante.jpg",
+      badge: "Taste",
+      title: "Restaurant",
+      sig: "Mountain cooking, family memory — since 1970.",
+      lead: "Three generations of the same family bring the flavours of Valtellina to your table: buckwheat pizzoccheri with butter and cheese, valley-cured bresaola, mountain cheeses and wines from local cellars. Every meal is a story.",
+      note: "<b>Hours:</b> breakfast 7:30–10:00 · lunch 12:00–14:00 · dinner 19:00–21:00",
+      list: ["Valtellina cuisine","Pizzoccheri &amp; bresaola","Breakfast buffet","À la carte lunch","Half-board","Bar &amp; signature cocktails","Wine list","Vegetarian, vegan &amp; GF"]
+    },
+    loc: {
+      img: "../assets/img/slider_hotel-1-1280.jpg",
+      badge: "Location",
+      title: "Location",
+      sig: "Livigno centre — everything on foot.",
+      lead: "At Via Plan 117, on Livigno's pedestrian street, steps from the ski lifts and duty-free shops. The hotel sits in a Limited Traffic Zone (ZTL): entry via Via Bondi, exit via Via Pienz.",
+      note: "<b>ZTL:</b> entry Via Bondi (access N.5) · exit Via Pienz · give your plate at check-in",
+      list: ["Covered garage, included 24/7","Ski &amp; bike storage","Foscagno &amp; Forcola passes","Munt la Schera tunnel","Walk to slopes &amp; shopping"]
+    }
+  };
+
+  function openModal(key){
+    var d = data[key]; if(!d) return;
+    modalImg.src = d.img;
+    modalBadge.textContent = d.badge;
+    modalBody.innerHTML =
+      "<h3>" + d.title + "</h3>" +
+      "<div class='vb-modal-sig'>" + d.sig + "</div>" +
+      "<p class='vb-modal-lead'>" + d.lead + "</p>" +
+      "<div class='vb-modal-note'>" + d.note + "</div>" +
+      "<ul class='vb-modal-list'>" +
+        d.list.map(function(item){ return "<li>" + item + "</li>"; }).join("") +
+      "</ul>";
+    modalBg.hidden = false;
+    requestAnimationFrame(function(){ modalBg.classList.add("is-open"); });
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    modalBg.classList.remove("is-open");
+    setTimeout(function(){ modalBg.hidden = true; document.body.style.overflow = ""; }, 300);
+  }
+
+  document.querySelectorAll(".vb-card[data-modal]").forEach(function(c){
+    c.addEventListener("click", function(){ openModal(c.getAttribute("data-modal")); });
+  });
+  modalClose.addEventListener("click", closeModal);
+  modalBg.addEventListener("click", function(e){ if(e.target === modalBg) closeModal(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !modalBg.hidden) closeModal(); });
+})();
+</script>
+</body>
+</html>

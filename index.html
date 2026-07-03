@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Touring Livigno · Hotel 4 stelle per famiglie</title>
-<meta name="description" content="Hotel Touring Livigno — hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale. Piscina e spa, sci ai piedi, Kinder Club Lupigno e cucina valtellinese. Dal 1970.">
+<meta name="description" content="Hotel 4 stelle per famiglie a Livigno, a 200 m dal Carosello 3000. Piscina coperta, spa, Mini Club, garage incluso. Zona duty-free, dal 1970.">
 <link rel="canonical" href="https://touringlivigno.com/">
 
 <!-- Favicons / app icons — Stella Alpina mark (used for the browser tab and search-result icon) -->
@@ -17,10 +17,13 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://touringlivigno.com/">
+<meta property="og:site_name" content="Hotel Touring Livigno">
 <meta property="og:title" content="Hotel Touring Livigno · Dove le montagne diventano casa">
 <meta property="og:description" content="Hotel 4 stelle per famiglie a Livigno. Piscina e spa, sci ai piedi, Kinder Club Lupigno.">
-<meta property="og:image" content="assets/img/touring-hotel.jpg">
+<meta property="og:image" content="https://touringlivigno.com/assets/img/touring-hotel.jpg">
 <meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
 
 <!-- Google Fonts: Fraunces (headings) + Inter (body). Preconnect for speed. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +53,11 @@
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
     document.head.appendChild(s);
     gtag('js', new Date());
-    gtag('config', GA_MEASUREMENT_ID);
+    // Cross-domain linker: keeps the GA session alive across the hop to the
+    // BookingExpert engine, so bookings attribute to the right source.
+    gtag('config', GA_MEASUREMENT_ID, {
+      linker: { domains: ['touringlivigno.com', 'be.bookingexpert.it'] }
+    });
   }
 </script>
 
@@ -93,7 +100,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 
 .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter);}
 .section{padding-block:var(--section-y);}
-#family,#livigno,#gallery,#footer{scroll-margin-top:92px;}
+#family,#livigno,#gallery,#location,#faq,#footer{scroll-margin-top:92px;}
 .bg-cream{background:var(--cream);}
 .bg-white{background:var(--warm-white);}
 .bg-pine{background:var(--pine); color:var(--cream);}
@@ -357,7 +364,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 .rs-arrow{position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:38px; height:38px; border-radius:50%;
   border:none; background:rgba(28,50,43,.22); color:var(--warm-white); font-size:20px; line-height:1;
   opacity:0; backdrop-filter:blur(2px); box-shadow:none; transition:opacity .25s, background .2s, transform .2s;}
-.room-show:hover .rs-arrow,.photo-show:hover .rs-arrow,.rs-arrow:focus-visible{opacity:.85;}
+.room-show:hover .rs-arrow,.photo-show:hover .rs-arrow,.liv-show:hover .rs-arrow,.amodal-show:hover .rs-arrow,.rs-arrow:focus-visible{opacity:.85;}
 .rs-arrow:hover{background:rgba(28,50,43,.42); opacity:1;}
 /* touch devices have no hover — keep arrows discoverable but understated */
 @media (hover:none){ .rs-arrow{opacity:.7;} }
@@ -369,90 +376,269 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 /* ============================================================
    AMENITY CARDS (buttons) + full-width expanding drawer
    ============================================================ */
-.amenities{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
-.amenity{position:relative; display:flex; flex-direction:column; text-align:left; padding:0; background:var(--warm-white);
-  border-radius:var(--radius); overflow:hidden; border:1px solid rgba(42,39,36,.07); box-shadow:var(--shadow);
-  transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s, border-color .25s, border-radius .3s, opacity .3s, filter .3s;}
-.amenity:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:rgba(194,162,78,.45);}
-.amenity[aria-expanded="true"]{transform:none; border-color:var(--gold);
-  box-shadow:0 0 0 2px var(--gold), var(--shadow-lg); z-index:2;}
-/* active card squares its bottom corners + drops a continuous gold edge so it
-   reads as having "grown" the drawer beneath it */
-.amenity[aria-expanded="true"]{border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom-color:transparent;}
-/* when one card is open, recede the rest so focus lands on the expanded card */
-.amenities.has-open .amenity:not([aria-expanded="true"]){opacity:.5; filter:saturate(.78);}
-.amenities.has-open .amenity:not([aria-expanded="true"]):hover{opacity:1; filter:none;}
+.amenities{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+/* (old drawer-based amenity rules removed — replaced by cinematic card CSS below) */
 
-.amenity-media{position:relative; display:block; aspect-ratio:3/2; overflow:hidden; background:var(--stone);}
-.amenity-media img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
-.amenity-media::after{content:""; position:absolute; inset:0; opacity:0; transition:opacity .3s;
-  background:linear-gradient(to top, rgba(28,50,43,.34), rgba(28,50,43,0) 58%);}
-.amenity:hover .amenity-media img{transform:scale(1.06);}
-.amenity:hover .amenity-media::after,.amenity[aria-expanded="true"] .amenity-media::after{opacity:1;}
+/* ---- Cinematic amenity cards (Variant B) -------------------- */
+.amenity{
+  position:relative; aspect-ratio:3/4; border-radius:var(--radius); overflow:hidden;
+  cursor:pointer; border:none; background:var(--stone);
+  box-shadow:var(--shadow); transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s;
+}
+.amenity:hover{transform:translateY(-5px); box-shadow:var(--shadow-lg);}
+.amenity-bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);}
+.amenity:hover .amenity-bg{transform:scale(1.05);}
+.amenity-overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(28,50,43,.88) 0%, rgba(28,50,43,.42) 42%, rgba(28,50,43,0) 68%);
+  transition:background .35s;
+}
+.amenity:hover .amenity-overlay{background:linear-gradient(to top, rgba(28,50,43,.92) 0%, rgba(28,50,43,.52) 45%, rgba(28,50,43,.04) 68%);}
+.amenity-text{
+  position:absolute; inset:auto 0 0 0; padding:clamp(20px,3vw,32px);
+  display:flex; flex-direction:column; gap:7px; text-align:left;
+}
+.amenity-cat{
+  font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-soft); margin:0;
+}
+.amenity-text .ah{
+  font-family:var(--serif); font-weight:500; font-size:clamp(21px,2vw,27px);
+  color:var(--warm-white); line-height:1.1; margin:0;
+}
+.amenity-tease{font-size:13.5px; color:rgba(246,241,231,.75); margin:0; line-height:1.4;}
+.amenity-pill{
+  display:inline-flex; align-items:center; gap:.45em; margin-top:10px; align-self:flex-start;
+  font-size:13px; font-weight:600; color:var(--pine-deep); letter-spacing:.01em;
+  background:var(--gold); border-radius:999px; padding:8px 18px;
+  transition:background .25s, transform .25s;
+}
+.amenity:hover .amenity-pill{background:var(--gold-soft); transform:translateX(3px);}
 
-/* closed card: clean — just the title and a quiet drop-down chevron */
-.amenity-body{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:17px 20px 18px; transition:background .25s;}
-.amenity[aria-expanded="true"] .amenity-body{background:rgba(194,162,78,.1);}
-.amenity-body .ah{font-family:var(--serif); font-weight:500; font-size:clamp(17px,1.4vw,20px); line-height:1.15; color:var(--pine);
-  min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.amenity-body .achev{flex:none; position:relative; width:34px; height:34px; border-radius:50%; background:rgba(194,162,78,.13);
-  transition:background .25s, transform .4s cubic-bezier(.4,0,.2,1);}
-.amenity-body .achev::before{content:""; position:absolute; left:50%; top:44%; width:9px; height:9px; margin-left:-5px;
-  border-right:2px solid var(--gold); border-bottom:2px solid var(--gold); transform:translateY(-50%) rotate(45deg);
-  transition:border-color .25s;}
-.amenity:hover .achev{background:var(--gold);}
-.amenity:hover .achev::before{border-color:var(--warm-white);}
-.amenity[aria-expanded="true"] .achev{background:var(--gold); transform:rotate(180deg);}
-.amenity[aria-expanded="true"] .achev::before{border-color:var(--warm-white);}
+/* ---- Full-screen cinematic modal ----------------------------- */
+.amodal-backdrop{
+  display:none; position:fixed; inset:0; z-index:500;
+  background:rgba(28,50,43,.88); backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  align-items:center; justify-content:center; padding:20px;
+}
+.amodal-backdrop.is-open{display:flex;}
+@keyframes amodalIn{from{transform:scale(.95);opacity:0;}to{transform:scale(1);opacity:1;}}
+.amodal-panel{
+  position:relative; background:var(--warm-white); border-radius:20px;
+  width:100%; max-width:1060px; max-height:90vh; overflow:hidden;
+  display:flex; flex-direction:column;
+  box-shadow:0 40px 100px -20px rgba(0,0,0,.6);
+}
+.amodal-backdrop.is-open .amodal-panel{animation:amodalIn .35s cubic-bezier(.22,.61,.36,1) both;}
+.amodal-close{
+  position:absolute; top:16px; right:16px; z-index:10;
+  width:38px; height:38px; border-radius:50%; border:none;
+  background:rgba(28,50,43,.6); color:var(--warm-white);
+  font-size:20px; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s, transform .2s;
+}
+.amodal-close:hover{background:var(--pine-deep); transform:scale(1.08);}
+.amodal-scroll{overflow-y:auto; flex:1;}
 
-.amenity-drawer{position:relative; height:0; overflow:hidden; transition:height .4s ease;}
-.amenity-drawer:not([hidden]){margin-top:-1px;}
-.ad-inner{position:relative; background:var(--warm-white); border:2px solid var(--gold); border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:clamp(22px,3.4vw,38px); margin-top:14px;}
-/* upward caret/notch that tracks the open card via --caret-x (set in JS) */
-.ad-inner::before{content:""; position:absolute; left:var(--caret-x,50%); top:-11px; transform:translateX(-50%) rotate(45deg);
-  width:20px; height:20px; background:var(--warm-white); border-left:2px solid var(--gold); border-top:2px solid var(--gold);
-  border-top-left-radius:4px; transition:left .35s cubic-bezier(.4,0,.2,1);}
-.amenity-drawer.no-caret .ad-inner{margin-top:0;}
-.amenity-drawer.no-caret .ad-inner::before{display:none;}
-/* mobile: drawer tucked directly under the tapped card → close the grid gap and
-   square the top so card + drawer read as one continuous bordered panel */
-.amenity-drawer.inline-drawer{margin-top:-18px;}
-.amenity-drawer.inline-drawer .ad-inner{margin-top:0; border-top:0; border-top-left-radius:0; border-top-right-radius:0;}
-.ad-panel{display:none;}
-.ad-panel.is-active{display:block; animation:adFade .5s cubic-bezier(.4,0,.2,1) both;}
-@keyframes adFade{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+/* auto-advancing crossfade gallery (shared slideshow() helper) */
+.amodal-show{
+  position:relative; height:300px; background:var(--pine-deep); overflow:hidden;
+}
+.amodal-show .rs-slide img{width:100%; height:100%; object-fit:cover;}
 
-/* split layout: imagery on one side, structured copy on the other */
-.ad-split{display:grid; grid-template-columns:.82fr 1.18fr; gap:clamp(22px,3.4vw,42px); align-items:stretch;}
-.ad-figure{position:relative; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); min-height:260px; background:var(--stone);}
-.ad-figure img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-.ad-content{min-width:0; align-self:center; padding:4px 0;}
-.ad-eyebrow{font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 9px;}
-.ad-panel h3{font-size:clamp(22px,2.4vw,29px); margin-bottom:14px;}
-.ad-body p{margin:0 0 6px; color:#5d5a52; font-size:15.5px; line-height:1.65; max-width:58ch;}
-.ad-body ul{margin:18px 0 0; padding:0; list-style:none; columns:2; column-gap:34px;}
-.ad-body li{font-size:14px; font-weight:500; color:var(--pine); padding:8px 0 8px 26px; position:relative; break-inside:avoid;}
-.ad-body li::before{content:""; position:absolute; left:0; top:50%; transform:translateY(-50%); width:17px; height:17px; border-radius:50%; background:rgba(194,162,78,.2);}
-.ad-body li::after{content:""; position:absolute; left:5.5px; top:50%; transform:translateY(-50%); width:6px; height:6px; border-radius:50%; background:var(--gold);}
-/* a li may carry a temperature / detail tag after a "·" — rendered as a soft chip */
-.ad-body li i{font-style:normal; font-weight:600; font-size:12px; color:var(--gold); margin-left:6px;
-  padding:1px 8px; border-radius:999px; background:rgba(194,162,78,.14); white-space:nowrap;}
-/* hours / practical note: a quiet card that sits between the intro and the list */
-.ad-note{display:flex; align-items:flex-start; gap:9px; margin:16px 0 2px; padding:11px 15px;
-  border-left:3px solid var(--gold); background:rgba(194,162,78,.08); border-radius:0 10px 10px 0;
-  color:var(--pine); font-size:13.5px; font-weight:500; line-height:1.5; max-width:58ch;}
-.ad-note::before{content:""; flex:none; width:7px; height:7px; margin-top:7px; border-radius:50%; background:var(--gold);}
-.ad-note b{font-weight:700;}
+/* modal content area */
+.amodal-body{padding:clamp(24px,4vw,36px);}
+.amodal-eyebrow{font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin:0 0 10px;}
+.amodal-title{font-family:var(--serif); font-weight:500; font-size:clamp(26px,3.5vw,38px); color:var(--pine); margin:0 0 8px; line-height:1.1;}
+.amodal-sig{font-style:italic; color:var(--gold); font-size:clamp(15px,1.3vw,17px); margin:0 0 18px;}
+.amodal-lead{color:#5a574f; font-size:clamp(15px,1.2vw,17px); line-height:1.7; max-width:68ch; margin:0 0 22px;}
 
-/* Location panel: map + copy side-by-side, stacks on narrow */
-.ad-loc{display:grid; grid-template-columns:1.05fr 1.1fr; gap:clamp(22px,3.4vw,42px); align-items:center;}
-.ad-loc .ad-content{min-width:0;}
-.ad-map{border:0; width:100%; height:300px; border-radius:12px; box-shadow:var(--shadow); background:var(--cream);}
-@media (max-width:768px){
-  .ad-split{grid-template-columns:1fr; gap:22px;}
-  .ad-figure{min-height:200px; aspect-ratio:16/10;}
-  .ad-loc{grid-template-columns:1fr;}
-  .ad-map{height:260px; order:-1;}
+/* stat bubbles */
+.amodal-stats{display:flex; flex-wrap:wrap; gap:10px; margin:0 0 22px;}
+.amodal-stat{
+  background:rgba(194,162,78,.12); border:1px solid rgba(194,162,78,.3);
+  border-radius:10px; padding:10px 16px; display:flex; flex-direction:column; gap:2px;
+}
+.amodal-stat-val{font-family:var(--serif); font-size:20px; font-weight:500; color:var(--pine); line-height:1;}
+.amodal-stat-lbl{font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--stone);}
+
+/* hours strip */
+.amodal-note{
+  display:flex; align-items:flex-start; gap:10px; padding:12px 16px;
+  border-left:3px solid var(--gold); background:rgba(194,162,78,.08);
+  border-radius:0 10px 10px 0; margin:0 0 22px;
+  font-size:13.5px; color:var(--pine); font-weight:500; line-height:1.55; max-width:68ch;
+}
+.amodal-note::before{content:""; flex:none; width:7px; height:7px; margin-top:6px; border-radius:50%; background:var(--gold);}
+
+/* feature chip grid */
+.amodal-chips{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0 0 16px; max-width:68ch;}
+.amodal-chip{
+  background:var(--cream); border:1px solid rgba(42,39,36,.09);
+  border-radius:8px; padding:9px 14px; font-size:13.5px; font-weight:500; color:var(--pine);
+  display:flex; align-items:center; gap:8px;
+}
+.amodal-chip::before{content:""; flex:none; width:6px; height:6px; border-radius:50%; background:var(--gold);}
+
+/* family highlight band */
+.amodal-band{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  background:var(--warm-white); border:1px solid rgba(42,39,36,.09);
+  border-radius:12px; padding:20px; margin:0 0 22px;
+}
+.amodal-band-item{display:flex; flex-direction:column; gap:4px;}
+.amodal-band-ttl{font-weight:700; color:var(--pine); font-size:15px; margin:0 0 4px;}
+.amodal-band-sub{font-size:13px; color:#6b685f; line-height:1.5; margin:0;}
+
+/* small group heading inside the modal body */
+.amodal-h{
+  font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--stone); margin:24px 0 10px;
+}
+
+/* badge overlaid on the gallery (e.g. "Dal 1970") */
+.amodal-badge{
+  position:absolute; bottom:16px; left:16px; z-index:3;
+  background:var(--pine-deep); color:var(--gold-soft);
+  font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  padding:6px 14px; border-radius:999px; border:1px solid rgba(194,162,78,.4);
+}
+
+/* closing CTA row — every modal ends with a clear next step */
+.amodal-cta{
+  display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  margin-top:26px; padding-top:22px; border-top:1px solid rgba(42,39,36,.1);
+}
+.amodal-cta-txt{margin:0; font-size:13.5px; color:#6b685f; max-width:36ch; line-height:1.5;}
+
+/* servizi concierge grid */
+.amodal-clist{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:0 0 20px;}
+.amodal-ccard{
+  background:var(--cream); border-radius:10px; padding:14px;
+  border-top:3px solid var(--gold); display:flex; flex-direction:column; gap:4px;
+}
+.amodal-ccard-ttl{font-weight:700; font-size:13.5px; color:var(--pine); margin:0;}
+.amodal-ccard-sub{font-size:12px; color:#6b685f; line-height:1.45; margin:0;}
+
+/* menu button */
+.amodal-menu-btn{
+  display:block; width:100%; text-align:center;
+  background:var(--gold); color:var(--pine-deep);
+  font-family:var(--serif); font-size:18px; font-weight:500;
+  border-radius:12px; padding:16px 28px; margin:16px 0;
+  text-decoration:none; transition:background .25s, transform .2s;
+}
+.amodal-menu-btn:hover{background:var(--gold-soft); transform:translateY(-2px);}
+
+.amodal-small{font-size:12.5px; color:var(--stone); margin:8px 0 0; line-height:1.5;}
+
+@media(max-width:820px){
+  .amenities{grid-template-columns:1fr;}
+  .amenity{aspect-ratio:4/3;}
+  .amenities .amenity:last-child{grid-column:auto; aspect-ratio:4/3;}
+}
+@media(max-width:680px){
+  /* phone: the modal becomes a full-screen sheet — no wasted rim, one scroll surface */
+  .amodal-backdrop{padding:0;}
+  .amodal-panel{max-width:none; height:100%; max-height:none; border-radius:0;}
+  .amodal-close{top:12px; right:12px; background:rgba(28,50,43,.78);}
+  .amodal-show{height:220px;}
+  .amodal-chips,.amodal-band,.amodal-clist{grid-template-columns:1fr;}
+  .amodal-cta .btn{width:100%;}
+}
+
+/* ============================================================
+   LOCATION SECTION
+   ============================================================ */
+.loc-grid{display:grid; grid-template-columns:1fr 1.08fr; gap:clamp(32px,5vw,72px); align-items:start;}
+.loc-copy{min-width:0;}
+.loc-address{font-size:clamp(16px,1.4vw,19px); color:var(--gold-soft); font-weight:500; line-height:1.5; margin:14px 0 0;}
+.loc-lead{color:rgba(246,241,231,.78); font-size:clamp(15px,1.2vw,17px); line-height:1.75; max-width:52ch; margin:0 0 24px;}
+
+/* "why here" perks — pedestrian street / lifts / duty-free */
+.loc-perks{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:980px; margin:0 auto clamp(36px,5vw,52px);}
+.loc-perk{
+  display:flex; gap:14px; align-items:flex-start;
+  background:rgba(246,241,231,.07); border:1px solid rgba(246,241,231,.12);
+  border-radius:12px; padding:16px 18px;
+}
+.loc-perk svg{width:26px; height:26px; flex:none; margin-top:2px; fill:none; stroke:var(--gold-soft); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+.loc-perk b{display:block; color:var(--warm-white); font-size:15px; font-weight:600; margin-bottom:3px; line-height:1.3;}
+.loc-perk span{font-size:13px; color:rgba(246,241,231,.65); line-height:1.5;}
+
+/* travel-time rail — every road leads to Livigno */
+.loc-rail{
+  position:relative; display:grid; grid-template-columns:repeat(5,1fr);
+  max-width:840px; margin:0 auto 8px;
+}
+.loc-rail::before{
+  content:""; position:absolute; left:10%; right:10%; top:31px; height:1.5px;
+  background:linear-gradient(to right, rgba(216,190,120,.25), rgba(216,190,120,.65) 55%, var(--gold));
+}
+.loc-stop{display:flex; flex-direction:column; align-items:center; gap:7px; position:relative; z-index:1; text-align:center;}
+.loc-stop-time{font-family:var(--serif); font-size:17px; font-weight:500; color:var(--warm-white); line-height:1.2;}
+.loc-stop-dot{width:11px; height:11px; border-radius:50%; background:var(--pine); border:2px solid var(--gold-soft); box-sizing:border-box; margin-block:2px;}
+.loc-stop-city{font-size:11.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:rgba(246,241,231,.6);}
+.loc-stop.is-dest .loc-stop-dot{width:15px; height:15px; margin-block:0; background:var(--gold); border-color:var(--gold); box-shadow:0 0 0 5px rgba(194,162,78,.22);}
+.loc-stop.is-dest .loc-stop-time{color:var(--gold-soft);}
+.loc-stop.is-dest .loc-stop-city{color:var(--gold-soft);}
+.loc-rail-note{text-align:center; font-size:12px; color:rgba(246,241,231,.45); margin:14px 0 clamp(40px,6vw,60px);}
+
+/* small group heading ("In auto") */
+.loc-h{
+  font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-soft); margin:0 0 12px;
+}
+.loc-routes{display:flex; flex-direction:column; gap:10px; margin:0 0 22px;}
+.loc-route{
+  background:rgba(246,241,231,.08); border:1px solid rgba(246,241,231,.12);
+  border-radius:10px; padding:12px 16px;
+  display:flex; align-items:flex-start; gap:12px; color:var(--cream);
+}
+.loc-route-icon{font-size:18px; flex:none; margin-top:1px;}
+.loc-route-info{display:flex; flex-direction:column; gap:2px;}
+.loc-route-name{font-weight:600; font-size:14px; line-height:1.2;}
+.loc-route-sub{font-size:12.5px; color:rgba(246,241,231,.6); line-height:1.4;}
+.loc-ztl{
+  display:flex; align-items:flex-start; gap:10px; padding:12px 16px;
+  border-left:3px solid var(--gold); background:rgba(194,162,78,.1);
+  border-radius:0 10px 10px 0; margin:0 0 14px;
+  font-size:13px; color:var(--cream); font-weight:500; line-height:1.55;
+}
+.loc-ztl::before{content:""; flex:none; width:7px; height:7px; margin-top:5px; border-radius:50%; background:var(--gold);}
+.loc-small{font-size:12.5px; color:rgba(246,241,231,.55); margin:0 0 24px; line-height:1.5;}
+.loc-cta{display:flex; align-items:center; flex-wrap:wrap; gap:14px 22px; margin:0;}
+.loc-contact{display:flex; flex-wrap:wrap; gap:6px 22px; font-size:14px; color:rgba(246,241,231,.7);}
+.loc-contact a{color:var(--gold-soft); text-decoration:none; border-bottom:1px solid rgba(194,162,78,.35); padding-bottom:1px; transition:color .2s;}
+.loc-contact a:hover{color:var(--warm-white);}
+.loc-map{
+  border:0; width:100%; height:420px;
+  border-radius:var(--radius); box-shadow:0 28px 60px -20px rgba(0,0,0,.5);
+  background:var(--pine-deep); position:sticky; top:calc(var(--nav-h) + 20px);
+}
+@media(max-width:820px){
+  .loc-grid{grid-template-columns:1fr;}
+  .loc-map{height:300px; position:static;}
+  .loc-perks{grid-template-columns:1fr; gap:12px;}
+}
+@media(max-width:640px){
+  /* rail becomes tidy chips: 2-up, destination full width */
+  .loc-rail{grid-template-columns:1fr 1fr; gap:10px;}
+  .loc-rail::before{display:none;}
+  .loc-stop{
+    flex-direction:row; justify-content:flex-start; gap:10px; text-align:left;
+    background:rgba(246,241,231,.07); border:1px solid rgba(246,241,231,.12);
+    border-radius:10px; padding:11px 14px;
+  }
+  .loc-stop-dot{order:1; margin-block:0;}
+  .loc-stop-city{order:2;}
+  .loc-stop-time{order:3; margin-left:auto; font-size:15px;}
+  .loc-stop.is-dest{grid-column:1 / -1;}
+  .loc-stop.is-dest .loc-stop-dot{box-shadow:0 0 0 4px rgba(194,162,78,.22);}
+  .loc-rail-note{margin-top:12px;}
 }
 
 /* ============================================================
@@ -523,7 +709,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
    ============================================================ */
 .footer{background:var(--pine-deep); color:rgba(246,241,231,.78); padding-top:0;}
 .footer-ridge{height:2px; background:linear-gradient(to right,transparent,var(--gold),transparent); opacity:.5;}
-.footer-grid{display:grid; grid-template-columns:1fr auto; gap:48px; padding-top:clamp(56px,8vw,88px); padding-bottom:clamp(28px,4vw,40px);}
+.footer-grid{display:grid; grid-template-columns:1.4fr auto auto; gap:48px clamp(48px,7vw,96px); padding-top:clamp(56px,8vw,88px); padding-bottom:clamp(28px,4vw,40px);}
 .footer-contact{justify-self:end; text-align:right;}
 .footer .wordmark{color:var(--warm-white); margin-bottom:18px;}
 .footer h4{font-family:var(--sans); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); margin:0 0 16px; font-weight:600;}
@@ -532,6 +718,23 @@ h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; color:var(--pine);
 .footer .ftagline{max-width:32ch; font-size:15px; line-height:1.6;}
 .footer address{font-style:normal; font-size:15px; line-height:1.8;}
 .footer-bottom{border-top:1px solid rgba(246,241,231,.12); padding-block:22px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:13px; color:rgba(246,241,231,.55);}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-list{max-width:760px; margin-inline:auto; display:flex; flex-direction:column; gap:12px;}
+.faq-item{background:var(--warm-white); border:1px solid rgba(42,39,36,.08); border-radius:var(--radius); box-shadow:var(--shadow);}
+.faq-item summary{list-style:none; cursor:pointer; display:flex; align-items:center; gap:14px;
+  padding:18px 22px; min-height:44px;
+  font-family:var(--serif); font-size:clamp(17px,1.4vw,20px); font-weight:500; color:var(--pine);}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:"+"; margin-left:auto; flex:0 0 auto;
+  font-family:var(--sans); font-size:22px; line-height:1; color:var(--gold);
+  transition:transform .25s ease;}
+.faq-item[open] summary::after{transform:rotate(45deg);}
+.faq-item p{margin:0; padding:0 22px 20px; font-size:15.5px; line-height:1.65; color:#5a574f; max-width:66ch;}
+.faq-updated{text-align:center; margin:28px 0 0; font-size:13px; color:var(--stone);}
+@media (prefers-reduced-motion:reduce){ .faq-item summary::after{transition:none;} }
 
 /* ============================================================
    COOKIE BANNER
@@ -588,6 +791,8 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
    ============================================================ */
 @media (max-width:1024px){
   .amenities{grid-template-columns:repeat(2,1fr);}
+  /* 3 cards in 2 columns leaves an orphan — let the last card go wide + cinematic */
+  .amenities .amenity:last-child{grid-column:1 / -1; aspect-ratio:21/10;}
   /* tablet: stay one segmented row, just slightly tighter */
   .booking{padding:12px; gap:0 clamp(2px,0.8vw,8px);}
 }
@@ -701,6 +906,25 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   /* iOS: inputs <16px zoom the page on focus — bump the concierge input to 16px on touch */
   .tlc-input input{font-size:16px;}
 }
+/* ---- coarse pointers (fingers): every control ≥44px hit area ---- */
+@media (pointer:coarse){
+  .amodal-close{width:44px; height:44px; font-size:22px;}
+  .cal-nav{width:44px; height:44px;}
+  .step-btn{width:44px; height:44px;}
+  .rs-arrow{width:44px; height:44px;}
+  .rs-dots{gap:12px;}
+  .rs-dots button{position:relative;}
+  .rs-dots button::after{content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:34px; height:34px;}
+  .lang button{padding:14px 7px; position:relative;}
+  /* invisible ≥44px hit area — widening the buttons themselves would overflow the nav at 375px */
+  .lang button::after{content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:44px; height:44px;}
+  .lang span{pointer-events:none;}
+  .nav .btn-ghost{min-height:44px;}
+  .tlc-close{width:44px; height:44px;}
+  .tlc-send{width:44px; height:44px;}
+  .tlc-chip{min-height:42px;}
+  .cookie .btn{min-height:44px;}
+}
 </style>
 </head>
 <body>
@@ -745,7 +969,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     <div class="hero-inner reveal is-visible">
       <p class="eyebrow" data-i18n="hero.eyebrow">Livigno · Alpi Italiane · dal 1970</p>
       <h1 data-i18n="hero.title">Dove le montagne<br>diventano casa</h1>
-      <p class="hero-sub" data-i18n="hero.sub">Un hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale fra le piste delle Alpi.</p>
+      <p class="hero-sub" data-i18n="hero.sub">Un hotel 4 stelle per famiglie sulla via pedonale di Livigno, zona extra-doganale — a 200 m dagli impianti del Carosello 3000.</p>
     </div>
   </div>
 </section>
@@ -842,6 +1066,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       <p class="eyebrow" data-i18n="fam.eyebrow">Famiglia & benessere</p>
       <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
       <h2 class="h2" data-i18n="fam.title">Tutto a portata di famiglia</h2>
+      <p class="lead" style="margin:18px auto 0; text-align:center;" data-i18n="fam.lead">Quasi 50 camere e appartamenti — doppie, family, comunicanti e suite — con piscina coperta, spa e Mini Club sotto lo stesso tetto.</p>
     </div>
 
     <!-- large top card → room slideshow (vanilla JS, no library) -->
@@ -869,73 +1094,206 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       <div class="rs-dots" id="rsDots" role="tablist"></div>
     </div>
 
-    <!-- four cards → full-width expanding drawer below the row -->
+    <!-- 3 cinematic cards → full-screen modal (Variant B) -->
     <div class="amenities" id="amenities" data-stagger>
-      <button type="button" class="amenity acard reveal" data-key="pool" aria-expanded="false" aria-controls="amenityDrawer">
-        <span class="amenity-media"><img src="assets/img/TOURING_PISCINA_0168.jpg" alt="Piscina coperta con pareti in pietra e legno" loading="lazy"></span>
-        <span class="amenity-body"><span class="ah" data-i18n="amenity.pool.title">Piscina & Spa</span><span class="achev" aria-hidden="true"></span></span>
-      </button>
-      <button type="button" class="amenity acard reveal" data-key="family" aria-expanded="false" aria-controls="amenityDrawer">
-        <span class="amenity-media"><img src="assets/img/TOURING_GIOCHI_043.jpg" alt="Area giochi del Kinder Club Lupigno" loading="lazy"></span>
-        <span class="amenity-body"><span class="ah" data-i18n="amenity.family.title">Famiglia</span><span class="achev" aria-hidden="true"></span></span>
-      </button>
-      <button type="button" class="amenity acard reveal" data-key="rest" aria-expanded="false" aria-controls="amenityDrawer">
-        <span class="amenity-media"><img src="assets/img/5-ristorante.jpg" alt="Sala ristorante dell'hotel" loading="lazy"></span>
-        <span class="amenity-body"><span class="ah" data-i18n="amenity.rest.title">Ristorante</span><span class="achev" aria-hidden="true"></span></span>
-      </button>
-      <button type="button" class="amenity acard reveal acard-center" data-key="loc" aria-expanded="false" aria-controls="amenityDrawer">
-        <span class="amenity-media"><img src="assets/img/slider_hotel-1-1280.jpg" alt="L'hotel nel cuore di Livigno" loading="lazy"></span>
-        <span class="amenity-body"><span class="ah" data-i18n="amenity.loc.title">Posizione</span><span class="achev" aria-hidden="true"></span></span>
-      </button>
-    </div>
 
-    <div class="amenity-drawer" id="amenityDrawer" role="region" hidden>
-      <div class="ad-inner">
-        <div class="ad-panel" data-key="pool">
-          <div class="ad-split">
-            <div class="ad-figure"><img src="assets/img/BagnoTurco.jpg" alt="Sauna e bagno turco dell'hotel" loading="lazy"></div>
-            <div class="ad-content">
-              <p class="ad-eyebrow" data-i18n="amenity.pool.cat">Benessere</p>
-              <h3 data-i18n="amenity.pool.title">Piscina & Spa</h3>
-              <div class="ad-body" data-i18n="amenity.pool.body"><p>Un percorso benessere fra acqua e calore, pensato per ritrovare energia e serenità: lasciatevi avvolgere dal vapore, dalle essenze e dalle saune, e riscoprite la vostra vitalità fra pietra e legno.</p><div class="ad-note"><b>Spa:</b> lun–ven e dom 16:00–20:00 · sab chiuso · ultimo ingresso 19:30 · piscina 9:00–20:00</div><ul><li>Sauna finlandese<i>90°</i></li><li>Bagno turco<i>45°</i></li><li>Brechelbad aromatico<i>55°</i></li><li>Doccia cromoterapica</li><li>Sala relax</li><li>Piscina coperta riscaldata</li><li>Massaggi &amp; trattamenti</li></ul></div>
-            </div>
-          </div>
+      <!-- POOL & SPA -->
+      <button type="button" class="amenity reveal" data-modal="pool" aria-haspopup="dialog">
+        <img class="amenity-bg" src="assets/img/Pool%20%26%20SPA/pic.jpeg" alt="Piscina coperta riscaldata dell'Hotel Touring" loading="lazy">
+        <div class="amenity-overlay"></div>
+        <div class="amenity-text">
+          <p class="amenity-cat" data-i18n="amenity.pool.cat">Benessere</p>
+          <p class="ah" data-i18n="amenity.pool.title">Piscina &amp; Spa</p>
+          <p class="amenity-tease" data-i18n="amenity.pool.tease">Piscina &amp; sauna</p>
+          <span class="amenity-pill"><span data-i18n="amenity.more">Scopri</span> →</span>
         </div>
-        <div class="ad-panel" data-key="family">
-          <div class="ad-split">
-            <div class="ad-figure"><img src="assets/img/family-hotel-livigno.jpg" alt="Famiglia in vacanza all'hotel" loading="lazy"></div>
-            <div class="ad-content">
-              <p class="ad-eyebrow" data-i18n="amenity.family.cat">Per i bambini</p>
-              <h3 data-i18n="amenity.family.title">Famiglia</h3>
-              <div class="ad-body" data-i18n="amenity.family.body"><p>Una vacanza pensata per i più piccoli: il Mini Club con sala giochi e animazione, l'angolo bimbi in piscina e camere dedicate come la Camera Lupigno, con letti a castello e scivolo. Fuori, un mondo di esperienze a misura di famiglia.</p><div class="ad-note"><b>Mini Club:</b> lun–ven e dom 16:00–22:00 · sabato chiuso</div><ul><li>Mini Club &amp; sala giochi</li><li>Animazione per bambini</li><li>Angolo bimbi in piscina</li><li>Camera Lupigno con scivolo</li><li>Menù &amp; seggioloni per i piccoli</li><li>Larix Park &amp; laghi alpini</li></ul></div>
-            </div>
-          </div>
+      </button>
+
+      <!-- FAMILY -->
+      <button type="button" class="amenity reveal" data-modal="family" aria-haspopup="dialog">
+        <img class="amenity-bg" src="assets/img/Family/pic1.jpeg" alt="Mini Club Lupigno — area giochi per bambini" loading="lazy">
+        <div class="amenity-overlay"></div>
+        <div class="amenity-text">
+          <p class="amenity-cat" data-i18n="amenity.family.cat">Per i bambini</p>
+          <p class="ah" data-i18n="amenity.family.title">Famiglia</p>
+          <p class="amenity-tease" data-i18n="amenity.family.tease">Giochi &amp; bimbi</p>
+          <span class="amenity-pill"><span data-i18n="amenity.more">Scopri</span> →</span>
         </div>
-        <div class="ad-panel" data-key="rest">
-          <div class="ad-split">
-            <div class="ad-figure"><img src="assets/img/5-ristorante.jpg" alt="Sala ristorante dell'hotel" loading="lazy"></div>
-            <div class="ad-content">
-              <p class="ad-eyebrow" data-i18n="amenity.rest.cat">Gusto</p>
-              <h3 data-i18n="amenity.rest.title">Ristorante</h3>
-              <div class="ad-body" data-i18n="amenity.rest.body"><p>Cucina valtellinese e prodotti di stagione in un'esperienza di gusto curata: colazione a buffet, pranzo à la carte e cena servita, con un bar per l'aperitivo e il dopocena.</p><div class="ad-note"><b>Orari:</b> colazione 7:30–10:00 · pranzo 12:00–14:00 · cena 19:00–21:00</div><ul><li>Cucina valtellinese</li><li>Colazione a buffet</li><li>Pranzo à la carte</li><li>Mezza pensione</li><li>Bar &amp; cocktail d'autore</li><li>Carta dei vini</li></ul></div>
-            </div>
-          </div>
+      </button>
+
+      <!-- SERVIZI -->
+      <button type="button" class="amenity reveal" data-modal="servizi" aria-haspopup="dialog">
+        <img class="amenity-bg" src="assets/img/servizi/pic1.jpeg" alt="Servizi e accoglienza dell'Hotel Touring" loading="lazy">
+        <div class="amenity-overlay"></div>
+        <div class="amenity-text">
+          <p class="amenity-cat" data-i18n="amenity.servizi.cat">Servizi</p>
+          <p class="ah" data-i18n="amenity.servizi.title">Servizi</p>
+          <p class="amenity-tease" data-i18n="amenity.servizi.tease">Esperienze &amp; cura</p>
+          <span class="amenity-pill"><span data-i18n="amenity.more">Scopri</span> →</span>
         </div>
-        <div class="ad-panel" data-key="loc">
-          <div class="ad-loc">
-            <iframe class="ad-map" title="Mappa di Livigno" data-i18n-title="amenity.loc.maptitle" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=10.0997%2C46.5183%2C10.1697%2C46.5583&amp;layer=mapnik&amp;marker=46.5383%2C10.1347"></iframe>
-            <div class="ad-content">
-              <p class="ad-eyebrow" data-i18n="amenity.loc.cat">Posizione</p>
-              <h3 data-i18n="amenity.loc.title">Posizione</h3>
-              <div class="ad-body" data-i18n="amenity.loc.body"><p>Nel cuore di Livigno, in Via Plan 117, sulla via pedonale e a pochi passi da piste e negozi. L'hotel si trova in zona a traffico limitato (ZTL): ingresso da Via Bondi, uscita da Via Pienz.</p><div class="ad-note"><b>ZTL:</b> ingresso Via Bondi (accesso N.5) · uscita Via Pienz · comunicate la targa al check-in</div><ul><li>Garage coperto incluso 24/7</li><li>Deposito sci &amp; bike</li><li>Passi Foscagno &amp; Forcola</li><li>Tunnel Munt la Schera</li><li>A piedi da piste e shopping</li></ul></div>
-            </div>
+      </button>
+
+    </div><!-- /.amenities -->
+  </div>
+</section>
+
+<!-- ============================== MODALS ============================== -->
+<div class="amodal-backdrop" id="amodalBackdrop" role="dialog" aria-modal="true">
+  <div class="amodal-panel" id="amodalPanel">
+    <button type="button" class="amodal-close" id="amodalClose" aria-label="Chiudi">×</button>
+    <div class="amodal-scroll" id="amodalScroll">
+
+      <!-- POOL & SPA -->
+      <div class="amodal-content" data-modal="pool" hidden>
+        <div class="amodal-show" id="poolShow" aria-roledescription="carousel" aria-label="Piscina &amp; Spa">
+          <figure class="rs-slide is-active"><img src="assets/img/Pool%20%26%20SPA/pic.jpeg"  alt="Piscina coperta riscaldata dell'Hotel Touring" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Pool%20%26%20SPA/pic2.jpeg" alt="Area benessere della spa" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Pool%20%26%20SPA/pic3.jpeg" alt="Sauna finlandese" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Pool%20%26%20SPA/pic4.jpeg" alt="Bagno turco" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Pool%20%26%20SPA/pic5.jpeg" alt="Sala relax" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Pool%20%26%20SPA/pic6.jpeg" alt="Brechelbad aromatico" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Pool%20%26%20SPA/pic6.jpg"  alt="Area wellness" loading="lazy"></figure>
+          <button type="button" class="rs-arrow rs-prev" id="poolPrev" aria-label="‹">‹</button>
+          <button type="button" class="rs-arrow rs-next" id="poolNext" aria-label="›">›</button>
+          <div class="rs-dots" id="poolDots" role="tablist"></div>
+        </div>
+        <div class="amodal-body">
+          <p class="amodal-eyebrow" data-i18n="amenity.pool.cat">Benessere</p>
+          <h2 class="amodal-title" id="amodalTitle" data-i18n="amenity.pool.title">Piscina &amp; Spa</h2>
+          <p class="amodal-sig" data-i18n="amenity.pool.signature">Acqua, calore e silenzio — a 1.816 metri.</p>
+          <div class="amodal-stats">
+            <div class="amodal-stat"><span class="amodal-stat-val">90°C</span><span class="amodal-stat-lbl" data-i18n="amenity.pool.stat1">Sauna finlandese</span></div>
+            <div class="amodal-stat"><span class="amodal-stat-val">45°C</span><span class="amodal-stat-lbl" data-i18n="amenity.pool.stat2">Bagno turco</span></div>
+            <div class="amodal-stat"><span class="amodal-stat-val">55°C</span><span class="amodal-stat-lbl" data-i18n="amenity.pool.stat3">Brechelbad</span></div>
+            <div class="amodal-stat"><span class="amodal-stat-val">9–20</span><span class="amodal-stat-lbl" data-i18n="amenity.pool.stat4">Orario piscina</span></div>
+          </div>
+          <div class="amodal-note" data-i18n="amenity.pool.note"><b>Spa:</b> lun–ven &amp; dom 16:00–20:00 · sab chiuso · ultimo ingresso 19:30</div>
+          <p class="amodal-lead" data-i18n="amenity.pool.lead">Un percorso sensoriale fra acqua e calore, dove i ritmi della montagna si sciolgono nel vapore della sauna e nel silenzio della sala relax.</p>
+          <p class="amodal-h" data-i18n="amenity.pool.h1">Incluso nel soggiorno</p>
+          <div class="amodal-chips">
+            <span class="amodal-chip" data-i18n="amenity.pool.chip6">Piscina coperta riscaldata</span>
+            <span class="amodal-chip" data-i18n="amenity.pool.chip1">Sauna finlandese</span>
+            <span class="amodal-chip" data-i18n="amenity.pool.chip2">Bagno turco</span>
+            <span class="amodal-chip" data-i18n="amenity.pool.chip3">Brechelbad aromatico</span>
+            <span class="amodal-chip" data-i18n="amenity.pool.chip4">Doccia cromoterapica</span>
+            <span class="amodal-chip" data-i18n="amenity.pool.chip5">Sala relax</span>
+            <span class="amodal-chip" data-i18n="amenity.pool.chip8">Sala fitness</span>
+          </div>
+          <p class="amodal-h" data-i18n="amenity.pool.h2">Su prenotazione</p>
+          <div class="amodal-chips">
+            <span class="amodal-chip" data-i18n="amenity.pool.chip7">Massaggi &amp; trattamenti</span>
+          </div>
+          <p class="amodal-small" data-i18n="amenity.pool.small">Massaggi disponibili su prenotazione in reception.</p>
+          <div class="amodal-cta">
+            <button type="button" class="btn btn-gold js-book" data-i18n="cta.button">Prenota il tuo soggiorno</button>
+            <p class="amodal-cta-txt" data-i18n="cta.text">Prenotate il vostro soggiorno alle tariffe migliori, direttamente con noi.</p>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+
+      <!-- FAMILY -->
+      <div class="amodal-content" data-modal="family" hidden>
+        <div class="amodal-show" id="famShow" aria-roledescription="carousel" aria-label="Famiglia">
+          <figure class="rs-slide is-active"><img src="assets/img/Family/pic1.jpeg" alt="Mini Club Lupigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Family/pic2.jpeg" alt="Attività per bambini" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Family/pic3.jpeg" alt="Camera Lupigno con scivolo" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Family/pic4.jpeg" alt="Angolo bimbi in piscina" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Family/pic5.jpeg" alt="Famiglia in vacanza a Livigno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/Family/pic6.jpg"  alt="Esperienze in montagna" loading="lazy"></figure>
+          <button type="button" class="rs-arrow rs-prev" id="famPrev" aria-label="‹">‹</button>
+          <button type="button" class="rs-arrow rs-next" id="famNext" aria-label="›">›</button>
+          <div class="rs-dots" id="famDots" role="tablist"></div>
+        </div>
+        <div class="amodal-body">
+          <p class="amodal-eyebrow" data-i18n="amenity.family.cat">Per i bambini</p>
+          <h2 class="amodal-title" data-i18n="amenity.family.title">Famiglia</h2>
+          <p class="amodal-sig" data-i18n="amenity.family.signature">Lupigno vi aspetta — il benvenuto è per tutta la famiglia.</p>
+          <div class="amodal-stats">
+            <div class="amodal-stat"><span class="amodal-stat-val">4+</span><span class="amodal-stat-lbl" data-i18n="amenity.family.stat1">Età Mini Club</span></div>
+            <div class="amodal-stat"><span class="amodal-stat-val">16–22</span><span class="amodal-stat-lbl" data-i18n="amenity.family.stat2">Orario Mini Club</span></div>
+            <div class="amodal-stat"><span class="amodal-stat-val">6/7</span><span class="amodal-stat-lbl" data-i18n="amenity.family.stat3">Giorni a settimana</span></div>
+          </div>
+          <div class="amodal-band">
+            <div class="amodal-band-item">
+              <p class="amodal-band-ttl" data-i18n="amenity.family.band1.ttl">🎭 Mini Club Lupigno</p>
+              <p class="amodal-band-sub" data-i18n="amenity.family.band1.sub">Per bambini 4+ anni · Lun–Ven &amp; Dom 16:00–22:00 · Sab chiuso</p>
+            </div>
+            <div class="amodal-band-item">
+              <p class="amodal-band-ttl" data-i18n="amenity.family.band2.ttl">🛝 Camera Lupigno</p>
+              <p class="amodal-band-sub" data-i18n="amenity.family.band2.sub">Letti a castello, scivolo interno, decorazioni su misura</p>
+            </div>
+          </div>
+          <p class="amodal-lead" data-i18n="amenity.family.lead">Abbiamo pensato a ogni dettaglio per rendere la vacanza dei vostri bambini indimenticabile: dal Mini Club Lupigno (4+) con giochi e animazione alla Camera Tana dell'Orso con scivolo.</p>
+          <p class="amodal-h" data-i18n="amenity.family.h1">In hotel</p>
+          <div class="amodal-chips">
+            <span class="amodal-chip" data-i18n="amenity.family.chip1">Mini Club &amp; sala giochi</span>
+            <span class="amodal-chip" data-i18n="amenity.family.chip2">Animazione per bambini</span>
+            <span class="amodal-chip" data-i18n="amenity.family.chip3">Angolo bimbi in piscina</span>
+            <span class="amodal-chip" data-i18n="amenity.family.chip4">Camera Lupigno con scivolo</span>
+            <span class="amodal-chip" data-i18n="amenity.family.chip5">Menù &amp; seggioloni</span>
+            <span class="amodal-chip" data-i18n="amenity.family.chip7">Babysitting su richiesta</span>
+          </div>
+          <p class="amodal-h" data-i18n="amenity.family.h2">Fuori dalla porta</p>
+          <div class="amodal-chips">
+            <span class="amodal-chip" data-i18n="amenity.family.chip6">Larix Park &amp; laghi alpini</span>
+            <span class="amodal-chip" data-i18n="amenity.family.chip8">Scuola sci per bambini</span>
+          </div>
+          <div class="amodal-cta">
+            <button type="button" class="btn btn-gold js-book" data-i18n="cta.button">Prenota il tuo soggiorno</button>
+            <p class="amodal-cta-txt" data-i18n="cta.text">Prenotate il vostro soggiorno alle tariffe migliori, direttamente con noi.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVIZI -->
+      <div class="amodal-content" data-modal="servizi" hidden>
+        <div class="amodal-show" id="servShow" aria-roledescription="carousel" aria-label="Servizi">
+          <figure class="rs-slide is-active"><img src="assets/img/servizi/aa.jpeg" alt="Hotel Touring Livigno — dall'esterno" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/servizi/pic1.jpeg" alt="Servizi e accoglienza dell'Hotel Touring" loading="lazy"></figure>
+          <figure class="rs-slide"><img src="assets/img/servizi/pic2.jpeg" alt="Accoglienza Hotel Touring" loading="lazy"></figure>
+          <span class="amodal-badge" data-i18n="amenity.servizi.badge">Dal 1970</span>
+          <button type="button" class="rs-arrow rs-prev" id="servPrev" aria-label="‹">‹</button>
+          <button type="button" class="rs-arrow rs-next" id="servNext" aria-label="›">›</button>
+          <div class="rs-dots" id="servDots" role="tablist"></div>
+        </div>
+        <div class="amodal-body">
+          <p class="amodal-eyebrow" data-i18n="amenity.servizi.cat">Servizi · Services</p>
+          <h2 class="amodal-title" data-i18n="amenity.servizi.title">I Nostri Servizi</h2>
+          <p class="amodal-sig" data-i18n="amenity.servizi.sig">Tre generazioni di accoglienza autentica.</p>
+          <p class="amodal-h" data-i18n="amenity.servizi.h1">Ristorante</p>
+          <div class="amodal-note" data-i18n="amenity.servizi.note"><b>Ristorante:</b> Colazione 7:30–10:00 · Pranzo 12:00–14:00 · Cena 19:00–21:00 · Cucina valtellinese, pizzoccheri, bresaola, vini locali · Opzioni vegetariane, vegane &amp; gluten free</div>
+          <a class="amodal-menu-btn" href="https://touring-menu.com/" target="_blank" rel="noopener" data-i18n="amenity.servizi.menu">🍽 Scopri il nostro menù</a>
+          <p class="amodal-h" data-i18n="amenity.servizi.h2">Su richiesta</p>
+          <div class="amodal-clist">
+            <div class="amodal-ccard"><p class="amodal-ccard-ttl" data-i18n="amenity.servizi.c1.ttl">🍷 Vino in camera</p><p class="amodal-ccard-sub" data-i18n="amenity.servizi.c1.sub">Selezione dalla cantina: Barolo, Amarone, Alto Adige</p></div>
+            <div class="amodal-ccard"><p class="amodal-ccard-ttl" data-i18n="amenity.servizi.c2.ttl">💆 Massaggi</p><p class="amodal-ccard-sub" data-i18n="amenity.servizi.c2.sub">Rituale alle erbe alpine con pietre calde · su prenotazione</p></div>
+            <div class="amodal-ccard"><p class="amodal-ccard-ttl" data-i18n="amenity.servizi.c3.ttl">🎂 Torta celebrativa</p><p class="amodal-ccard-sub" data-i18n="amenity.servizi.c3.sub">Personalizzata, da €25 · ordine 24h prima</p></div>
+            <div class="amodal-ccard"><p class="amodal-ccard-ttl" data-i18n="amenity.servizi.c4.ttl">💐 Bouquet floreale</p><p class="amodal-ccard-sub" data-i18n="amenity.servizi.c4.sub">Su richiesta in reception</p></div>
+            <div class="amodal-ccard"><p class="amodal-ccard-ttl" data-i18n="amenity.servizi.c5.ttl">🎿 Ski pass</p><p class="amodal-ccard-sub" data-i18n="amenity.servizi.c5.sub">Giornaliero €55 · 6 giorni €280 · Stagionale €890</p></div>
+            <div class="amodal-ccard"><p class="amodal-ccard-ttl" data-i18n="amenity.servizi.c6.ttl">🚂 Bernina Express</p><p class="amodal-ccard-sub" data-i18n="amenity.servizi.c6.sub">Tirano–St. Moritz via Alpi retiche UNESCO</p></div>
+          </div>
+          <p class="amodal-h" data-i18n="amenity.servizi.h3">Sempre inclusi</p>
+          <div class="amodal-chips">
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip1">Garage coperto 24/7</span>
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip2">Deposito sci &amp; bike</span>
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip3">Wi-Fi gratuito</span>
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip4">Colonnina ricarica auto</span>
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip5">Ascensore</span>
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip6">Cassaforte in camera</span>
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip7">Culla &amp; lettino (richiesta)</span>
+            <span class="amodal-chip" data-i18n="amenity.servizi.chip8">Babysitting (richiesta)</span>
+          </div>
+          <p class="amodal-small" data-i18n="amenity.servizi.small">Animali non ammessi · Cani guida ammessi</p>
+          <div class="amodal-cta">
+            <button type="button" class="btn btn-gold js-book" data-i18n="cta.button">Prenota il tuo soggiorno</button>
+            <p class="amodal-cta-txt" data-i18n="cta.text">Prenotate il vostro soggiorno alle tariffe migliori, direttamente con noi.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /#amodalScroll -->
+  </div><!-- /.amodal-panel -->
+</div><!-- /.amodal-backdrop -->
 
 <!-- ============================== LIVIGNO (destination) ============================== -->
 <section class="section bg-white" id="livigno">
@@ -1011,13 +1369,136 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   </div>
 </section>
 
-<!-- ============================== CTA BAND ============================== -->
-<section class="section cta-band bg-pine reveal">
+<!-- ============================== LOCATION ============================== -->
+<section class="section bg-pine" id="location">
   <div class="wrap">
-    <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
-    <h2 data-i18n="cta.title">Pronti a tornare a casa?</h2>
-    <p class="lead" data-i18n="cta.text">Prenotate il vostro soggiorno alle tariffe migliori, direttamente con noi.</p>
-    <button type="button" class="btn btn-gold js-book" data-i18n="cta.button">Prenota il tuo soggiorno</button>
+    <div class="section-head center reveal">
+      <p class="eyebrow" data-i18n="loc.eyebrow">Dove siamo · Come raggiungerci</p>
+      <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
+      <h2 class="h2" data-i18n="loc.title">Nel cuore di Livigno</h2>
+      <p class="loc-address">Via Plan 117 · 23041 Livigno (SO) · Italia</p>
+    </div>
+
+    <!-- why the position sells: pedestrian street · lifts · duty-free -->
+    <div class="loc-perks reveal">
+      <div class="loc-perk">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4.5" r="2"/><path d="M10.5 21l2-5.5-2.5-2 .8-4.5 2.4-1.2 3.3 3.2 2.5.8M9.5 13.5L7 15l-1.5 5.5M13.3 8.8L15 15l1.5 6"/></svg>
+        <div><b data-i18n="loc.perk1.ttl">Via pedonale</b><span data-i18n="loc.perk1.sub">L'hotel si affaccia direttamente sulla via dello shopping di Livigno.</span></div>
+      </div>
+      <div class="loc-perk">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5l20 3M12 6.2V3.5M9 12.5h6l1.5 6.5a1.5 1.5 0 0 1-1.5 1.5H9a1.5 1.5 0 0 1-1.5-1.5L9 12.5zM12 12.5V8.3M7.8 16.5h8.4"/></svg>
+        <div><b data-i18n="loc.perk2.ttl">Impianti &amp; piste</b><span data-i18n="loc.perk2.sub">Carosello 3000 a 200 m (5 min a piedi) · Mottolino a 400 m (10 min).</span></div>
+      </div>
+      <div class="loc-perk">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 8.5h13l1 12h-15l1-12zM8.8 11V6.7a3.2 3.2 0 0 1 6.4 0V11"/></svg>
+        <div><b data-i18n="loc.perk3.ttl">Duty-free</b><span data-i18n="loc.perk3.sub">Zona extra-doganale: acquisti senza tasse, tutto a piedi.</span></div>
+      </div>
+    </div>
+
+    <!-- travel-time rail — every road ends in Livigno -->
+    <div class="loc-rail reveal" role="list" aria-label="Tempi di guida">
+      <div class="loc-stop" role="listitem"><span class="loc-stop-time">~3h30</span><span class="loc-stop-dot" aria-hidden="true"></span><span class="loc-stop-city" data-i18n="loc.city.mi">Milano</span></div>
+      <div class="loc-stop" role="listitem"><span class="loc-stop-time">~2h45</span><span class="loc-stop-dot" aria-hidden="true"></span><span class="loc-stop-city" data-i18n="loc.city.zh">Zurigo</span></div>
+      <div class="loc-stop" role="listitem"><span class="loc-stop-time">~2h30</span><span class="loc-stop-dot" aria-hidden="true"></span><span class="loc-stop-city" data-i18n="loc.city.ib">Innsbruck</span></div>
+      <div class="loc-stop" role="listitem"><span class="loc-stop-time">~40min</span><span class="loc-stop-dot" aria-hidden="true"></span><span class="loc-stop-city" data-i18n="loc.city.bo">Bormio</span></div>
+      <div class="loc-stop is-dest" role="listitem"><span class="loc-stop-time">1.816 m</span><span class="loc-stop-dot" aria-hidden="true"></span><span class="loc-stop-city">Livigno</span></div>
+    </div>
+    <p class="loc-rail-note reveal" data-i18n="loc.rail.note">Tempi di guida indicativi</p>
+
+    <div class="loc-grid">
+      <div class="loc-copy reveal">
+        <p class="loc-lead" data-i18n="loc.lead">Sulla via pedonale principale di Livigno: il Carosello 3000 è a 200 metri (5 minuti a piedi), il Mottolino a 400 metri, con i negozi duty-free e i ristoranti del centro appena fuori dalla porta.</p>
+
+        <p class="loc-h" data-i18n="loc.drive">In auto</p>
+        <div class="loc-routes">
+          <div class="loc-route">
+            <span class="loc-route-icon">🇨🇭</span>
+            <div class="loc-route-info">
+              <span class="loc-route-name" data-i18n="loc.route1.name">Tunnel Munt la Schera</span>
+              <span class="loc-route-sub" data-i18n="loc.route1.sub">Collegamento Svizzera, tutto l'anno (sab chiuso 9–18) · <a href="https://www.livigno.eu/tunnel-munt-la-schera-landing" target="_blank" rel="noopener" style="color:var(--gold-soft);border-bottom:1px solid rgba(194,162,78,.4);">Biglietti online →</a></span>
+            </div>
+          </div>
+          <div class="loc-route">
+            <span class="loc-route-icon">🇨🇭</span>
+            <div class="loc-route-info">
+              <span class="loc-route-name" data-i18n="loc.route2.name">Passo Forcola (2.315 m)</span>
+              <span class="loc-route-sub" data-i18n="loc.route2.sub">Chiuso metà ott → fine giu</span>
+            </div>
+          </div>
+          <div class="loc-route">
+            <span class="loc-route-icon">🇮🇹</span>
+            <div class="loc-route-info">
+              <span class="loc-route-name" data-i18n="loc.route3.name">Passo Foscagno (2.291 m)</span>
+              <span class="loc-route-sub" data-i18n="loc.route3.sub">Aperto tutto l'anno</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="loc-ztl" data-i18n="loc.ztl">Zona a traffico limitato · Ingresso da Via Bondi (accesso N.5) · Uscita Via Pienz · Comunicate la targa al check-in</div>
+        <p class="loc-small" data-i18n="loc.snow">Catene da neve o pneumatici invernali fortemente consigliati · stradainforma.it</p>
+
+        <div class="loc-cta">
+          <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel+Touring+Livigno,+Via+Plan+117,+23041+Livigno+SO" target="_blank" rel="noopener" data-i18n="loc.directions">Indicazioni stradali</a>
+          <div class="loc-contact">
+            <a href="tel:+390342996131">+39 0342 996131</a>
+            <a href="mailto:info@touringlivigno.com">info@touringlivigno.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <iframe class="loc-map" title="Mappa Hotel Touring Livigno" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+          src="https://maps.google.com/maps?q=Hotel+Touring+Livigno,+Via+Plan+117,+Livigno&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section class="section bg-cream" id="faq">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="eyebrow" data-i18n="faq.eyebrow">Buono a sapersi</p>
+      <svg class="ridge center" viewBox="0 0 120 24" aria-hidden="true"><polyline points="0,20 18,20 30,8 42,16 60,2 78,16 92,9 104,20 120,20"/></svg>
+      <h2 class="h2" data-i18n="faq.title">Domande frequenti</h2>
+    </div>
+
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary data-i18n="faq.q1">A che ora sono il check-in e il check-out?</summary>
+        <p data-i18n="faq.a1">Check-in dalle 16:00, check-out entro le 10:00. Il late check-out è soggetto a disponibilità e l'uso della spa dopo il check-out è consentito.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q2">C'è il parcheggio?</summary>
+        <p data-i18n="faq.a2">Sì: garage coperto incluso nel soggiorno, con colonnina di ricarica per auto elettriche. Livigno ha una ZTL — si entra da Via Bondi (accesso N.5) e basta comunicare la targa al check-in.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q3">Quanto distano gli impianti di risalita?</summary>
+        <p data-i18n="faq.a3">Il Carosello 3000 è a circa 200 metri (5 minuti a piedi), il Mottolino a circa 400 metri (10 minuti a piedi). L'hotel si affaccia sulla via pedonale del centro.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q4">Quali sono gli orari di piscina e spa?</summary>
+        <p data-i18n="faq.a4">La piscina è aperta dalle 9:00 alle 20:00, la spa dalle 16:00 alle 20:00 (sabato chiusa). Palestra disponibile e massaggi su prenotazione.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q5">A che ora è la colazione? Ci sono opzioni vegetariane o gluten free?</summary>
+        <p data-i18n="faq.a5">Colazione dalle 7:30 alle 10:00, pranzo 12:00–14:00, cena 19:00–21:00. Il ristorante propone menù vegetariani, vegani e gluten free.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q6">Cosa c'è per i bambini?</summary>
+        <p data-i18n="faq.a6">Mini Club dai 4 anni, babysitting su richiesta e piscina aperta anche ai bambini. Culle e letti aggiunti disponibili su richiesta.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q7">Gli animali sono ammessi?</summary>
+        <p data-i18n="faq.a7">No, gli animali non sono ammessi. I cani guida sono ammessi secondo la normativa vigente.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q8">Come si paga? È richiesta una caparra?</summary>
+        <p data-i18n="faq.a8">Alla prenotazione è richiesta una caparra del 30%, di norma tramite bonifico bancario. In hotel si accettano contanti e carte; Apple Pay e Google Pay non sono supportati.</p>
+      </details>
+    </div>
+
+    <p class="faq-updated reveal" data-i18n="faq.updated">Informazioni verificate a luglio 2026</p>
   </div>
 </section>
 
@@ -1035,10 +1516,20 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       </span>
       <p class="ftagline" data-i18n="footer.tagline">L'hotel di famiglia a Livigno, dal 1970. Dove le montagne diventano casa.</p>
     </div>
+    <div class="reveal">
+      <h4 data-i18n="footer.explore">Esplora</h4>
+      <ul>
+        <li><a href="#family" data-i18n="nav.family">Famiglia</a></li>
+        <li><a href="#livigno" data-i18n="liv.eyebrow">Livigno</a></li>
+        <li><a href="#gallery" data-i18n="nav.gallery">Galleria</a></li>
+        <li><a href="#location" data-i18n="nav.location">Posizione</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+      </ul>
+    </div>
     <div class="footer-contact reveal">
       <h4 data-i18n="footer.contact">Contatti</h4>
       <address>
-        Via Plan 117<br>23030 Livigno (SO), Italia<br>
+        Via Plan 117<br>23041 Livigno (SO), Italia<br>
         <a href="tel:+390342996131">+39 0342 996131</a><br>
         <a href="mailto:info@touringlivigno.com">info@touringlivigno.com</a>
       </address>
@@ -1069,7 +1560,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   var I18N = {
     it:{
       "nav.rooms":"Camere","nav.family":"Famiglia","nav.location":"Posizione","nav.gallery":"Galleria","nav.contact":"Contatti","nav.book":"Prenota",
-      "hero.eyebrow":"Livigno · Alpi Italiane · dal 1970","hero.title":"Dove le montagne<br>diventano casa","hero.sub":"Un hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale fra le piste delle Alpi.",
+      "hero.eyebrow":"Livigno · Alpi Italiane · dal 1970","hero.title":"Dove le montagne<br>diventano casa","hero.sub":"Un hotel 4 stelle per famiglie sulla via pedonale di Livigno, zona extra-doganale — a 200 m dagli impianti del Carosello 3000.",
       "book.checkin":"Arrivo","book.checkout":"Partenza","book.adults":"Adulti","book.children":"Bambini","book.submit":"Verifica disponibilità","book.your":"Il tuo soggiorno",
       "book.guests_a":"adulti","book.guests_a1":"adulto","book.guests_c":"bambini","book.guests_c1":"bambino",
       "book.guests":"Ospiti","book.adults_sub":"14+ anni","book.kids2":"Bambini","book.kids2_sub":"7–12 anni","book.kids1":"Bambini","book.kids1_sub":"3–6 anni","book.babies":"Neonati","book.babies_sub":"0–2 anni","book.done":"Fatto","book.hint_in":"Seleziona l'arrivo","book.hint_out":"Seleziona la partenza",
@@ -1083,7 +1574,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "room.superiorplus.name":"Superior Plus","room.superiorplus.desc":"Spazi divisi, pensati per le famiglie.",
       "room.superiorfamily.name":"Superior Family","room.superiorfamily.desc":"Spaziosa e classica, per tutta la famiglia.",
       "room.tana.name":"Tana dell'Orso","room.tana.desc":"Come stare dentro una favola.",
-      "fam.eyebrow":"Famiglia & benessere","fam.title":"Tutto a portata di famiglia","fam.caption":"Lo spazio dove le famiglie si ritrovano.",
+      "fam.eyebrow":"Famiglia & benessere","fam.title":"Tutto a portata di famiglia","fam.lead":"Quasi 50 camere e appartamenti — doppie, family, comunicanti e suite — con piscina coperta, spa e Mini Club sotto lo stesso tetto.","fam.caption":"Lo spazio dove le famiglie si ritrovano.",
       "amenity.pool.title":"Piscina & Spa","amenity.pool.text":"Piscina coperta, idromassaggio e relax fra pietra e legno.",
       "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Sala giochi, animazione e la nostra marmotta Lupigno.",
       "amenity.ski.title":"Sci ai piedi","amenity.ski.text":"A pochi passi dagli impianti e dalle piste di Livigno.",
@@ -1091,11 +1582,65 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "amenity.more":"Scopri","amenity.family.title":"Famiglia","amenity.rest.title":"Ristorante","amenity.loc.title":"Posizione",
       "amenity.pool.tease":"Piscina & sauna","amenity.family.tease":"Giochi & bimbi","amenity.rest.tease":"Sapori di valle","amenity.loc.tease":"Cuore di Livigno",
       "amenity.pool.cat":"Benessere","amenity.family.cat":"Per i bambini","amenity.rest.cat":"Gusto","amenity.loc.cat":"Posizione",
-      "amenity.pool.body":"<p>Un percorso benessere fra acqua e calore, pensato per ritrovare energia e serenità: lasciatevi avvolgere dal vapore, dalle essenze e dalle saune, e riscoprite la vostra vitalità fra pietra e legno.</p><div class=\"ad-note\"><b>Spa:</b> lun–ven e dom 16:00–20:00 · sab chiuso · ultimo ingresso 19:30 · piscina 9:00–20:00</div><ul><li>Sauna finlandese<i>90°</i></li><li>Bagno turco<i>45°</i></li><li>Brechelbad aromatico<i>55°</i></li><li>Doccia cromoterapica</li><li>Sala relax</li><li>Piscina coperta riscaldata</li><li>Massaggi &amp; trattamenti</li></ul>",
-      "amenity.family.body":"<p>Una vacanza pensata per i più piccoli: il Mini Club con sala giochi e animazione, l'angolo bimbi in piscina e camere dedicate come la Camera Lupigno, con letti a castello e scivolo. Fuori, un mondo di esperienze a misura di famiglia.</p><div class=\"ad-note\"><b>Mini Club:</b> lun–ven e dom 16:00–22:00 · sabato chiuso</div><ul><li>Mini Club &amp; sala giochi</li><li>Animazione per bambini</li><li>Angolo bimbi in piscina</li><li>Camera Lupigno con scivolo</li><li>Menù &amp; seggioloni per i piccoli</li><li>Larix Park &amp; laghi alpini</li></ul>",
-      "amenity.rest.body":"<p>Cucina valtellinese e prodotti di stagione in un'esperienza di gusto curata: colazione a buffet, pranzo à la carte e cena servita, con un bar per l'aperitivo e il dopocena.</p><div class=\"ad-note\"><b>Orari:</b> colazione 7:30–10:00 · pranzo 12:00–14:00 · cena 19:00–21:00</div><ul><li>Cucina valtellinese</li><li>Colazione a buffet</li><li>Pranzo à la carte</li><li>Mezza pensione</li><li>Bar &amp; cocktail d'autore</li><li>Carta dei vini</li></ul>",
+      "amenity.pool.body":"<p>Un percorso sensoriale fra acqua e calore, dove i ritmi della montagna si sciolgono nel vapore della sauna e nel silenzio della sala relax. Dalla piscina coperta riscaldata alle acque aromatiche del Brechelbad, ogni momento è pensato per farvi sentire nuovamente interi.</p><div class=\"ad-note\"><b>Spa:</b> lun–ven e dom 16:00–20:00 · sab chiuso · ultimo ingresso 19:30 · piscina 9:00–20:00</div><ul><li>Sauna finlandese<i>90°</i></li><li>Bagno turco<i>45°</i></li><li>Brechelbad aromatico<i>55°</i></li><li>Doccia cromoterapica</li><li>Sala relax</li><li>Piscina coperta riscaldata</li><li>Massaggi &amp; trattamenti</li><li>Palestra fitness</li></ul>",
+      "amenity.family.body":"<p>Abbiamo pensato a ogni dettaglio perché la vacanza dei vostri bambini sia indimenticabile: dal Mini Club Lupigno con giochi e animazione alla Camera Tana dell'Orso con scivolo, dall'angolo bimbi in piscina ai sapori semplici del menù junior. Fuori, un mondo a misura di famiglia.</p><div class=\"ad-note\"><b>Mini Club (4+ anni):</b> lun–ven e dom 16:00–22:00 · sabato chiuso</div><ul><li>Mini Club &amp; sala giochi</li><li>Animazione per bambini</li><li>Angolo bimbi in piscina</li><li>Camera Lupigno con scivolo</li><li>Menù &amp; seggioloni per i piccoli</li><li>Larix Park &amp; laghi alpini</li><li>Babysitting su richiesta</li></ul>",
+      "amenity.rest.body":"<p>Tre generazioni della stessa famiglia portano in tavola i sapori autentici della Valtellina: pizzoccheri al burro e formaggio, bresaola della valle, formaggi di malga e vini delle cantine locali. Ogni pasto — dalla colazione a buffet all'aperitivo della sera — è un racconto.</p><div class=\"ad-note\"><b>Orari:</b> colazione 7:30–10:00 · pranzo 12:00–14:00 · cena 19:00–21:00</div><ul><li>Cucina valtellinese</li><li>Pizzoccheri &amp; bresaola</li><li>Colazione a buffet</li><li>Pranzo à la carte</li><li>Mezza pensione</li><li>Bar &amp; cocktail d'autore</li><li>Carta dei vini</li><li>Opzioni vegetariane &amp; gluten free</li></ul>",
       "amenity.loc.body":"<p>Nel cuore di Livigno, in Via Plan 117, sulla via pedonale e a pochi passi da piste e negozi. L'hotel si trova in zona a traffico limitato (ZTL): ingresso da Via Bondi, uscita da Via Pienz.</p><div class=\"ad-note\"><b>ZTL:</b> ingresso Via Bondi (accesso N.5) · uscita Via Pienz · comunicate la targa al check-in</div><ul><li>Garage coperto incluso 24/7</li><li>Deposito sci &amp; bike</li><li>Passi Foscagno &amp; Forcola</li><li>Tunnel Munt la Schera</li><li>A piedi da piste e shopping</li></ul>",
       "amenity.loc.maptitle":"Mappa di Livigno",
+      "amenity.pool.lead":"Un percorso sensoriale fra acqua e calore: dalla piscina coperta riscaldata al vapore aromatico del Brechelbad, dalla sauna finlandese al silenzio della sala relax. Ogni momento è pensato per farvi sentire nuovamente interi.",
+      "amenity.pool.signature":"Acqua, calore e silenzio — a 1.816 metri.",
+      "amenity.pool.img1.alt":"Piscina coperta riscaldata dell'Hotel Touring",
+      "amenity.pool.img2.alt":"Bagno turco con vapore profumato",
+      "amenity.pool.img3.alt":"Trattamento benessere in sala massaggi",
+      "amenity.family.lead":"Abbiamo pensato a ogni dettaglio per rendere la vacanza dei vostri bambini indimenticabile: dal Mini Club Lupigno (4+) con giochi e animazione alla Camera Tana dell'Orso con scivolo, dall'angolo bimbi in piscina ai sapori semplici del menù junior.",
+      "amenity.family.signature":"Lupigno vi aspetta — il benvenuto è per tutta la famiglia.",
+      "amenity.family.img1.alt":"Mini Club Lupigno — sala giochi per bambini",
+      "amenity.family.img2.alt":"Camera Tana dell'Orso con letti a castello e scivolo",
+      "amenity.family.img3.alt":"Famiglia in vacanza tra le montagne di Livigno",
+      "amenity.rest.lead":"Tre generazioni della stessa famiglia portano in tavola i sapori della Valtellina: pizzoccheri al burro e formaggio, bresaola della valle, formaggi di malga e vini delle cantine locali. Ogni pasto è un racconto.",
+      "amenity.rest.signature":"Cucina di montagna, memoria di famiglia — dal 1970.",
+      "amenity.rest.img1.alt":"Sala ristorante dell'Hotel Touring",
+      "amenity.rest.img2.alt":"Colazione a buffet con prodotti locali",
+      "amenity.rest.img3.alt":"Pizzoccheri della Valtellina",
+      "amenity.loc.lead":"In Via Plan 117, nel cuore della via pedonale di Livigno, a pochi passi dagli impianti di risalita e dai negozi duty-free. La montagna è appena fuori dalla porta.",
+      "amenity.loc.signature":"Centro di Livigno — tutto a piedi.",
+      "amenity.servizi.title":"I Nostri Servizi","amenity.servizi.tease":"Esperienze &amp; cura","amenity.servizi.cat":"Servizi","amenity.servizi.sig":"Tre generazioni di accoglienza autentica.",
+      "amenity.pool.stat1":"Sauna finlandese","amenity.pool.stat2":"Bagno turco","amenity.pool.stat3":"Brechelbad","amenity.pool.stat4":"Orario piscina",
+      "amenity.pool.note":"<b>Spa:</b> lun–ven &amp; dom 16:00–20:00 · sab chiuso · ultimo ingresso 19:30",
+      "amenity.pool.chip1":"Sauna finlandese","amenity.pool.chip2":"Bagno turco","amenity.pool.chip3":"Brechelbad aromatico","amenity.pool.chip4":"Doccia cromoterapica","amenity.pool.chip5":"Sala relax","amenity.pool.chip6":"Piscina coperta riscaldata","amenity.pool.chip7":"Massaggi &amp; trattamenti","amenity.pool.chip8":"Sala fitness",
+      "amenity.pool.small":"Massaggi disponibili su prenotazione in reception.",
+      "amenity.family.band1.ttl":"🎭 Mini Club Lupigno","amenity.family.band1.sub":"Per bambini 4+ anni · Lun–Ven &amp; Dom 16:00–22:00 · Sab chiuso",
+      "amenity.family.band2.ttl":"🛝 Camera Lupigno","amenity.family.band2.sub":"Letti a castello, scivolo interno, decorazioni su misura",
+      "amenity.family.note":"<b>Mini Club (4+):</b> lun–ven &amp; dom 16:00–22:00 · sab chiuso",
+      "amenity.family.chip1":"Mini Club &amp; sala giochi","amenity.family.chip2":"Animazione per bambini","amenity.family.chip3":"Angolo bimbi in piscina","amenity.family.chip4":"Camera Lupigno con scivolo","amenity.family.chip5":"Menù &amp; seggioloni","amenity.family.chip6":"Larix Park &amp; laghi alpini","amenity.family.chip7":"Babysitting su richiesta",
+      "amenity.family.small":"Larix Park adventure park · Laghi alpini · Scuola sci per bambini",
+      "amenity.servizi.badge":"Dal 1970","amenity.servizi.menu":"🍽 Scopri il nostro menù",
+      "amenity.servizi.note":"<b>Ristorante:</b> Colazione 7:30–10:00 · Pranzo 12:00–14:00 · Cena 19:00–21:00 · Cucina valtellinese, pizzoccheri, bresaola, vini locali · Opzioni vegetariane, vegane &amp; gluten free",
+      "amenity.servizi.c1.ttl":"🍷 Vino in camera","amenity.servizi.c1.sub":"Selezione dalla cantina: Barolo, Amarone, Alto Adige",
+      "amenity.servizi.c2.ttl":"💆 Massaggi","amenity.servizi.c2.sub":"Rituale alle erbe alpine con pietre calde · su prenotazione",
+      "amenity.servizi.c3.ttl":"🎂 Torta celebrativa","amenity.servizi.c3.sub":"Personalizzata, da €25 · ordine 24h prima",
+      "amenity.servizi.c4.ttl":"💐 Bouquet floreale","amenity.servizi.c4.sub":"Su richiesta in reception",
+      "amenity.servizi.c5.ttl":"🎿 Ski pass","amenity.servizi.c5.sub":"Giornaliero €55 · 6 giorni €280 · Stagionale €890",
+      "amenity.servizi.c6.ttl":"🚂 Bernina Express","amenity.servizi.c6.sub":"Tirano–St. Moritz via Alpi retiche UNESCO",
+      "amenity.servizi.chip1":"Garage coperto 24/7","amenity.servizi.chip2":"Deposito sci &amp; bike","amenity.servizi.chip3":"Wi-Fi gratuito","amenity.servizi.chip4":"Colonnina ricarica auto","amenity.servizi.chip5":"Ascensore","amenity.servizi.chip6":"Cassaforte in camera","amenity.servizi.chip7":"Culla &amp; lettino (richiesta)","amenity.servizi.chip8":"Babysitting (richiesta)",
+      "amenity.servizi.small":"Animali non ammessi · Cani guida ammessi",
+      "amenity.pool.h1":"Incluso nel soggiorno","amenity.pool.h2":"Su prenotazione",
+      "amenity.family.stat1":"Età Mini Club","amenity.family.stat2":"Orario Mini Club","amenity.family.stat3":"Giorni a settimana",
+      "amenity.family.h1":"In hotel","amenity.family.h2":"Fuori dalla porta","amenity.family.chip8":"Scuola sci per bambini",
+      "amenity.servizi.h1":"Ristorante","amenity.servizi.h2":"Su richiesta","amenity.servizi.h3":"Sempre inclusi",
+      "loc.eyebrow":"Dove siamo · Come raggiungerci","loc.title":"Nel cuore di Livigno",
+      "loc.lead":"Sulla via pedonale principale di Livigno: il Carosello 3000 è a 200 metri (5 minuti a piedi), il Mottolino a 400 metri, con i negozi duty-free e i ristoranti del centro appena fuori dalla porta.",
+      "loc.route1.name":"Tunnel Munt la Schera","loc.route1.sub":"Collegamento Svizzera, tutto l'anno (sab chiuso 9–18) · <a href='https://www.livigno.eu/tunnel-munt-la-schera-landing' target='_blank' rel='noopener' style='color:var(--gold-soft);border-bottom:1px solid rgba(194,162,78,.4);'>Biglietti online →</a>",
+      "loc.route2.name":"Passo Forcola (2.315 m)","loc.route2.sub":"Chiuso metà ott → fine giu",
+      "loc.route3.name":"Passo Foscagno (2.291 m)","loc.route3.sub":"Aperto tutto l'anno",
+      "loc.ztl":"Zona a traffico limitato · Ingresso da Via Bondi (accesso N.5) · Uscita Via Pienz · Comunicate la targa al check-in",
+      "loc.snow":"Catene da neve o pneumatici invernali fortemente consigliati · stradainforma.it",
+      "loc.drive":"In auto","loc.directions":"Indicazioni stradali",
+      "loc.perk1.ttl":"Via pedonale","loc.perk1.sub":"L'hotel si affaccia direttamente sulla via dello shopping di Livigno.",
+      "loc.perk2.ttl":"Impianti &amp; piste","loc.perk2.sub":"Carosello 3000 a 200 m (5 min a piedi) · Mottolino a 400 m (10 min).",
+      "loc.perk3.ttl":"Duty-free","loc.perk3.sub":"Zona extra-doganale: acquisti senza tasse, tutto a piedi.",
+      "loc.city.mi":"Milano","loc.city.zh":"Zurigo","loc.city.ib":"Innsbruck","loc.city.bo":"Bormio",
+      "loc.rail.note":"Tempi di guida indicativi",
       "liv.eyebrow":"Livigno","liv.title":"Il Piccolo Tibet delle Alpi","liv.text":"A 1.816 metri, Livigno è una lunga valle alpina della Valtellina: zona extra-doganale dove lo shopping è senza tasse, capitale dello sci con oltre 115 km di piste e — d'estate — un paradiso di trekking, mountain bike e laghi di montagna.","liv.discover":"Scopri di più",
       "liv.t1":"Trekking &amp; sentieri","liv.t1s":"Oltre 3.000 m di dislivello fra laghi e creste","liv.t2":"Bike &amp; MTB","liv.t2s":"Bike Park, flow trail e percorsi e-bike","liv.t3":"Inverno &amp; Olimpiadi 2026","liv.t3s":"115 km di piste, snowpark e sci notturno","liv.t4":"Shopping &amp; eventi","liv.t4s":"Acquisti duty-free ed eventi in valle",
       "gallery.eyebrow":"Galleria &amp; ospiti","gallery.title":"Uno sguardo a casa nostra",
@@ -1105,12 +1650,21 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "rev.3.text":"“La cucina valtellinese è autentica. Ci siamo sentiti in famiglia.”","rev.3.who":"Familie Hofer · München",
       "cta.title":"Pronti a tornare a casa?","cta.text":"Prenotate il vostro soggiorno alle tariffe migliori, direttamente con noi.","cta.button":"Prenota il tuo soggiorno",
       "footer.tagline":"L'hotel di famiglia a Livigno, dal 1970. Dove le montagne diventano casa.","footer.contact":"Contatti","footer.explore":"Esplora","footer.rights":"© 2026 Hotel Touring Livigno. Tutti i diritti riservati.",
+      "nav.faq":"FAQ","faq.eyebrow":"Buono a sapersi","faq.title":"Domande frequenti","faq.updated":"Informazioni verificate a luglio 2026",
+      "faq.q1":"A che ora sono il check-in e il check-out?","faq.a1":"Check-in dalle 16:00, check-out entro le 10:00. Il late check-out è soggetto a disponibilità e l'uso della spa dopo il check-out è consentito.",
+      "faq.q2":"C'è il parcheggio?","faq.a2":"Sì: garage coperto incluso nel soggiorno, con colonnina di ricarica per auto elettriche. Livigno ha una ZTL — si entra da Via Bondi (accesso N.5) e basta comunicare la targa al check-in.",
+      "faq.q3":"Quanto distano gli impianti di risalita?","faq.a3":"Il Carosello 3000 è a circa 200 metri (5 minuti a piedi), il Mottolino a circa 400 metri (10 minuti a piedi). L'hotel si affaccia sulla via pedonale del centro.",
+      "faq.q4":"Quali sono gli orari di piscina e spa?","faq.a4":"La piscina è aperta dalle 9:00 alle 20:00, la spa dalle 16:00 alle 20:00 (sabato chiusa). Palestra disponibile e massaggi su prenotazione.",
+      "faq.q5":"A che ora è la colazione? Ci sono opzioni vegetariane o gluten free?","faq.a5":"Colazione dalle 7:30 alle 10:00, pranzo 12:00–14:00, cena 19:00–21:00. Il ristorante propone menù vegetariani, vegani e gluten free.",
+      "faq.q6":"Cosa c'è per i bambini?","faq.a6":"Mini Club dai 4 anni, babysitting su richiesta e piscina aperta anche ai bambini. Culle e letti aggiunti disponibili su richiesta.",
+      "faq.q7":"Gli animali sono ammessi?","faq.a7":"No, gli animali non sono ammessi. I cani guida sono ammessi secondo la normativa vigente.",
+      "faq.q8":"Come si paga? È richiesta una caparra?","faq.a8":"Alla prenotazione è richiesta una caparra del 30%, di norma tramite bonifico bancario. In hotel si accettano contanti e carte; Apple Pay e Google Pay non sono supportati.",
       "cookie.text":"Usiamo i cookie per analizzare il traffico in forma anonima. Puoi accettare o rifiutare.","cookie.accept":"Accetta","cookie.decline":"Rifiuta",
       "doc.title":"Hotel Touring Livigno · Hotel 4 stelle per famiglie"
     },
     en:{
       "nav.rooms":"Rooms","nav.family":"Family","nav.location":"Location","nav.gallery":"Gallery","nav.contact":"Contact","nav.book":"Book",
-      "hero.eyebrow":"Livigno · Italian Alps · since 1970","hero.title":"Where the mountains<br>become home","hero.sub":"A 4-star family hotel in the heart of Livigno, a duty-free zone among the slopes of the Alps.",
+      "hero.eyebrow":"Livigno · Italian Alps · since 1970","hero.title":"Where the mountains<br>become home","hero.sub":"A 4-star family hotel on Livigno's pedestrian street, in the duty-free zone — 200 m from the Carosello 3000 ski lift.",
       "book.checkin":"Check-in","book.checkout":"Check-out","book.adults":"Adults","book.children":"Children","book.submit":"Check availability","book.your":"Your stay",
       "book.guests_a":"adults","book.guests_a1":"adult","book.guests_c":"children","book.guests_c1":"child",
       "book.guests":"Guests","book.adults_sub":"14+ yrs","book.kids2":"Children","book.kids2_sub":"7–12 yrs","book.kids1":"Children","book.kids1_sub":"3–6 yrs","book.babies":"Infants","book.babies_sub":"0–2 yrs","book.done":"Done","book.hint_in":"Select arrival","book.hint_out":"Select departure",
@@ -1124,7 +1678,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "room.superiorplus.name":"Superior Plus","room.superiorplus.desc":"Separate spaces, designed for families.",
       "room.superiorfamily.name":"Superior Family","room.superiorfamily.desc":"Spacious and classic, for the whole family.",
       "room.tana.name":"Bear's Den","room.tana.desc":"Like stepping into a fairytale.",
-      "fam.eyebrow":"Family & wellness","fam.title":"Everything within family reach","fam.caption":"The space where families come together.",
+      "fam.eyebrow":"Family & wellness","fam.title":"Everything within family reach","fam.lead":"Almost 50 rooms and apartments — doubles, family rooms, connecting rooms and suites — with an indoor pool, spa and kids' Mini Club under one roof.","fam.caption":"The space where families come together.",
       "amenity.pool.title":"Pool & Spa","amenity.pool.text":"Indoor pool, hot tub and relaxation in stone and wood.",
       "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Playroom, activities and our marmot Lupigno.",
       "amenity.ski.title":"Ski to the door","amenity.ski.text":"A few steps from Livigno's lifts and slopes.",
@@ -1132,11 +1686,65 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "amenity.more":"Explore","amenity.family.title":"Family","amenity.rest.title":"Restaurant","amenity.loc.title":"Location",
       "amenity.pool.tease":"Pool & sauna","amenity.family.tease":"Play & kids","amenity.rest.tease":"Valtellina taste","amenity.loc.tease":"Heart of Livigno",
       "amenity.pool.cat":"Wellness","amenity.family.cat":"For the kids","amenity.rest.cat":"Taste","amenity.loc.cat":"Location",
-      "amenity.pool.body":"<p>A wellness journey through water and heat, designed to restore energy and serenity: let the steam, the essences and the saunas envelop you, and rediscover your vitality in a setting of stone and wood.</p><div class=\"ad-note\"><b>Spa:</b> Mon–Fri &amp; Sun 16:00–20:00 · Sat closed · last entry 19:30 · pool 9:00–20:00</div><ul><li>Finnish sauna<i>90°</i></li><li>Turkish bath<i>45°</i></li><li>Aromatic Brechelbad<i>55°</i></li><li>Chromotherapy shower</li><li>Relaxation room</li><li>Heated indoor pool</li><li>Massage &amp; treatments</li></ul>",
-      "amenity.family.body":"<p>A holiday made for the little ones: the Mini Club with its games room and activities, a kids' corner in the pool and dedicated rooms like the Lupigno Room, with bunk beds and a slide. Outside, a whole world of family-friendly experiences.</p><div class=\"ad-note\"><b>Mini Club:</b> Mon–Fri &amp; Sun 16:00–22:00 · Sat closed</div><ul><li>Mini Club &amp; games room</li><li>Children's activities</li><li>Kids' corner in the pool</li><li>Lupigno Room with slide</li><li>Kids' menu &amp; high chairs</li><li>Larix Park &amp; alpine lakes</li></ul>",
-      "amenity.rest.body":"<p>Valtellina cuisine and seasonal produce in a thoughtful dining experience: breakfast buffet, à la carte lunch and served dinner, with a bar for aperitivo and after-dinner drinks.</p><div class=\"ad-note\"><b>Hours:</b> breakfast 7:30–10:00 · lunch 12:00–14:00 · dinner 19:00–21:00</div><ul><li>Valtellina cuisine</li><li>Breakfast buffet</li><li>À la carte lunch</li><li>Half-board</li><li>Bar &amp; signature cocktails</li><li>Wine list</li></ul>",
+      "amenity.pool.body":"<p>A sensory journey through water and heat, where the mountain's rhythm dissolves in the sauna's steam and the quiet of the relaxation room. From the heated indoor pool to the aromatic Brechelbad waters, every moment is designed to make you feel whole again.</p><div class=\"ad-note\"><b>Spa:</b> Mon–Fri &amp; Sun 16:00–20:00 · Sat closed · last entry 19:30 · pool 9:00–20:00</div><ul><li>Finnish sauna<i>90°</i></li><li>Turkish bath<i>45°</i></li><li>Aromatic Brechelbad<i>55°</i></li><li>Chromotherapy shower</li><li>Relaxation room</li><li>Heated indoor pool</li><li>Massage &amp; treatments</li><li>Fitness room</li></ul>",
+      "amenity.family.body":"<p>We've thought of every detail so that your children's holiday is truly unforgettable: from the Lupigno Mini Club with games and activities to the Bear's Den room with bunk beds and a slide, from the kids' corner in the pool to the simple flavours of the junior menu. Outside, a whole world of family-friendly experiences.</p><div class=\"ad-note\"><b>Mini Club (4+):</b> Mon–Fri &amp; Sun 16:00–22:00 · Sat closed</div><ul><li>Mini Club &amp; games room</li><li>Children's activities</li><li>Kids' corner in the pool</li><li>Lupigno Room with slide</li><li>Kids' menu &amp; high chairs</li><li>Larix Park &amp; alpine lakes</li><li>Babysitting on request</li></ul>",
+      "amenity.rest.body":"<p>Three generations of the same family bring the flavours of Valtellina to your table: buckwheat pizzoccheri with butter and cheese, valley-cured bresaola, mountain cheeses and wines from local cellars. Every meal — from the morning buffet to the evening aperitivo — is a story.</p><div class=\"ad-note\"><b>Hours:</b> breakfast 7:30–10:00 · lunch 12:00–14:00 · dinner 19:00–21:00</div><ul><li>Valtellina cuisine</li><li>Pizzoccheri &amp; bresaola</li><li>Breakfast buffet</li><li>À la carte lunch</li><li>Half-board</li><li>Bar &amp; signature cocktails</li><li>Wine list</li><li>Vegetarian, vegan &amp; gluten-free options</li></ul>",
       "amenity.loc.body":"<p>In the heart of Livigno, at Via Plan 117, on the pedestrian street and steps from slopes and shops. The hotel sits in a Limited Traffic Zone (ZTL): entry via Via Bondi, exit via Via Pienz.</p><div class=\"ad-note\"><b>ZTL:</b> entry Via Bondi (access N.5) · exit Via Pienz · give your plate at check-in</div><ul><li>Covered garage, included 24/7</li><li>Ski &amp; bike storage</li><li>Foscagno &amp; Forcola passes</li><li>Munt la Schera tunnel</li><li>Walk to slopes &amp; shopping</li></ul>",
       "amenity.loc.maptitle":"Map of Livigno",
+      "amenity.pool.lead":"A sensory journey through water and heat: from the heated indoor pool to the aromatic Brechelbad steam, from the Finnish sauna to the quiet of the relaxation room. Every moment is designed to make you feel whole again.",
+      "amenity.pool.signature":"Water, warmth, and stillness — at 1,816 metres.",
+      "amenity.pool.img1.alt":"Heated indoor pool at Hotel Touring",
+      "amenity.pool.img2.alt":"Steam-filled Turkish bath",
+      "amenity.pool.img3.alt":"Wellness treatment in the massage room",
+      "amenity.family.lead":"We've thought of every detail to make your children's holiday truly unforgettable: from the Lupigno Mini Club (4+) with games and activities to the Bear's Den room with bunk beds and slide, from the pool kids' corner to the simple flavours of the junior menu.",
+      "amenity.family.signature":"Lupigno is waiting — a warm welcome for the whole family.",
+      "amenity.family.img1.alt":"Lupigno Mini Club — games room for children",
+      "amenity.family.img2.alt":"Bear's Den room with bunk beds and slide",
+      "amenity.family.img3.alt":"Family holiday in the mountains of Livigno",
+      "amenity.rest.lead":"Three generations of the same family bring the flavours of Valtellina to your table: buckwheat pizzoccheri with butter and cheese, valley-cured bresaola, mountain cheeses and wines from local cellars. Every meal is a story.",
+      "amenity.rest.signature":"Mountain cooking, family memory — since 1970.",
+      "amenity.rest.img1.alt":"Hotel Touring restaurant dining room",
+      "amenity.rest.img2.alt":"Breakfast buffet with local produce",
+      "amenity.rest.img3.alt":"Valtellina pizzoccheri, the region's signature dish",
+      "amenity.loc.lead":"At Via Plan 117, on Livigno's pedestrian street, steps from the ski lifts and duty-free shops. The mountain is right outside the door.",
+      "amenity.loc.signature":"Livigno centre — everything on foot.",
+      "amenity.servizi.title":"Our Services","amenity.servizi.tease":"Experiences &amp; care","amenity.servizi.cat":"Services","amenity.servizi.sig":"Three generations of genuine hospitality.",
+      "amenity.pool.stat1":"Finnish sauna","amenity.pool.stat2":"Turkish bath","amenity.pool.stat3":"Brechelbad","amenity.pool.stat4":"Pool hours",
+      "amenity.pool.note":"<b>Spa:</b> Mon–Fri &amp; Sun 16:00–20:00 · Sat closed · last entry 19:30",
+      "amenity.pool.chip1":"Finnish sauna","amenity.pool.chip2":"Turkish bath","amenity.pool.chip3":"Aromatic Brechelbad","amenity.pool.chip4":"Chromotherapy shower","amenity.pool.chip5":"Relaxation room","amenity.pool.chip6":"Heated indoor pool","amenity.pool.chip7":"Massage &amp; treatments","amenity.pool.chip8":"Fitness room",
+      "amenity.pool.small":"Massages available — book at reception.",
+      "amenity.family.band1.ttl":"🎭 Lupigno Mini Club","amenity.family.band1.sub":"Ages 4+ · Mon–Fri &amp; Sun 16:00–22:00 · Sat closed",
+      "amenity.family.band2.ttl":"🛝 Lupigno Room","amenity.family.band2.sub":"Bunk beds, indoor slide, custom decorations",
+      "amenity.family.note":"<b>Mini Club (4+):</b> Mon–Fri &amp; Sun 16:00–22:00 · Sat closed",
+      "amenity.family.chip1":"Mini Club &amp; games room","amenity.family.chip2":"Children's activities","amenity.family.chip3":"Kids' corner in the pool","amenity.family.chip4":"Lupigno Room with slide","amenity.family.chip5":"Kids' menu &amp; high chairs","amenity.family.chip6":"Larix Park &amp; alpine lakes","amenity.family.chip7":"Babysitting on request",
+      "amenity.family.small":"Larix Park adventure park · Alpine lakes · Kids' ski school",
+      "amenity.servizi.badge":"Since 1970","amenity.servizi.menu":"🍽 Discover our menu",
+      "amenity.servizi.note":"<b>Restaurant:</b> Breakfast 7:30–10:00 · Lunch 12:00–14:00 · Dinner 19:00–21:00 · Valtellina cuisine, pizzoccheri, bresaola, local wines · Vegetarian, vegan &amp; gluten-free options",
+      "amenity.servizi.c1.ttl":"🍷 Wine in your room","amenity.servizi.c1.sub":"From our cellar: Barolo, Amarone, Alto Adige",
+      "amenity.servizi.c2.ttl":"💆 Massages","amenity.servizi.c2.sub":"Alpine-herb ritual with hot stones · by reservation",
+      "amenity.servizi.c3.ttl":"🎂 Celebration cake","amenity.servizi.c3.sub":"Personalised, from €25 · order 24h ahead",
+      "amenity.servizi.c4.ttl":"💐 Flower bouquet","amenity.servizi.c4.sub":"On request at reception",
+      "amenity.servizi.c5.ttl":"🎿 Ski pass","amenity.servizi.c5.sub":"Day €55 · 6-day €280 · Season €890",
+      "amenity.servizi.c6.ttl":"🚂 Bernina Express","amenity.servizi.c6.sub":"Tirano–St. Moritz across the UNESCO Rhaetian Alps",
+      "amenity.servizi.chip1":"Covered garage 24/7","amenity.servizi.chip2":"Ski &amp; bike storage","amenity.servizi.chip3":"Free Wi-Fi","amenity.servizi.chip4":"EV charging station","amenity.servizi.chip5":"Lift","amenity.servizi.chip6":"In-room safe","amenity.servizi.chip7":"Cot &amp; crib (on request)","amenity.servizi.chip8":"Babysitting (on request)",
+      "amenity.servizi.small":"Pets not allowed · Guide dogs welcome",
+      "amenity.pool.h1":"Included in your stay","amenity.pool.h2":"By reservation",
+      "amenity.family.stat1":"Mini Club age","amenity.family.stat2":"Mini Club hours","amenity.family.stat3":"Days a week",
+      "amenity.family.h1":"At the hotel","amenity.family.h2":"Right outside","amenity.family.chip8":"Kids' ski school",
+      "amenity.servizi.h1":"Restaurant","amenity.servizi.h2":"On request","amenity.servizi.h3":"Always included",
+      "loc.eyebrow":"Dove siamo · How to find us","loc.title":"In the Heart of Livigno",
+      "loc.lead":"On Livigno's main pedestrian street: the Carosello 3000 lift is 200 metres away (a 5-minute walk), Mottolino 400 metres, with the duty-free shops and restaurants of the centre right outside the door.",
+      "loc.route1.name":"Tunnel Munt la Schera","loc.route1.sub":"Switzerland connection, year-round (Sat closed 9–18) · <a href='https://www.livigno.eu/tunnel-munt-la-schera-landing' target='_blank' rel='noopener' style='color:var(--gold-soft);border-bottom:1px solid rgba(194,162,78,.4);'>Tickets online →</a>",
+      "loc.route2.name":"Passo Forcola (2,315 m)","loc.route2.sub":"Closed mid-Oct → late Jun",
+      "loc.route3.name":"Passo Foscagno (2,291 m)","loc.route3.sub":"Open year-round",
+      "loc.ztl":"Limited traffic zone · Entry via Via Bondi (access N.5) · Exit Via Pienz · Share your plate at check-in",
+      "loc.snow":"Snow chains or winter tyres strongly recommended · stradainforma.it",
+      "loc.drive":"By car","loc.directions":"Get directions",
+      "loc.perk1.ttl":"Pedestrian street","loc.perk1.sub":"The hotel opens right onto Livigno's shopping street.",
+      "loc.perk2.ttl":"Lifts &amp; slopes","loc.perk2.sub":"Carosello 3000 200 m away (5-min walk) · Mottolino 400 m (10 min).",
+      "loc.perk3.ttl":"Duty-free","loc.perk3.sub":"Tax-free shopping zone — everything on foot.",
+      "loc.city.mi":"Milan","loc.city.zh":"Zurich","loc.city.ib":"Innsbruck","loc.city.bo":"Bormio",
+      "loc.rail.note":"Approximate driving times",
       "liv.eyebrow":"Livigno","liv.title":"The Alps' Little Tibet","liv.text":"At 1,816 m, Livigno is a long alpine valley in the Valtellina: a duty-free zone where shopping is tax-free, a skiing capital with over 115 km of slopes and — in summer — a paradise of trekking, mountain biking and alpine lakes.","liv.discover":"Discover more",
       "liv.t1":"Trekking &amp; trails","liv.t1s":"Over 3,000 m of climbing between lakes and ridges","liv.t2":"Bike &amp; MTB","liv.t2s":"Bike Park, flow trails and e-bike routes","liv.t3":"Winter &amp; 2026 Olympics","liv.t3s":"115 km of slopes, a snowpark and night skiing","liv.t4":"Shopping &amp; events","liv.t4s":"Duty-free shopping and events in the valley",
       "gallery.eyebrow":"Gallery &amp; guests","gallery.title":"A look around our home",
@@ -1146,12 +1754,21 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "rev.3.text":"“The Valtellina cuisine is authentic. We felt like family.”","rev.3.who":"The Hofer family · Munich",
       "cta.title":"Ready to come home?","cta.text":"Book your stay at the best rates, directly with us.","cta.button":"Book your stay",
       "footer.tagline":"The family hotel in Livigno, since 1970. Where the mountains become home.","footer.contact":"Contact","footer.explore":"Explore","footer.rights":"© 2026 Hotel Touring Livigno. All rights reserved.",
+      "nav.faq":"FAQ","faq.eyebrow":"Good to know","faq.title":"Frequently asked questions","faq.updated":"Information verified July 2026",
+      "faq.q1":"What time are check-in and check-out?","faq.a1":"Check-in from 4:00 pm, check-out by 10:00 am. Late check-out is subject to availability, and you can still use the spa after checking out.",
+      "faq.q2":"Is parking available?","faq.a2":"Yes: a covered garage is included in your stay, with an EV charging point. Livigno has a limited-traffic zone (ZTL) — enter from Via Bondi (access no. 5) and simply give us your plate number at check-in.",
+      "faq.q3":"How far are the ski lifts?","faq.a3":"The Carosello 3000 lift is about 200 metres away (a 5-minute walk) and Mottolino about 400 metres (10 minutes on foot). The hotel faces Livigno's central pedestrian street.",
+      "faq.q4":"What are the pool and spa opening hours?","faq.a4":"The pool is open 9:00 am – 8:00 pm, the spa 4:00 – 8:00 pm (closed on Saturdays). A gym is available and massages can be booked.",
+      "faq.q5":"What time is breakfast? Are there vegetarian or gluten-free options?","faq.a5":"Breakfast is served 7:30–10:00 am, lunch 12:00–2:00 pm, dinner 7:00–9:00 pm. Vegetarian, vegan and gluten-free menus are available.",
+      "faq.q6":"What is there for children?","faq.a6":"A Mini Club for ages 4+, babysitting on request and a pool children can use too. Cots and extra beds are available on request.",
+      "faq.q7":"Are pets allowed?","faq.a7":"No, pets are not allowed. Guide dogs are welcome in accordance with the law.",
+      "faq.q8":"How do I pay? Is a deposit required?","faq.a8":"A 30% deposit is required at booking, normally by bank transfer. At the hotel we accept cash and cards; Apple Pay and Google Pay are not supported.",
       "cookie.text":"We use cookies to analyse traffic anonymously. You can accept or decline.","cookie.accept":"Accept","cookie.decline":"Decline",
       "doc.title":"Hotel Touring Livigno · 4-star family hotel"
     },
     de:{
       "nav.rooms":"Zimmer","nav.family":"Familie","nav.location":"Lage","nav.gallery":"Galerie","nav.contact":"Kontakt","nav.book":"Buchen",
-      "hero.eyebrow":"Livigno · Italienische Alpen · seit 1970","hero.title":"Wo die Berge<br>zum Zuhause werden","hero.sub":"Ein 4-Sterne-Familienhotel im Herzen von Livigno, einer zollfreien Zone inmitten der Alpenpisten.",
+      "hero.eyebrow":"Livigno · Italienische Alpen · seit 1970","hero.title":"Wo die Berge<br>zum Zuhause werden","hero.sub":"Ein 4-Sterne-Familienhotel an der Fußgängerzone von Livigno, in der zollfreien Zone — 200 m von der Carosello-3000-Bergbahn.",
       "book.checkin":"Anreise","book.checkout":"Abreise","book.adults":"Erwachsene","book.children":"Kinder","book.submit":"Verfügbarkeit prüfen","book.your":"Ihr Aufenthalt",
       "book.guests_a":"Erwachsene","book.guests_a1":"Erwachsener","book.guests_c":"Kinder","book.guests_c1":"Kind",
       "book.guests":"Gäste","book.adults_sub":"14+ J.","book.kids2":"Kinder","book.kids2_sub":"7–12 J.","book.kids1":"Kinder","book.kids1_sub":"3–6 J.","book.babies":"Kleinkinder","book.babies_sub":"0–2 J.","book.done":"Fertig","book.hint_in":"Anreise wählen","book.hint_out":"Abreise wählen",
@@ -1165,7 +1782,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "room.superiorplus.name":"Superior Plus","room.superiorplus.desc":"Getrennte Bereiche, für Familien gedacht.",
       "room.superiorfamily.name":"Superior Family","room.superiorfamily.desc":"Geräumig und klassisch, für die ganze Familie.",
       "room.tana.name":"Bärenhöhle","room.tana.desc":"Wie in einem Märchen.",
-      "fam.eyebrow":"Familie & Wellness","fam.title":"Alles in Familiennähe","fam.caption":"Der Ort, an dem Familien zusammenkommen.",
+      "fam.eyebrow":"Familie & Wellness","fam.title":"Alles in Familiennähe","fam.lead":"Fast 50 Zimmer und Apartments — Doppel-, Familien- und Verbindungszimmer sowie Suiten — mit Hallenbad, Spa und Mini Club unter einem Dach.","fam.caption":"Der Ort, an dem Familien zusammenkommen.",
       "amenity.pool.title":"Pool & Spa","amenity.pool.text":"Hallenbad, Whirlpool und Entspannung in Stein und Holz.",
       "amenity.kids.title":"Kinder Club Lupigno","amenity.kids.text":"Spielzimmer, Animation und unser Murmeltier Lupigno.",
       "amenity.ski.title":"Ski vor der Tür","amenity.ski.text":"Wenige Schritte von Liften und Pisten Livignos.",
@@ -1173,11 +1790,65 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "amenity.more":"Mehr","amenity.family.title":"Familie","amenity.rest.title":"Restaurant","amenity.loc.title":"Lage",
       "amenity.pool.tease":"Pool & Sauna","amenity.family.tease":"Spiel & Kinder","amenity.rest.tease":"Valtellina-Küche","amenity.loc.tease":"Herz von Livigno",
       "amenity.pool.cat":"Wellness","amenity.family.cat":"Für Kinder","amenity.rest.cat":"Genuss","amenity.loc.cat":"Lage",
-      "amenity.pool.body":"<p>Eine Wellnessreise aus Wasser und Wärme, um Energie und Gelassenheit zurückzugewinnen: Lassen Sie sich von Dampf, Essenzen und Saunen umhüllen und entdecken Sie Ihre Vitalität in Stein und Holz neu.</p><div class=\"ad-note\"><b>Spa:</b> Mo–Fr &amp; So 16:00–20:00 · Sa geschlossen · letzter Einlass 19:30 · Pool 9:00–20:00</div><ul><li>Finnische Sauna<i>90°</i></li><li>Türkisches Bad<i>45°</i></li><li>Aromatisches Brechelbad<i>55°</i></li><li>Farblichtdusche</li><li>Ruheraum</li><li>Beheiztes Hallenbad</li><li>Massagen &amp; Anwendungen</li></ul>",
-      "amenity.family.body":"<p>Ein Urlaub für die Kleinen: der Mini Club mit Spielzimmer und Animation, eine Kinderecke im Pool und eigene Zimmer wie das Lupigno-Zimmer mit Etagenbett und Rutsche. Draußen wartet eine ganze Welt familienfreundlicher Erlebnisse.</p><div class=\"ad-note\"><b>Mini Club:</b> Mo–Fr &amp; So 16:00–22:00 · Sa geschlossen</div><ul><li>Mini Club &amp; Spielzimmer</li><li>Kinderanimation</li><li>Kinderecke im Pool</li><li>Lupigno-Zimmer mit Rutsche</li><li>Kindermenü &amp; Hochstühle</li><li>Larix Park &amp; Bergseen</li></ul>",
-      "amenity.rest.body":"<p>Valtellina-Küche und saisonale Produkte in einem liebevollen Genuss-Erlebnis: Frühstücksbuffet, Mittagessen à la carte und serviertes Abendessen, mit Bar für Aperitif und Absacker.</p><div class=\"ad-note\"><b>Zeiten:</b> Frühstück 7:30–10:00 · Mittag 12:00–14:00 · Abend 19:00–21:00</div><ul><li>Valtellina-Küche</li><li>Frühstücksbuffet</li><li>Mittagessen à la carte</li><li>Halbpension</li><li>Bar &amp; Signature-Cocktails</li><li>Weinkarte</li></ul>",
+      "amenity.pool.body":"<p>Eine Sinnesreise durch Wasser und Wärme, bei der der Rhythmus der Berge im Dampf der Sauna und in der Stille des Ruheraums zergeht. Vom beheizten Hallenbad bis zum aromatischen Brechelbad — jeder Moment ist darauf ausgelegt, dass Sie sich wieder ganz fühlen.</p><div class=\"ad-note\"><b>Spa:</b> Mo–Fr &amp; So 16:00–20:00 · Sa geschlossen · letzter Einlass 19:30 · Pool 9:00–20:00</div><ul><li>Finnische Sauna<i>90°</i></li><li>Türkisches Bad<i>45°</i></li><li>Aromatisches Brechelbad<i>55°</i></li><li>Farblichtdusche</li><li>Ruheraum</li><li>Beheiztes Hallenbad</li><li>Massagen &amp; Anwendungen</li><li>Fitnessraum</li></ul>",
+      "amenity.family.body":"<p>Wir haben an jedes Detail gedacht, damit der Urlaub Ihrer Kinder unvergesslich wird: vom Lupigno Mini Club (4+) mit Spielen und Animation bis zum Bärenhöhle-Zimmer mit Etagenbett und Rutsche, von der Kinderecke im Pool bis zu den einfachen Aromen des Kindermenüs. Draußen wartet eine ganze Welt familienfreundlicher Erlebnisse.</p><div class=\"ad-note\"><b>Mini Club (4+):</b> Mo–Fr &amp; So 16:00–22:00 · Sa geschlossen</div><ul><li>Mini Club &amp; Spielzimmer</li><li>Kinderanimation</li><li>Kinderecke im Pool</li><li>Lupigno-Zimmer mit Rutsche</li><li>Kindermenü &amp; Hochstühle</li><li>Larix Park &amp; Bergseen</li><li>Babysitting auf Anfrage</li></ul>",
+      "amenity.rest.body":"<p>Drei Generationen derselben Familie bringen die Aromen des Veltlins auf Ihren Tisch: Buchweizen-Pizzoccheri mit Butter und Käse, Bresaola aus dem Tal, Bergkäse und Weine aus lokalen Kellereien. Jede Mahlzeit — vom Frühstücksbuffet bis zum Abend-Aperitif — ist eine Erzählung.</p><div class=\"ad-note\"><b>Zeiten:</b> Frühstück 7:30–10:00 · Mittag 12:00–14:00 · Abend 19:00–21:00</div><ul><li>Valtellina-Küche</li><li>Pizzoccheri &amp; Bresaola</li><li>Frühstücksbuffet</li><li>Mittagessen à la carte</li><li>Halbpension</li><li>Bar &amp; Signature-Cocktails</li><li>Weinkarte</li><li>Vegetarische, vegane &amp; glutenfreie Optionen</li></ul>",
       "amenity.loc.body":"<p>Im Herzen von Livigno, in der Via Plan 117, an der Fußgängerzone und wenige Schritte von Pisten und Geschäften. Das Hotel liegt in einer verkehrsbeschränkten Zone (ZTL): Einfahrt über Via Bondi, Ausfahrt über Via Pienz.</p><div class=\"ad-note\"><b>ZTL:</b> Einfahrt Via Bondi (Zugang N.5) · Ausfahrt Via Pienz · Kennzeichen beim Check-in angeben</div><ul><li>Garage inklusive, 24/7</li><li>Ski- &amp; Bike-Depot</li><li>Pässe Foscagno &amp; Forcola</li><li>Munt-la-Schera-Tunnel</li><li>Zu Fuß zu Pisten &amp; Shopping</li></ul>",
       "amenity.loc.maptitle":"Karte von Livigno",
+      "amenity.pool.lead":"Eine Sinnesreise durch Wasser und Wärme: vom beheizten Hallenbad zum aromatischen Brechelbad-Dampf, von der finnischen Sauna zur Stille des Ruheraums. Jeder Moment ist darauf ausgelegt, dass Sie sich wieder ganz fühlen.",
+      "amenity.pool.signature":"Wasser, Wärme, Stille — auf 1.816 Metern.",
+      "amenity.pool.img1.alt":"Beheiztes Hallenbad im Hotel Touring",
+      "amenity.pool.img2.alt":"Dampfgefülltes türkisches Bad",
+      "amenity.pool.img3.alt":"Wellnessanwendung im Massageraum",
+      "amenity.family.lead":"Wir haben an jedes Detail gedacht, damit der Urlaub Ihrer Kinder unvergesslich wird: vom Lupigno Mini Club (4+) mit Spielen und Animation bis zum Bärenhöhle-Zimmer mit Etagenbett und Rutsche, von der Kinderecke im Pool bis zu den Aromen des Kindermenüs.",
+      "amenity.family.signature":"Lupigno wartet auf euch — herzlich willkommen für die ganze Familie.",
+      "amenity.family.img1.alt":"Lupigno Mini Club — Spielzimmer für Kinder",
+      "amenity.family.img2.alt":"Bärenhöhle-Zimmer mit Etagenbett und Rutsche",
+      "amenity.family.img3.alt":"Familienurlaub in den Bergen von Livigno",
+      "amenity.rest.lead":"Drei Generationen derselben Familie bringen die Aromen des Veltlins auf Ihren Tisch: Buchweizen-Pizzoccheri mit Butter und Käse, Bresaola aus dem Tal, Bergkäse und Weine aus lokalen Kellereien. Jede Mahlzeit ist eine Erzählung.",
+      "amenity.rest.signature":"Bergküche, Familienerbe — seit 1970.",
+      "amenity.rest.img1.alt":"Restaurantsaal des Hotel Touring",
+      "amenity.rest.img2.alt":"Frühstücksbuffet mit regionalen Produkten",
+      "amenity.rest.img3.alt":"Valtellina-Pizzoccheri, das Signature-Gericht der Region",
+      "amenity.loc.lead":"In der Via Plan 117, im Herzen der Fußgängerzone von Livigno, wenige Schritte von den Skiliften und Duty-Free-Shops. Die Berge sind direkt vor der Tür.",
+      "amenity.loc.signature":"Livigno Zentrum — alles zu Fuß.",
+      "amenity.servizi.title":"Leistungen","amenity.servizi.tease":"Erlebnisse &amp; Fürsorge","amenity.servizi.cat":"Leistungen","amenity.servizi.sig":"Drei Generationen echter Gastfreundschaft.",
+      "amenity.pool.stat1":"Finnische Sauna","amenity.pool.stat2":"Türkisches Bad","amenity.pool.stat3":"Brechelbad","amenity.pool.stat4":"Pool-Zeiten",
+      "amenity.pool.note":"<b>Spa:</b> Mo–Fr &amp; So 16:00–20:00 · Sa geschlossen · letzter Einlass 19:30",
+      "amenity.pool.chip1":"Finnische Sauna","amenity.pool.chip2":"Türkisches Bad","amenity.pool.chip3":"Aromatisches Brechelbad","amenity.pool.chip4":"Farblichtdusche","amenity.pool.chip5":"Ruheraum","amenity.pool.chip6":"Beheiztes Hallenbad","amenity.pool.chip7":"Massagen &amp; Anwendungen","amenity.pool.chip8":"Fitnessraum",
+      "amenity.pool.small":"Massagen auf Anfrage an der Rezeption.",
+      "amenity.family.band1.ttl":"🎭 Mini Club Lupigno","amenity.family.band1.sub":"Für Kinder ab 4 · Mo–Fr &amp; So 16:00–22:00 · Sa geschlossen",
+      "amenity.family.band2.ttl":"🛝 Lupigno-Zimmer","amenity.family.band2.sub":"Etagenbetten, Indoor-Rutsche, liebevolle Details",
+      "amenity.family.note":"<b>Mini Club (4+):</b> Mo–Fr &amp; So 16:00–22:00 · Sa geschlossen",
+      "amenity.family.chip1":"Mini Club &amp; Spielzimmer","amenity.family.chip2":"Kinderanimation","amenity.family.chip3":"Kinderecke im Pool","amenity.family.chip4":"Lupigno-Zimmer mit Rutsche","amenity.family.chip5":"Kindermenü &amp; Hochstühle","amenity.family.chip6":"Larix Park &amp; Bergseen","amenity.family.chip7":"Babysitting auf Anfrage",
+      "amenity.family.small":"Larix Park Abenteuerpark · Bergseen · Kinder-Skischule",
+      "amenity.servizi.badge":"Seit 1970","amenity.servizi.menu":"🍽 Unsere Speisekarte entdecken",
+      "amenity.servizi.note":"<b>Restaurant:</b> Frühstück 7:30–10:00 · Mittag 12:00–14:00 · Abend 19:00–21:00 · Veltliner Küche, Pizzoccheri, Bresaola, lokale Weine · Vegetarische, vegane &amp; glutenfreie Optionen",
+      "amenity.servizi.c1.ttl":"🍷 Wein aufs Zimmer","amenity.servizi.c1.sub":"Aus unserem Keller: Barolo, Amarone, Südtirol",
+      "amenity.servizi.c2.ttl":"💆 Massagen","amenity.servizi.c2.sub":"Alpenkräuter-Ritual mit heißen Steinen · auf Reservierung",
+      "amenity.servizi.c3.ttl":"🎂 Festtagstorte","amenity.servizi.c3.sub":"Personalisiert, ab €25 · 24h vorher bestellen",
+      "amenity.servizi.c4.ttl":"💐 Blumenstrauß","amenity.servizi.c4.sub":"Auf Anfrage an der Rezeption",
+      "amenity.servizi.c5.ttl":"🎿 Skipass","amenity.servizi.c5.sub":"Tag €55 · 6 Tage €280 · Saison €890",
+      "amenity.servizi.c6.ttl":"🚂 Bernina Express","amenity.servizi.c6.sub":"Tirano–St. Moritz durch die UNESCO-Rhätischen Alpen",
+      "amenity.servizi.chip1":"Tiefgarage 24/7","amenity.servizi.chip2":"Ski- &amp; Bike-Depot","amenity.servizi.chip3":"Kostenloses WLAN","amenity.servizi.chip4":"E-Auto-Ladestation","amenity.servizi.chip5":"Aufzug","amenity.servizi.chip6":"Zimmersafe","amenity.servizi.chip7":"Babybett &amp; Gitterbett (auf Anfrage)","amenity.servizi.chip8":"Babysitting (auf Anfrage)",
+      "amenity.servizi.small":"Haustiere nicht erlaubt · Blindenführhunde willkommen",
+      "amenity.pool.h1":"Im Aufenthalt inbegriffen","amenity.pool.h2":"Auf Reservierung",
+      "amenity.family.stat1":"Mini-Club-Alter","amenity.family.stat2":"Mini-Club-Zeiten","amenity.family.stat3":"Tage pro Woche",
+      "amenity.family.h1":"Im Hotel","amenity.family.h2":"Direkt vor der Tür","amenity.family.chip8":"Kinder-Skischule",
+      "amenity.servizi.h1":"Restaurant","amenity.servizi.h2":"Auf Anfrage","amenity.servizi.h3":"Immer inklusive",
+      "loc.eyebrow":"Dove siamo · So finden Sie uns","loc.title":"Im Herzen von Livigno",
+      "loc.lead":"An der Hauptfußgängerzone von Livigno: die Carosello-3000-Bahn liegt 200 Meter entfernt (5 Gehminuten), Mottolino 400 Meter — Duty-free-Läden und Restaurants direkt vor der Tür.",
+      "loc.route1.name":"Tunnel Munt la Schera","loc.route1.sub":"Schweiz-Verbindung, ganzjährig (Sa geschlossen 9–18 Uhr) · <a href='https://www.livigno.eu/tunnel-munt-la-schera-landing' target='_blank' rel='noopener' style='color:var(--gold-soft);border-bottom:1px solid rgba(194,162,78,.4);'>Tickets online →</a>",
+      "loc.route2.name":"Passo Forcola (2.315 m)","loc.route2.sub":"Geschlossen Mitte Okt → Ende Jun",
+      "loc.route3.name":"Passo Foscagno (2.291 m)","loc.route3.sub":"Ganzjährig geöffnet",
+      "loc.ztl":"Verkehrsbeschränkte Zone · Einfahrt Via Bondi (Zugang N.5) · Ausfahrt Via Pienz · Kennzeichen beim Check-in angeben",
+      "loc.snow":"Schneeketten oder Winterreifen dringend empfohlen · stradainforma.it",
+      "loc.drive":"Mit dem Auto","loc.directions":"Route planen",
+      "loc.perk1.ttl":"Fußgängerzone","loc.perk1.sub":"Das Hotel liegt direkt an der Einkaufsstraße von Livigno.",
+      "loc.perk2.ttl":"Lifte &amp; Pisten","loc.perk2.sub":"Carosello 3000 in 200 m (5 Min. zu Fuß) · Mottolino in 400 m (10 Min.).",
+      "loc.perk3.ttl":"Duty-free","loc.perk3.sub":"Zollfreie Zone: steuerfreies Einkaufen, alles zu Fuß.",
+      "loc.city.mi":"Mailand","loc.city.zh":"Zürich","loc.city.ib":"Innsbruck","loc.city.bo":"Bormio",
+      "loc.rail.note":"Ungefähre Fahrzeiten",
       "liv.eyebrow":"Livigno","liv.title":"Das Klein-Tibet der Alpen","liv.text":"Auf 1.816 m ist Livigno ein langes Alpental im Veltlin: zollfreie Zone mit steuerfreiem Shopping, Ski-Hauptstadt mit über 115 km Pisten und — im Sommer — ein Paradies für Wandern, Mountainbike und Bergseen.","liv.discover":"Mehr entdecken",
       "liv.t1":"Wandern &amp; Wege","liv.t1s":"Über 3.000 m Höhenmeter zwischen Seen und Graten","liv.t2":"Bike &amp; MTB","liv.t2s":"Bike Park, Flow Trails und E-Bike-Touren","liv.t3":"Winter &amp; Olympia 2026","liv.t3s":"115 km Pisten, Snowpark und Nachtskifahren","liv.t4":"Shopping &amp; Events","liv.t4s":"Zollfreies Shopping und Events im Tal",
       "gallery.eyebrow":"Galerie &amp; Gäste","gallery.title":"Ein Blick in unser Zuhause",
@@ -1187,6 +1858,15 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       "rev.3.text":"„Die Valtellina-Küche ist authentisch. Wir haben uns wie Familie gefühlt.“","rev.3.who":"Familie Hofer · München",
       "cta.title":"Bereit, nach Hause zu kommen?","cta.text":"Buchen Sie Ihren Aufenthalt zu den besten Preisen, direkt bei uns.","cta.button":"Jetzt buchen",
       "footer.tagline":"Das Familienhotel in Livigno, seit 1970. Wo die Berge zum Zuhause werden.","footer.contact":"Kontakt","footer.explore":"Entdecken","footer.rights":"© 2026 Hotel Touring Livigno. Alle Rechte vorbehalten.",
+      "nav.faq":"FAQ","faq.eyebrow":"Gut zu wissen","faq.title":"Häufige Fragen","faq.updated":"Informationen geprüft im Juli 2026",
+      "faq.q1":"Wann sind Check-in und Check-out?","faq.a1":"Check-in ab 16:00 Uhr, Check-out bis 10:00 Uhr. Später Check-out nach Verfügbarkeit; die Spa-Nutzung nach dem Check-out ist möglich.",
+      "faq.q2":"Gibt es Parkplätze?","faq.a2":"Ja: eine Tiefgarage ist im Aufenthalt inbegriffen, mit E-Ladestation. Livigno hat eine verkehrsbeschränkte Zone (ZTL) — Einfahrt über die Via Bondi (Zufahrt Nr. 5), das Kennzeichen einfach beim Check-in angeben.",
+      "faq.q3":"Wie weit sind die Skilifte entfernt?","faq.a3":"Die Carosello-3000-Bahn liegt etwa 200 Meter entfernt (5 Gehminuten), Mottolino etwa 400 Meter (10 Minuten zu Fuß). Das Hotel liegt direkt an der Fußgängerzone im Zentrum.",
+      "faq.q4":"Wann haben Pool und Spa geöffnet?","faq.a4":"Das Hallenbad ist von 9:00 bis 20:00 Uhr geöffnet, der Spa-Bereich von 16:00 bis 20:00 Uhr (samstags geschlossen). Fitnessraum vorhanden, Massagen auf Reservierung.",
+      "faq.q5":"Wann gibt es Frühstück? Gibt es vegetarische oder glutenfreie Optionen?","faq.a5":"Frühstück 7:30–10:00 Uhr, Mittagessen 12:00–14:00 Uhr, Abendessen 19:00–21:00 Uhr. Vegetarische, vegane und glutenfreie Menüs sind verfügbar.",
+      "faq.q6":"Was gibt es für Kinder?","faq.a6":"Mini Club ab 4 Jahren, Babysitting auf Anfrage und ein Pool, den auch Kinder nutzen dürfen. Babybetten und Zustellbetten auf Anfrage.",
+      "faq.q7":"Sind Haustiere erlaubt?","faq.a7":"Nein, Haustiere sind nicht gestattet. Blindenführhunde sind gemäß den gesetzlichen Bestimmungen willkommen.",
+      "faq.q8":"Wie bezahle ich? Ist eine Anzahlung erforderlich?","faq.a8":"Bei der Buchung ist eine Anzahlung von 30 % fällig, in der Regel per Banküberweisung. Im Hotel akzeptieren wir Bargeld und Karten; Apple Pay und Google Pay werden nicht unterstützt.",
       "cookie.text":"Wir verwenden Cookies zur anonymen Analyse. Sie können annehmen oder ablehnen.","cookie.accept":"Annehmen","cookie.decline":"Ablehnen",
       "doc.title":"Hotel Touring Livigno · 4-Sterne-Familienhotel"
     }
@@ -1465,9 +2145,19 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     parts.push("winding=1","beginsearch=1","isnewsearch=1");
     return BE_BASE+"?"+parts.join("&");
   }
-  function openBooking(){ window.open(buildBookingUrl(),"_blank","noopener"); }
+  /* Conversion events — dormant until GA_MEASUREMENT_ID is set (gtag only queues to dataLayer). */
+  function track(name){ try{ gtag('event', name); }catch(e){} }
+  function openBooking(){ track("begin_booking"); window.open(buildBookingUrl(),"_blank","noopener"); }
   bookingForm.addEventListener("submit", function(e){ e.preventDefault(); openBooking(); });
   document.querySelectorAll(".js-book").forEach(function(b){ b.addEventListener("click", openBooking); });
+  document.addEventListener("click", function(e){
+    var el = e.target && e.target.closest ? e.target.closest("a,button") : null;
+    if (!el) return;
+    if (el.matches('a[href^="tel:"]')) track("contact_phone");
+    else if (el.matches('a[href^="mailto:"]')) track("contact_email");
+    else if (el.matches('a[href*="google.com/maps/dir"]')) track("get_directions");
+    else if (el.classList.contains("tlc-launcher")) track("concierge_open");
+  });
 
   function initDates(){
     ciDate=addDays(today,1); coDate=addDays(today,2);
@@ -1478,11 +2168,11 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   document.getElementById("bookingSticky").addEventListener("click", function(){ bookingForm.scrollIntoView({behavior:"smooth", block:"center"}); });
 
   /* ---------- Slideshows (vanilla, dependency-free) ---------- */
-  function slideshow(rootId, prevId, nextId, dotsId){
+  function slideshow(rootId, prevId, nextId, dotsId, intervalMs){
     var root=document.getElementById(rootId); if(!root) return;
     var slides=root.querySelectorAll(".rs-slide,.ps-slide");
     var dots=document.getElementById(dotsId);
-    var i=0, timer=null;
+    var i=0, timer=null, period=intervalMs||5200;
     function paint(){
       slides.forEach(function(s,n){ s.classList.toggle("is-active", n===i); });
       if(dots) Array.prototype.forEach.call(dots.children, function(d,n){ d.classList.toggle("active", n===i); });
@@ -1493,7 +2183,7 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       b.addEventListener("click", function(){ go(idx); restart(); }); dots.appendChild(b);
     }); }
     paint();
-    function start(){ if(prefersReduced()) return; timer=window.setInterval(function(){ go(i+1); }, 5200); }
+    function start(){ if(prefersReduced()) return; timer=window.setInterval(function(){ go(i+1); }, period); }
     function stop(){ if(timer){ clearInterval(timer); timer=null; } }
     function restart(){ stop(); start(); }
     var nx=document.getElementById(nextId), pv=document.getElementById(prevId);
@@ -1504,18 +2194,25 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     /* horizontal swipe (phones): left = next, right = prev; vertical drags scroll normally */
     var tsX=0, tsY=0, swiping=false;
     root.addEventListener("touchstart", function(e){
+      stop(); // finger down pauses the auto-advance
       if(e.touches.length!==1){ swiping=false; return; }
       tsX=e.touches[0].clientX; tsY=e.touches[0].clientY; swiping=true;
     }, {passive:true});
     root.addEventListener("touchend", function(e){
-      if(!swiping) return; swiping=false;
+      if(!swiping){ restart(); return; }
+      swiping=false;
       var t=e.changedTouches[0], dx=t.clientX-tsX, dy=t.clientY-tsY;
-      if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)*1.3){ go(dx<0?i+1:i-1); restart(); }
+      if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)*1.3){ go(dx<0?i+1:i-1); }
+      restart();
     }, {passive:true});
     start();
   }
   slideshow("roomShow","rsPrev","rsNext","rsDots");
   slideshow("livShow","livPrev","livNext","livDots");
+  /* amenity-modal galleries — a touch quicker so the offer reads in seconds */
+  slideshow("poolShow","poolPrev","poolNext","poolDots",4200);
+  slideshow("famShow","famPrev","famNext","famDots",4200);
+  slideshow("servShow","servPrev","servNext","servDots",4200);
 
   /* ---------- Gallery: build slides from the folder manifest ---------- */
   (function buildGallery(){
@@ -1541,72 +2238,65 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
       .then(init);
   })();
 
-  /* ---------- Amenity full-width expanding drawer (one open at a time) ---------- */
-  var drawer=document.getElementById("amenityDrawer");
-  var acards=document.querySelectorAll(".amenity[data-key]");
-  var amenitiesGrid=document.getElementById("amenities");
-  if(drawer){
-    var adPanels=drawer.querySelectorAll(".ad-panel");
-    var openKey=null, openCard=null;
-    /* remember the drawer's home so we can restore it after a mobile inline move */
-    var drawerParent=drawer.parentNode, drawerAnchor=drawer.nextSibling;
-    function setPanel(key){ adPanels.forEach(function(p){ p.classList.toggle("is-active", p.getAttribute("data-key")===key); }); }
-    function isOneCol(){
-      if(!amenitiesGrid) return false;
-      return getComputedStyle(amenitiesGrid).gridTemplateColumns.split(" ").length<=1;
+  /* ---------- Amenity cinematic modals (Variant B) ---------- */
+  (function(){
+    var backdrop=document.getElementById("amodalBackdrop");
+    var panel=document.getElementById("amodalPanel");
+    var closeBtn=document.getElementById("amodalClose");
+    if(!backdrop) return;
+
+    var contents=backdrop.querySelectorAll(".amodal-content");
+
+    var lastFocus=null;
+
+    function openModal(key){
+      contents.forEach(function(c){ c.hidden=c.getAttribute("data-modal")!==key; });
+      var ttl=backdrop.querySelector('.amodal-content[data-modal="'+key+'"] .amodal-title');
+      if(ttl) backdrop.setAttribute("aria-label", ttl.textContent);
+      backdrop.classList.add("is-open");
+      document.body.style.overflow="hidden";
+      var scroll=document.getElementById("amodalScroll");
+      if(scroll) scroll.scrollTop=0;
+      lastFocus=document.activeElement;
+      if(closeBtn) closeBtn.focus();
     }
-    /* On mobile (single column) tuck the drawer directly under the tapped card so
-       it reads as one continuous panel; on desktop keep it in its home spot as the
-       full-width caret row. */
-    function placeDrawer(card){
-      var oneCol=isOneCol();
-      if(oneCol){ card.after(drawer); drawer.classList.add("inline-drawer"); }
-      else { drawerParent.insertBefore(drawer, drawerAnchor); drawer.classList.remove("inline-drawer"); }
-      return oneCol;
+
+    function closeModal(){
+      backdrop.classList.remove("is-open");
+      document.body.style.overflow="";
+      if(lastFocus && typeof lastFocus.focus==="function"){ lastFocus.focus(); }
+      lastFocus=null;
     }
-    function restoreDrawerHome(){
-      drawer.classList.remove("inline-drawer");
-      drawerParent.insertBefore(drawer, drawerAnchor);
-    }
-    /* Point the drawer caret at the card that opened it. In a 1-col layout the
-       drawer sits directly under its card, so hide the caret. */
-    function positionCaret(card){
-      if(!card) return;
-      var oneCol=isOneCol();
-      drawer.classList.toggle("no-caret", oneCol);
-      if(oneCol) return;
-      var cardR=card.getBoundingClientRect(), drawR=drawer.getBoundingClientRect();
-      var x=cardR.left+cardR.width/2-drawR.left;
-      var inner=drawer.querySelector(".ad-inner");
-      if(inner) inner.style.setProperty("--caret-x", x+"px");
-    }
-    function openDrawer(key,card){
-      setPanel(key);
-      var oneCol=placeDrawer(card);
-      drawer.hidden=false;
-      drawer.style.height="auto"; var h=drawer.scrollHeight; drawer.style.height="0px";
-      void drawer.offsetHeight; drawer.style.height=h+"px"; openKey=key; openCard=card;
-      acards.forEach(function(c){ c.setAttribute("aria-expanded", c===card?"true":"false"); });
-      if(amenitiesGrid) amenitiesGrid.classList.add("has-open");
-      positionCaret(card);
-      if(oneCol) drawer.scrollIntoView({block:"nearest"});
-    }
-    function closeDrawer(){
-      drawer.style.height=drawer.scrollHeight+"px"; void drawer.offsetHeight; drawer.style.height="0px"; openKey=null; openCard=null;
-      acards.forEach(function(c){ c.setAttribute("aria-expanded","false"); });
-      if(amenitiesGrid) amenitiesGrid.classList.remove("has-open");
-    }
-    drawer.addEventListener("transitionend", function(e){
-      if(e.propertyName!=="height") return;
-      if(openKey===null){ drawer.hidden=true; restoreDrawerHome(); } else { drawer.style.height="auto"; }
+
+    // keep Tab inside the open dialog
+    document.addEventListener("keydown", function(e){
+      if(e.key!=="Tab" || !backdrop.classList.contains("is-open")) return;
+      var els=Array.prototype.filter.call(panel.querySelectorAll("button, a[href]"), function(el){ return el.offsetParent!==null; });
+      if(!els.length) return;
+      var first=els[0], last=els[els.length-1];
+      if(e.shiftKey && document.activeElement===first){ last.focus(); e.preventDefault(); }
+      else if(!e.shiftKey && document.activeElement===last){ first.focus(); e.preventDefault(); }
     });
-    acards.forEach(function(c){ c.addEventListener("click", function(){
-      var key=c.getAttribute("data-key");
-      if(openKey===key) closeDrawer(); else openDrawer(key,c);
-    }); });
-    // keep the drawer placed + caret aligned to its card when the layout reflows
-    window.addEventListener("resize", function(){ if(openCard){ placeDrawer(openCard); positionCaret(openCard); } }, {passive:true});
-  }
+
+    // open on card click
+    document.querySelectorAll(".amenity[data-modal]").forEach(function(card){
+      card.addEventListener("click", function(){ openModal(card.getAttribute("data-modal")); });
+    });
+
+    // close on × button
+    if(closeBtn) closeBtn.addEventListener("click", closeModal);
+
+    // close on backdrop click (not panel click)
+    backdrop.addEventListener("click", function(e){
+      if(e.target===backdrop) closeModal();
+    });
+
+    // close on Esc
+    document.addEventListener("keydown", function(e){
+      if((e.key==="Escape"||e.key==="Esc") && backdrop.classList.contains("is-open")) closeModal();
+    });
+
+  })();
 
   /* ---------- Guest review wall (★★★★★ — scattered across the section, multilingual) ---------- */
   var REVIEWS=[
@@ -1782,24 +2472,61 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
 })();
 </script>
 
-<!-- Schema.org structured data -->
+<!-- Schema.org structured data — Hotel (validated: all URLs absolute, facts match visible page content) -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"Hotel",
+  "@id":"https://touringlivigno.com/#hotel",
   "name":"Hotel Touring Livigno",
+  "url":"https://touringlivigno.com/",
+  "description":"Hotel 4 stelle per famiglie sulla via pedonale di Livigno, zona extra-doganale: Carosello 3000 a 200 m, Mottolino a 400 m. Quasi 50 camere e appartamenti, piscina coperta, spa, Mini Club e cucina valtellinese. Dal 1970.",
+  "image":[
+    "https://touringlivigno.com/assets/img/touring-hotel.jpg",
+    "https://touringlivigno.com/assets/img/slider_hotel-1-1920.jpg"
+  ],
   "starRating":{"@type":"Rating","ratingValue":"4"},
-  "description":"Hotel 4 stelle per famiglie nel cuore di Livigno, zona extra-doganale. Piscina e spa, sci ai piedi, Kinder Club Lupigno e cucina valtellinese. Dal 1970.",
-  "image":"assets/img/touring-hotel.jpg",
-  "address":{"@type":"PostalAddress","streetAddress":"Via Plan 117","postalCode":"23030","addressLocality":"Livigno","addressRegion":"SO","addressCountry":"IT"},
+  "priceRange":"€€–€€€",
+  "address":{"@type":"PostalAddress","streetAddress":"Via Plan 117","postalCode":"23041","addressLocality":"Livigno","addressRegion":"SO","addressCountry":"IT"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.5411,"longitude":10.1375},
+  "hasMap":"https://www.google.com/maps/search/?api=1&query=Hotel+Touring+Livigno,+Via+Plan+117,+23041+Livigno+SO",
   "telephone":"+39 0342 996131",
   "email":"info@touringlivigno.com",
+  "foundingDate":"1970",
+  "checkinTime":"16:00",
+  "checkoutTime":"10:00",
   "petsAllowed":false,
+  "currenciesAccepted":"EUR",
+  "paymentAccepted":"Cash, Credit Card, Bank Transfer",
   "amenityFeature":[
     {"@type":"LocationFeatureSpecification","name":"Piscina coperta","value":true},
-    {"@type":"LocationFeatureSpecification","name":"Spa & bagno turco","value":true},
-    {"@type":"LocationFeatureSpecification","name":"Kinder Club","value":true},
-    {"@type":"LocationFeatureSpecification","name":"Ski-in access","value":true}
+    {"@type":"LocationFeatureSpecification","name":"Spa e bagno turco","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Palestra","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Wi-Fi gratuito","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Garage coperto incluso","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Colonnina di ricarica auto elettriche","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Ristorante con menù vegetariani, vegani e gluten free","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Mini Club bambini (4+)","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Ascensore","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Hotel non fumatori","value":true}
+  ]
+}
+</script>
+
+<!-- Schema.org structured data — FAQPage (mirrors the visible #faq section, Italian = crawler-default language) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"A che ora sono il check-in e il check-out?","acceptedAnswer":{"@type":"Answer","text":"Check-in dalle 16:00, check-out entro le 10:00. Il late check-out è soggetto a disponibilità e l'uso della spa dopo il check-out è consentito."}},
+    {"@type":"Question","name":"C'è il parcheggio?","acceptedAnswer":{"@type":"Answer","text":"Sì: garage coperto incluso nel soggiorno, con colonnina di ricarica per auto elettriche. Livigno ha una ZTL — si entra da Via Bondi (accesso N.5) e basta comunicare la targa al check-in."}},
+    {"@type":"Question","name":"Quanto distano gli impianti di risalita?","acceptedAnswer":{"@type":"Answer","text":"Il Carosello 3000 è a circa 200 metri (5 minuti a piedi), il Mottolino a circa 400 metri (10 minuti a piedi). L'hotel si affaccia sulla via pedonale del centro."}},
+    {"@type":"Question","name":"Quali sono gli orari di piscina e spa?","acceptedAnswer":{"@type":"Answer","text":"La piscina è aperta dalle 9:00 alle 20:00, la spa dalle 16:00 alle 20:00 (sabato chiusa). Palestra disponibile e massaggi su prenotazione."}},
+    {"@type":"Question","name":"A che ora è la colazione? Ci sono opzioni vegetariane o gluten free?","acceptedAnswer":{"@type":"Answer","text":"Colazione dalle 7:30 alle 10:00, pranzo 12:00–14:00, cena 19:00–21:00. Il ristorante propone menù vegetariani, vegani e gluten free."}},
+    {"@type":"Question","name":"Cosa c'è per i bambini?","acceptedAnswer":{"@type":"Answer","text":"Mini Club dai 4 anni, babysitting su richiesta e piscina aperta anche ai bambini. Culle e letti aggiunti disponibili su richiesta."}},
+    {"@type":"Question","name":"Gli animali sono ammessi?","acceptedAnswer":{"@type":"Answer","text":"No, gli animali non sono ammessi. I cani guida sono ammessi secondo la normativa vigente."}},
+    {"@type":"Question","name":"Come si paga? È richiesta una caparra?","acceptedAnswer":{"@type":"Answer","text":"Alla prenotazione è richiesta una caparra del 30%, di norma tramite bonifico bancario. In hotel si accettano contanti e carte; Apple Pay e Google Pay non sono supportati."}}
   ]
 }
 </script>
@@ -1873,6 +2600,32 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   @media (prefers-reduced-motion:reduce){
     .tlc-launcher,.tlc-panel{transition:none;} .tlc-typing span{animation:none;}
   }
+
+  /* Proactive nudge bubble */
+  .tlc-nudge{position:fixed; right:20px; bottom:124px; z-index:149; width:262px;
+    background:var(--warm-white); color:var(--pine); border-radius:18px;
+    padding:14px 36px 14px 18px; box-shadow:var(--shadow-lg);
+    border:1px solid rgba(194,162,78,.28); font-family:var(--sans); font-size:14px; line-height:1.5;
+    opacity:0; transform:translateY(8px) scale(.97); pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease;}
+  .tlc-nudge.is-visible{opacity:1; transform:none; pointer-events:auto;}
+  .tlc-nudge p{margin:0;}
+  .tlc-nudge-close{position:absolute; top:8px; right:10px; background:none; border:none;
+    font-size:18px; cursor:pointer; color:var(--stone); line-height:1;
+    width:24px; height:24px; display:flex; align-items:center; justify-content:center;
+    border-radius:50%; padding:0; font-family:inherit;}
+  .tlc-nudge-close:hover{color:var(--pine); background:rgba(42,39,36,.07);}
+  .tlc-nudge-close:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+  .tlc-nudge-tail{position:absolute; bottom:-7px; right:36px; width:14px; height:14px;
+    background:var(--warm-white); border-right:1px solid rgba(194,162,78,.28);
+    border-bottom:1px solid rgba(194,162,78,.28); transform:rotate(45deg); border-top-left-radius:3px;}
+  @media (max-width:520px){
+    .tlc-nudge{right:12px; left:12px; width:auto; bottom:108px;}
+    .tlc-nudge-tail{right:32px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .tlc-nudge{transition:opacity .15s ease; transform:none !important;}
+  }
 </style>
 
 <button id="tlcLauncher" class="tlc-launcher" aria-label="Open assistant" aria-expanded="false" aria-controls="tlcPanel">
@@ -1893,6 +2646,12 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
     <input id="tlcText" type="text" aria-label="Message">
     <button type="submit" class="tlc-send" id="tlcSend" aria-label="Send">&#10142;</button>
   </form>
+</div>
+
+<div id="tlcNudge" class="tlc-nudge" hidden role="status" aria-live="polite" aria-atomic="true">
+  <button type="button" class="tlc-nudge-close" id="tlcNudgeClose" aria-label="Chiudi">&#10005;</button>
+  <p id="tlcNudgeText"></p>
+  <div class="tlc-nudge-tail" aria-hidden="true"></div>
 </div>
 
 <script>
@@ -2055,6 +2814,45 @@ body.lang-switching [data-i18n]{opacity:0; filter:blur(5px);}
   });
 
   applyLabels();
+
+  /* ---------- Proactive nudge ---------- */
+  (function(){
+    var LS_KEY="tl_nudge_v1", SS_KEY="tl_nudge_shown";
+    try{ if(localStorage.getItem(LS_KEY)||sessionStorage.getItem(SS_KEY)) return; }catch(e){}
+    var nudge=document.getElementById("tlcNudge");
+    var nudgeClose=document.getElementById("tlcNudgeClose");
+    var nudgeText=document.getElementById("tlcNudgeText");
+    if(!nudge) return;
+    var copy={
+      it:"Ciao! 👋 Ti aiuto a pianificare il tuo soggiorno? Chiedimi pure.",
+      en:"Hi! 👋 Need help planning your stay? Ask me anything.",
+      de:"Hallo! 👋 Darf ich bei der Reiseplanung helfen? Einfach fragen."
+    };
+    var autoHide=null;
+    function dismissNudge(persist){
+      nudge.classList.remove("is-visible");
+      if(autoHide){ clearTimeout(autoHide); autoHide=null; }
+      setTimeout(function(){ nudge.hidden=true; }, reduce?0:240);
+      if(persist){ try{ localStorage.setItem(LS_KEY, "1"); }catch(e){} }
+    }
+    function showNudge(){
+      if(!panel.hidden) return;
+      nudgeText.textContent=copy[lang]||copy.it;
+      nudge.hidden=false;
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ nudge.classList.add("is-visible"); }); });
+      try{ sessionStorage.setItem(SS_KEY,"1"); }catch(e){}
+      autoHide=setTimeout(function(){ dismissNudge(false); }, 12000);
+    }
+    nudgeClose.addEventListener("click", function(){ dismissNudge(true); });
+    launcher.addEventListener("click", function(){ dismissNudge(true); });
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape" && nudge.classList.contains("is-visible")) dismissNudge(true); });
+    var idleTimer=null;
+    var acts=["mousemove","scroll","keydown","touchstart","click"];
+    function onActivity(){ if(idleTimer){ clearTimeout(idleTimer); idleTimer=null; } schedule(); }
+    function schedule(){ idleTimer=setTimeout(function(){ acts.forEach(function(ev){ document.removeEventListener(ev,onActivity); }); showNudge(); }, 5000); }
+    acts.forEach(function(ev){ document.addEventListener(ev,onActivity,{passive:true}); });
+    schedule();
+  })();
 })();
 </script>
 </body>
